@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,13 +9,7 @@
   padding: 0;
   margin: 0;
   font-size: 16px;
-  font-family: "circular-std", sans-serif;
-}
-@font-face {
-  font-family: "circular-std";
-  src: url("../public/fonts/circular-std-medium-500.ttf");
-  font-weight: normal;
-  font-style: normal;
+  font-family: 'Montserrat', sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -32,7 +27,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #1e944d;
+  background: #009a06;
   border-radius: 10px;
 }
 
@@ -137,6 +132,10 @@ input[type="checkbox"]:checked {
   width: 0px;
   height: 0px;
 }
+.ps-menu-label{
+  font-size: 15px !important;
+}
+
 @layer components {
   /* container settings */
   .box {
@@ -279,10 +278,10 @@ input[type="checkbox"]:checked {
       linear-gradient(0deg, #e0ffea, #e0ffea);
   }
   .text-primary {
-    color: #1e944d;
+    color: #009a06;
   }
   .bg-primary {
-    background: #1e944d;
+    background: #009a06;
   }
   .bg-service {
     background: linear-gradient(180deg, #b3751b 0%, #9b6415 100%);
@@ -306,34 +305,35 @@ input[type="checkbox"]:checked {
     background-size: 100% 100%;
   }
   .btn-primary {
-    background: #1e944d;
+    background: #009a06;
     color: white;
     font-weight: 500;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   }
   .btn-disabled {
-    background: #46ef8a;
+    background: #009a056a;
     color: white;
     font-weight: 500;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, 0.1) 1.95px 1.95px 2.6px;
   }
   .btn-primary:hover,
-  .btn-feel:hover, .btn-like:hover {
+  .btn-feel:hover,
+  .btn-like:hover {
     background: #14ab50;
-    transform: scale(1.05);
+    transform: scaleX(1.02);
     transition: 0.6s;
   }
   .btn-feel {
-    background: #1e944d;
+    background: #009a06;
     color: white;
     font-weight: 500;
     padding: 15px 30px;
     border-radius: 6px 6px 6px 0px;
   }
   .btn-like {
-    background: #1e944d;
+    background: #009a06;
     color: white;
     font-weight: 500;
     padding: 10px 30px;
@@ -352,19 +352,33 @@ input[type="checkbox"]:checked {
     align-items: center;
     margin: auto;
   }
-  .review-div{
+  .review-div {
     width: 400px;
     height: 300px;
     background: white;
     border-radius: 30px 30px 30px 0px;
     padding: 60px 30px;
     display: grid;
-    align-content:space-between ;
+    align-content: space-between;
   }
-  .curved-style{
-     border-radius: 10px 10px 10px 0px;
+  .curved-style {
+    border-radius: 10px 10px 10px 0px;
   }
-  .brown{
+  .brown {
     color: #333333;
+  }
+  .place-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .dash-head-shade{
+    box-shadow: 0px 4px 17px rgba(0, 0, 0, 0.07);
+  }
+  .dash-side-shade{
+    box-shadow: 0px 12px 17px rgba(0, 0, 0, 0.07);
+  }
+  .dash-shade{
+    box-shadow: 0px 4px 17px rgba(0, 0, 0, 0.07);
   }
 }

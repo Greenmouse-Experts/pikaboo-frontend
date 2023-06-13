@@ -49,6 +49,7 @@ interface Props {
   max?: number;
   customRightElement?: React.ReactNode;
   altClassName?: string;
+  icon?:JSX.Element;
   [key: string]: any;
 }
 
@@ -59,7 +60,7 @@ const TextInput: React.FC<Props> = ({
   label,
   error,
   required = false,
-  className = "w-full border-0 py-2 px-2 rounded",
+  className = "w-full border-0  outline-none py-2 px-2 rounded",
   labelClassName,
   placeholder,
   disabled = false,
@@ -78,6 +79,7 @@ const TextInput: React.FC<Props> = ({
   max,
   customRightElement,
   altClassName,
+  icon,
   ...rest
 }) => {
   const [isPasswordType, setIsPasswordType] = useState<boolean>(false);
@@ -172,13 +174,6 @@ const TextInput: React.FC<Props> = ({
             </label>
           )}
         </>
-        <>
-          {error && (
-            <span className="pl-4 text-xs text-red-500">
-              {error.toString()}
-            </span>
-          )}
-        </>
       </div>
       <div
         className={classNames(type === InputType.checkbox? "" :
@@ -186,6 +181,9 @@ const TextInput: React.FC<Props> = ({
           "flex items-center bg-input  mt-1 rounded"
         )}
       >
+        {
+          icon && icon
+        }
         {renderInputType()}
         {customRightElement && customRightElement}
         {type === InputType.password && (
@@ -198,6 +196,14 @@ const TextInput: React.FC<Props> = ({
           </div>
         )}
       </div>
+      
+      <>
+          {error && (
+            <span className="fs-500 fw-500 text-red-500">
+              {error.toString()}
+            </span>
+          )}
+        </>
     </div>
   );
 };

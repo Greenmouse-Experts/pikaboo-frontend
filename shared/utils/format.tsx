@@ -18,3 +18,9 @@ export const formatAsNgnMoney = (value: number | string) => {
     .toLocaleString("en-US")
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 };
+
+export const FormatType =  {
+  "1": "Fleet Manager",
+  "2": "Field Operator",
+  "3": "Waste Manager"
+}

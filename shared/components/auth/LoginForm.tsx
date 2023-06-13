@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, createRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TextInput, { InputType } from "../Ui/TextInput";
+import ReCAPTCHA from "react-google-recaptcha";
 import Button from "../Ui/Button";
 import Link from "next/link";
+import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
 
 const LoginForm = () => {
   const [isBusy, setIsBusy] = useState(false);
+  const recaptchaRef = createRef<ReCAPTCHA>();
   const {
     control,
     handleSubmit,
@@ -20,7 +23,7 @@ const LoginForm = () => {
   });
   return (
     <div>
-      <form className="fs-700">
+      <form className="fs-600 mt-10">
         <div>
           <Controller
             name="user"
@@ -34,6 +37,7 @@ const LoginForm = () => {
             render={({ field }) => (
               <TextInput
                 label="Email"
+                icon={<MdOutlineEmail className="text-primary text-2xl mx-2"/>}
                 placeholder="victorchigozie@gmail.com"
                 error={errors.user?.message}
                 type={InputType.email}
@@ -59,6 +63,7 @@ const LoginForm = () => {
             render={({ field }) => (
               <TextInput
                 label="Password"
+                icon={<MdLockOutline className="text-primary text-2xl mx-2"/>}
                 placeholder="*********"
                 error={errors.password?.message}
                 type={InputType.password}
@@ -67,18 +72,29 @@ const LoginForm = () => {
             )}
           />
         </div>
-        <div className="flex items-end justify-between">
-            <div className="flex pb-2 gap-x-2 items-end">
-            <TextInput
-                type={InputType.checkbox}
-                altClassName=" border-0"
-              />
-              <p className="relative -bottom-[6px]">Remember me</p>
-            </div>
-            <Link href='/auth/forget-password' className=" text-primary">Forget Password?</Link>
+        <div className="flex items-end justify-end mt-1">
+          <Link href="/auth/forget-password" className=" text-primary">
+            Forget Password?
+          </Link>
         </div>
-        <div className="mt-12">
-          <Button title={isBusy ? "loading" : "Login"} disabled={!isValid} />
+        <div className="flex mt-5 pb-2 gap-x-2 items-end">
+          <TextInput type={InputType.checkbox} altClassName=" border-0" />
+          <p className="relative -bottom-[6px]">
+            I agree to{" "}
+            <Link href="/" className="text-primary fw-500">
+              Terms & Conditions
+            </Link>
+          </p>
+        </div>
+        <div className="mt-6">
+        {/* <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey={`${process.env.REACT_APP_SITE_KEY}`}
+        /> */}
+        </div>
+        <div className="mt-10">
+          {/* <Button title={isBusy ? "loading" : "Login"} disabled={!isValid} /> */}
+          <Link href='/auth/admin' className="btn-like block text-center py-3 text-xl">Login</Link>
         </div>
       </form>
     </div>
