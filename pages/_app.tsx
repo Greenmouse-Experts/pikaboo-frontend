@@ -10,10 +10,11 @@ import '@/styles/globals.css'
 
 export default function MyApp({ Component, pageProps }: MyAppProps) {
   const Layout = Layouts[Component.Layout] ?? ((page: MyAppProps) => page);
+  const PGate = PersistGate as any
   
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
+      <PGate persistor={persistor}>
         <ToastContainer
           position="top-right"
           autoClose={3000}
@@ -29,7 +30,7 @@ export default function MyApp({ Component, pageProps }: MyAppProps) {
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </PersistGate>
+      </PGate>
     </Provider>
   )
 }
