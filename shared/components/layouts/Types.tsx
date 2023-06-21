@@ -7,7 +7,7 @@ export type AppPage<P = {}, IP = P> = NextPage<P, IP> & {
 };
 
 export type MyAppProps = AppProps & {
-  Component: NextComponentType<NextPageContext, any, any> & {
+  Component: NextComponentType<NextPageContext | any, any, any> & {
     Layout: LayoutKeys;
   };
 };
