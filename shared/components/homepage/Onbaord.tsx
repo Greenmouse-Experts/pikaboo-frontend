@@ -7,7 +7,7 @@ const OnbaordScreen = () => {
     <>
       <div className="h-screen pt-24 lg:pt-0 lg:place-center">
         <div className="box">
-          <Link href='https://pika-boo.netlify.app/'>
+          <Link href='/'>
           <Image
             src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1686648026/pikaboo/Group_26_2_cq9sv4.png"
             alt=""
