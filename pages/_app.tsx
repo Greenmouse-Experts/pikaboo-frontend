@@ -13,7 +13,7 @@ export default function MyApp({ Component, pageProps }: MyAppProps) {
   
   return (
     <Provider store={store}>
-      <PersistGate loading="loading" persistor={persistor}>
+      <PersistGate persistor={persistor}>
         <ToastContainer
           position="top-right"
           autoClose={3000}
