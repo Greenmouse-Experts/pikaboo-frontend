@@ -7,6 +7,7 @@ const OnbaordScreen = () => {
     <>
       <div className="h-screen pt-24 lg:pt-0 lg:place-center">
         <div className="box">
+          <Link href='https://pika-boo.netlify.app/'>
           <Image
             src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1686648026/pikaboo/Group_26_2_cq9sv4.png"
             alt=""
@@ -14,6 +15,7 @@ const OnbaordScreen = () => {
             height={80}
             className="w-44 lg:w-auto mx-auto"
           />
+          </Link>
           <p className="my-8 lg:my-16 lg:text-2xl text-center">Choose Account Type</p>
           <div className="w-10/12 mx-auto">
             <div className="grid pb-24 lg:grid-cols-3 gap-x-12 gap-y-6">

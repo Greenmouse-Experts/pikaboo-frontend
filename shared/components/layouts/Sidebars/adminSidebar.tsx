@@ -19,7 +19,8 @@ const AdminSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
       <Sidebar
         customBreakPoint="960px"
         className="lg:h-[90vh] dash-side-shade rounded-lg lg:ml-3 w-64 fs-500 fw-500 pt-12"
-        onBackdropClick={() => setToggled(false)} toggled={toggled}
+        onBackdropClick={() => setToggled(false)} 
+        toggled={toggled}
         backgroundColor="linear-gradient(90deg, #6B5AED 0%, #8D7EFF 100%)"
       >
         <Menu
