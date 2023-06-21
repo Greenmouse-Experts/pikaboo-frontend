@@ -19,6 +19,9 @@ module.exports = {
         '05': "80vh"
       },
       backgroundImage: {
+        login: "linear-gradient(to bottom, rgba(0,0,0,.4), rgba(0,0,0,.4)),url('https://res.cloudinary.com/greenmouse-tech/image/upload/v1687358576/pikaboo/Rectangle_19529_sjhlfa.png')",
+        login2: "linear-gradient(to bottom, rgba(0,0,0,.4), rgba(0,0,0,.4)),url('https://res.cloudinary.com/greenmouse-tech/image/upload/v1687358577/pikaboo/Rectangle_19531_ews6zl.png')",
+        login3: "linear-gradient(to bottom, rgba(0,0,0,.4), rgba(0,0,0,.4)),url('https://res.cloudinary.com/greenmouse-tech/image/upload/v1687358576/pikaboo/Rectangle_19530_jzxtac.png')",
         about: "url('https://res.cloudinary.com/dic7regoe/image/upload/v1685763261/sinechat/Testimonials_fpwvzz.png')",
         integration: "url('https://res.cloudinary.com/dic7regoe/image/upload/v1686119272/sinechat/Frame_3233207_djcf13.png')",
       },

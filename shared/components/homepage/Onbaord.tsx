@@ -75,6 +75,20 @@ const OnbaordScreen = () => {
             </div>
           </div>
         </div>
+        <Image
+            src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1687362374/pikaboo/Group_48037_e3ng80.png"
+            alt="stoke"
+            width={200}
+            height={80}
+            className="absolute top-0 right-0"
+          />
+          <Image
+            src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1687362374/pikaboo/Group_48035_y0ig8c.png"
+            alt="stroke"
+            width={200}
+            height={80}
+            className="absolute bottom-0 left-0"
+          />
       </div>
     </>
   );
