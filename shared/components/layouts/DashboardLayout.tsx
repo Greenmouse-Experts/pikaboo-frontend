@@ -18,11 +18,11 @@ const DashboardLayout = ({ children }: PropsWithChildren) => {
           <div className="flex items-center gap-x-12">
             <div className="md:w-64 w-6/12 flex justify-between items-center">
               <Image
-                src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1686648026/pikaboo/Group_26_2_cq9sv4.png"
+                src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1687429795/pikaboo/Group_48061_m4vob9.png"
                 alt="logo"
                 width={200}
-                height={60}
-                className="w-28"
+                height={100}
+                className="w-32"
               />
               <HiOutlineMenu className="text-2xl cursor-pointer" />
             </div>

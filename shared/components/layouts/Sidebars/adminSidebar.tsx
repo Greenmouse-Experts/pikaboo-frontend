@@ -7,6 +7,7 @@ import { TfiShiftLeft } from "react-icons/tfi";
 import { FiCreditCard } from "react-icons/fi";
 import { AiOutlinePieChart } from "react-icons/ai";
 import { HiOutlineUser } from "react-icons/hi";
+import { IoHomeOutline } from 'react-icons/io5'
 
 interface Props {
     setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -49,7 +50,19 @@ const AdminSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
           >
             Dashboard
           </MenuItem>
-          <SubMenu label="Users" icon={<HiOutlineUser  className="text-lg" />}>
+          <MenuItem
+            component={<Link href="/user/integrations" />}
+            icon={<BsPinMap className="text-lg" />}
+          >
+            Waste Areas
+          </MenuItem>
+          <MenuItem
+            component={<Link href="/user/integrations" />}
+            icon={<IoHomeOutline className="text-lg" />}
+          >
+            Home Residents
+          </MenuItem>
+          <SubMenu label="Staffs" icon={<HiOutlineUser  className="text-lg" />}>
             <MenuItem
               className="!hover:bg-[#6151DD]"
               component={<Link href="/settings" />}
@@ -62,27 +75,24 @@ const AdminSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
             <MenuItem component={<Link href="/settings/logs" />}>
               Field Operators
             </MenuItem>
-            <MenuItem component={<Link href="/settings/logs" />}>
-              House Owners
-            </MenuItem>
           </SubMenu>
-          <MenuItem
-            component={<Link href="/user/integrations" />}
-            icon={<BsPinMap className="text-lg" />}
-          >
-            Waste Areas
-          </MenuItem>
           <MenuItem
             component={<Link href="/dashboard" />}
             icon={<AiOutlinePieChart className="text-xl" />}
           >
-            House Requests
+            Special Requests
           </MenuItem>
           <MenuItem
             component={<Link href="/spend" />}
             icon={<FiCreditCard className="text-xl" />}
           >
-            Subscription
+            Payment History
+          </MenuItem>
+          <MenuItem
+            component={<Link href="/spend" />}
+            icon={<FiCreditCard className="text-xl" />}
+          >
+            Complaints
           </MenuItem>
           <MenuItem
             component={<Link href="/spend" />}

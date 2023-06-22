@@ -9,11 +9,11 @@ const OnbaordScreen = () => {
         <div className="box">
           <Link href='https://pikaboo-landing.vercel.app/'>
           <Image
-            src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1686648026/pikaboo/Group_26_2_cq9sv4.png"
-            alt=""
+            src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1687429795/pikaboo/Group_48061_m4vob9.png"
+            alt="logo"
             width={200}
             height={80}
-            className="w-44 lg:w-auto mx-auto"
+            className="w-48 lg:w-auto mx-auto"
           />
           </Link>
           <p className="my-8 lg:my-16 lg:text-2xl text-center">Choose Account Type</p>

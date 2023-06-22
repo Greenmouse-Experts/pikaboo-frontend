@@ -1,3 +1,7 @@
+import MoneyInChart from "@/shared/components/admin/dashboard/MoneyInChart";
+import SpecialRequestMiniTable from "@/shared/components/admin/dashboard/SpecialRequestMiniTable";
+import WasteAreaMiniTable from "@/shared/components/admin/wasteArea/WasteAreaMiniTable";
+import WasteAreaMap from "@/shared/components/admin/wasteArea/WateAreaMap";
 import { AppPage } from "@/shared/components/layouts/Types";
 import Image from "next/image";
 import React from "react";
@@ -71,6 +75,22 @@ const AdminDashboard: AppPage = () => {
               <p className="text-lg fw-600">189</p>
               <p className="fs-400 fw-500 text-primary">House Owners</p>
             </div>
+          </div>
+        </div>
+        <div className="grid lg:grid-cols-7 gap-x-6 mt-8 lg:mt-12">
+          <div className="lg:col-span-4 dash-shade bg-white p-6 rounded-lg">
+              <WasteAreaMap/>
+          </div>
+          <div className="lg:col-span-3 dash-shade bg-white p-6 rounded-lg">
+            <WasteAreaMiniTable/>
+          </div>
+        </div>
+        <div className="grid lg:grid-cols-8 gap-x-6 mt-8 lg:mt-12">
+          <div className="lg:col-span-5 dash-shade bg-white p-6 rounded-lg">
+              <MoneyInChart/>
+          </div>
+          <div className="lg:col-span-3 dash-shade bg-white p-6 rounded-lg">
+            <SpecialRequestMiniTable/>
           </div>
         </div>
       </div>
