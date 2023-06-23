@@ -33,7 +33,7 @@
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #b3561b;
+  background: #126315;
 }
 :root {
   --swiper-navigation-color: white;
@@ -282,6 +282,9 @@ input[type="checkbox"]:checked {
   }
   .bg-primary {
     background: #009a06;
+  }
+  .bg-pri {
+    background: #74e878;
   }
   .bg-service {
     background: linear-gradient(180deg, #b3751b 0%, #9b6415 100%);

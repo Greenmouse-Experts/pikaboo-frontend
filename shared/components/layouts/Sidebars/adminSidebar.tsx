@@ -45,64 +45,64 @@ const AdminSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
           }}
         >
           <MenuItem
-            component={<Link href="/user/dashboard" />}
+            component={<Link href="/admin" />}
             icon={<MdOutlineDashboard className="text-xl" />}
           >
             Dashboard
           </MenuItem>
+          <SubMenu label="Staffs" icon={<HiOutlineUser  className="text-lg" />}>
+            <MenuItem
+              className="!hover:bg-[#6151DD]"
+              component={<Link href="/admin/fleet" />}
+            >
+              Fleet Managers
+            </MenuItem>
+            <MenuItem component={<Link href="/admin/waste" />}>
+              Waste Managers
+            </MenuItem>
+            <MenuItem component={<Link href="/admin/field" />}>
+              Field Operators
+            </MenuItem>
+          </SubMenu>
           <MenuItem
-            component={<Link href="/user/integrations" />}
+            component={<Link href="/admin/waste-area" />}
             icon={<BsPinMap className="text-lg" />}
           >
             Waste Areas
           </MenuItem>
           <MenuItem
-            component={<Link href="/user/integrations" />}
+            component={<Link href="/admin/residents" />}
             icon={<IoHomeOutline className="text-lg" />}
           >
             Home Residents
           </MenuItem>
-          <SubMenu label="Staffs" icon={<HiOutlineUser  className="text-lg" />}>
-            <MenuItem
-              className="!hover:bg-[#6151DD]"
-              component={<Link href="/settings" />}
-            >
-              Fleet Managers
-            </MenuItem>
-            <MenuItem component={<Link href="/settings/customers" />}>
-              Waste Managers
-            </MenuItem>
-            <MenuItem component={<Link href="/settings/logs" />}>
-              Field Operators
-            </MenuItem>
-          </SubMenu>
           <MenuItem
-            component={<Link href="/dashboard" />}
+            component={<Link href="/admin/special" />}
             icon={<AiOutlinePieChart className="text-xl" />}
           >
             Special Requests
           </MenuItem>
           <MenuItem
-            component={<Link href="/spend" />}
+            component={<Link href="/payments" />}
             icon={<FiCreditCard className="text-xl" />}
           >
             Payment History
           </MenuItem>
           <MenuItem
-            component={<Link href="/spend" />}
+            component={<Link href="/complaints" />}
             icon={<FiCreditCard className="text-xl" />}
           >
             Complaints
           </MenuItem>
           <MenuItem
-            component={<Link href="/spend" />}
+            component={<Link href="/admin/settings" />}
             icon={<BsGear className="text-xl" />}
           >
             Settings
           </MenuItem>
           <MenuItem
             className="mt-24"
-            icon={<TfiShiftLeft className="text-xl" />}
+            icon={<TfiShiftLeft className="/admin/" />}
             // onClick={() => setShowModal(true)}
           >
             Logout
