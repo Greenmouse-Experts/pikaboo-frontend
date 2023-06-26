@@ -75,7 +75,7 @@ export const residentData = [
     phone: ["08010000000", "09098765432"],
     email: "kolane@gmail.com",
     zone: "Ring road",
-    status: "banned",
+    status: "flagged",
   },
   {
     residence_id: "PBR-28293992",
@@ -88,7 +88,7 @@ export const residentData = [
     phone: ["08012345678", "08098765432"],
     email: "olisehpro@gmail.com",
     zone: "benin central",
-    status: "suspend",
+    status: "active",
   },
   {
     residence_id: "PBR-27294399",
@@ -101,7 +101,7 @@ export const residentData = [
     phone: ["08011111111", "08098765432"],
     email: "hoamy@gmail.com",
     zone: "Ugbowo",
-    status: "active",
+    status: "flagged",
   },
   {
     residence_id: "PBR-94708399",
@@ -191,4 +191,193 @@ export const fleetManage = [
         status: "active",
         date: "22-May-2023"
     },
+]
+
+export const specialData = [
+  {
+    residence_id: "PBR-28293992",
+    name_title: "Mrs",
+    firstName: "Oliseh",
+    lastName: "Promise",
+    address: "54 off, ekhewan road, isiloko, benin central",
+    building_type: "Bungalow",
+    facility_type: "One room self-contained",
+    phone: ["08012345678", "08098765432"],
+    email: "olisehpro@gmail.com",
+    zone: "benin central",
+    status: "active",
+    no_of_bin: "4",
+    date_required: "20-July-2023",
+    amount: "5000",
+    request_status: "pending"
+  },
+  {
+    residence_id: "PBR-27294399",
+    name_title: "Mr",
+    firstName: "Youth",
+    lastName: "Hoamy",
+    address: "54 ine junction, ugbowo",
+    building_type: "Bungalow",
+    facility_type: "One room self-contained",
+    phone: ["08011111111", "08098765432"],
+    email: "hoamy@gmail.com",
+    zone: "Ugbowo",
+    status: "active",
+    no_of_bin: "2",
+    date_required: "17-July-2023",
+    amount: "3000",
+    request_status: "accepted"
+  },
+  {
+    residence_id: "PBR-94708399",
+    name_title: "Dr",
+    firstName: "Bassey",
+    lastName: "Kolane",
+    address: "9 tripod estate , ring road",
+    building_type: "2-Floors",
+    facility_type: "2-Bedroom",
+    phone: ["08010000000", "09098765432"],
+    email: "kolane@gmail.com",
+    zone: "Ring road",
+    status: "active",
+    no_of_bin: "1",
+    date_required: "17-July-2023",
+    amount: "1500",
+    request_status: "accepted"
+  },
+  {
+    residence_id: "PBR-28293992",
+    name_title: "Mrs",
+    firstName: "Oliseh",
+    lastName: "Promise",
+    address: "54 off, ekhewan road, isiloko, benin central",
+    building_type: "Bungalow",
+    facility_type: "One room self-contained",
+    phone: ["08012345678", "08098765432"],
+    email: "olisehpro@gmail.com",
+    zone: "benin central",
+    status: "active",
+    no_of_bin: "4",
+    date_required: "20-July-2023",
+    amount: "5000",
+    request_status: "pending"
+  },
+  {
+    residence_id: "PBR-27294399",
+    name_title: "Mr",
+    firstName: "Youth",
+    lastName: "Hoamy",
+    address: "54 ine junction, ugbowo",
+    building_type: "Bungalow",
+    facility_type: "One room self-contained",
+    phone: ["08011111111", "08098765432"],
+    email: "hoamy@gmail.com",
+    zone: "Ugbowo",
+    status: "inactive",
+    no_of_bin: "4",
+    date_required: "20-July-2023",
+    amount: "5000",
+    request_status: "pending"
+  },
+  {
+    residence_id: "PBR-94708399",
+    name_title: "Dr",
+    firstName: "Bassey",
+    lastName: "Kolane",
+    address: "9 tripod estate , ring road",
+    building_type: "2-Floors",
+    facility_type: "2-Bedroom",
+    phone: ["08010000000", "09098765432"],
+    email: "kolane@gmail.com",
+    zone: "Ring road",
+    status: "banned",
+    no_of_bin: "4",
+    date_required: "20-July-2023",
+    amount: "5000",
+    request_status: "cleared"
+  },
+];
+
+export const payments = [
+  {
+    id: "TRX-7484949403",
+    name: "Greemouse Tech",
+    date: "23 - Mar - 2023",
+    reference: "TRX-7484949403",
+    amount: "32200",
+    user_id: "902340092002020",
+    status: "paid"
+  },
+  {
+    id: "TRX-7484949403",
+    name: "Greemouse Tech",
+    date: "23 - Mar - 2023",
+    reference: "TRX-7484949403",
+    amount: "32200",
+    user_id: "902340092002020",
+    status: "paid"
+  },
+  {
+    id: "TRX-7484949403",
+    name: "Greemouse Tech",
+    date: "23 - Mar - 2023",
+    reference: "TRX-7484949403",
+    amount: "32200",
+    user_id: "902340092002020",
+    status: "paid"
+  },
+  {
+    id: "TRX-7484949403",
+    name: "Greemouse Tech",
+    date: "23 - Mar - 2023",
+    reference: "TRX-7484949403",
+    amount: "32200",
+    user_id: "902340092002020",
+    status: "paid"
+  },
+  {
+    id: "TRX-7484949403",
+    name: "Greemouse Tech",
+    date: "23 - Mar - 2023",
+    reference: "TRX-7484949403",
+    amount: "32200",
+    user_id: "902340092002020",
+    status: "paid"
+  },
+  {
+    id: "TRX-7484949403",
+    name: "Greemouse Tech",
+    date: "23 - Mar - 2023",
+    reference: "TRX-7484949403",
+    amount: "32200",
+    user_id: "902340092002020",
+    status: "paid"
+  },
+  {
+    id: "TRX-7484949403",
+    name: "Greemouse Tech",
+    date: "23 - Mar - 2023",
+    reference: "TRX-7484949403",
+    amount: "32200",
+    user_id: "902340092002020",
+    status: "paid"
+  },
+  {
+    id: "TRX-7484949403",
+    name: "Greemouse Tech",
+    date: "23 - Mar - 2023",
+    reference: "TRX-7484949403",
+    amount: "32200",
+    user_id: "902340092002020",
+    status: "paid"
+  },
+  {
+    id: "TRX-7484949403",
+    name: "Greemouse Tech",
+    date: "23 - Mar - 2023",
+    reference: "TRX-7484949403",
+    amount: "32200",
+    user_id: "902340092002020",
+    status: "paid"
+  },
 ]

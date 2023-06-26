@@ -83,13 +83,13 @@ const AdminSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
             Special Requests
           </MenuItem>
           <MenuItem
-            component={<Link href="/payments" />}
+            component={<Link href="/admin/payments" />}
             icon={<FiCreditCard className="text-xl" />}
           >
             Payment History
           </MenuItem>
           <MenuItem
-            component={<Link href="/complaints" />}
+            component={<Link href="/admin/complaints" />}
             icon={<FiCreditCard className="text-xl" />}
           >
             Complaints
