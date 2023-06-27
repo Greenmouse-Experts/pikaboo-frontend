@@ -125,6 +125,9 @@ input[type="checkbox"]:checked {
 .index-30 {
   z-index: 20000;
 }
+.Toastify__toast-container {
+  z-index: 30000 !important;
+}
 .PhoneInputInput {
   outline: none !important;
 }
