@@ -8,6 +8,8 @@ import { FiCreditCard } from "react-icons/fi";
 import { AiOutlinePieChart } from "react-icons/ai";
 import { HiOutlineUser } from "react-icons/hi";
 import { IoHomeOutline } from 'react-icons/io5'
+import useModal from "@/hooks/useModal";
+import LogoutModal from "../../admin/dashboard/Logout";
 
 interface Props {
     setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -15,6 +17,9 @@ interface Props {
   }
 
 const AdminSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
+
+  const {Modal, setShowModal} = useModal()
+
   return (
     <div className="left-0 bottom-0 fixed index-30 lg:h-[90vh]">
       <Sidebar
@@ -103,15 +108,15 @@ const AdminSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
           <MenuItem
             className="mt-24"
             icon={<TfiShiftLeft className="/admin/" />}
-            // onClick={() => setShowModal(true)}
+            onClick={() => setShowModal(true)}
           >
             Logout
           </MenuItem>
         </Menu>
       </Sidebar>
-      {/* <Modal title="" noHead>
+      <Modal title="" noHead>
         <LogoutModal CloseModal={() => setShowModal(false)} />
-      </Modal> */}
+      </Modal>
     </div>
   );
 };

@@ -12,6 +12,12 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "pikaboo.greenmouseproperties.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
 };

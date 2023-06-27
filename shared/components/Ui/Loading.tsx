@@ -1,14 +1,44 @@
-import React, {FC} from 'react'
+import React from "react";
+import { BeatLoader, PropagateLoader, PulseLoader } from "react-spinners";
 
-interface Props {
-    height?: number;
-    width?: number;
-  }
-
-const Loading: React.FC<Props> = ({ width, height }) => {
+export const ScaleSpinner = ({ size, color }:{size?:number, color:string}) => {
+    const override: any = {
+        display: "block",
+        margin: "0 auto",
+        borderColor: "red",
+        padding: "3px 0px 22px"
+      };
   return (
-    <div>Loading</div>
-  )
-}
+    <PropagateLoader
+      color={color}
+      cssOverride={override}
+      size={size}
+      aria-label="Loading Spinner"
+      data-testid="loader"
+    />
+  );
+};
 
-export default Loading
+export const FadeSpinner = ({ size, color }:{size?:number, color:string}) => {
+  
+return (
+  <BeatLoader
+    color={color}
+    size={size}
+    aria-label="Loading Spinner"
+    data-testid="loader"
+  />
+);
+};
+
+export const PulseSpinner = ({ size, color }:{size?:number, color:string}) => {
+  
+  return (
+    <PulseLoader
+      color={color}
+      size={size}
+      aria-label="Loading Spinner"
+      data-testid="loader"
+    />
+  );
+  };

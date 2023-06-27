@@ -1,16 +1,11 @@
+import { PulseSpinner } from "@/shared/components/Ui/Loading";
 import React, { Fragment, useState, useEffect } from "react";
-import { Dialog, Transition } from "@headlessui/react";
 import { FaTimes } from "react-icons/fa";
-import Loading from "@/shared/components/Ui/Loading";
 
 interface Props {
   title: string;
   children: any;
-  fullScreen?: boolean;
-  sideBar?: boolean;
-  date?: boolean;
-  noclose?: boolean;
-  wide?: boolean;
+  noHead?: boolean;
 }
 
 const useModal = () => {
@@ -20,106 +15,43 @@ const useModal = () => {
 
   const setShowModal: boolean | any = (state: boolean) => setModal(state);
 
-  const Modal: React.FC<Props> = ({
-    title,
-    children,
-    fullScreen,
-    sideBar,
-    date,
-    noclose,
-    wide,
-  }) => {
+  const Modal:React.FC<Props> = ({ title, children, noHead }) => {
     return (
-      <div>
-          <Transition.Root show={showModal} as={Fragment}>
-            <Dialog
-              as="div"
-              className="relative z-10 w-full h-screen"
-              onClose={() => !noclose && setShowModal(false)}
+      <>
+        {showModal && (
+          <div
+            className="fixed top-0 left-0 index-30 w-full h-screen flex items-center justify-center bg-modal"
+            onClick={() => setShowModal(false)}
+          >
+            <div
+              className={`w-11/12  p-4 lg:px-8 rounded shade bg-white ${noHead? 'md:w-6/12 lg:w-96' : 'md:w-8/12 lg:w-5/12 xl:w-4/12 '}`}
+              onClick={(e) => e.stopPropagation()}
             >
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-              </Transition.Child>
-              <div className="fixed inset-0 index-30 overflow-y-auto">
-                <div
-                  className={
-                    sideBar
-                      ? "flex justify-end h-screen"
-                      : "flex h-screen items-center justify-center p-4 text-center sm:items-center sm:p-0"
-                  }
-                >
-                  <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    enterTo="opacity-100 translate-y-0 sm:scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                    leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              {!noHead && (
+                <div className="flex items-start justify-between py-2 border-b rounded-t dark:border-gray-600">
+                  <h3 className="text-xl font-semibold text-gray-900 ">
+                    {title}
+                  </h3>
+                  <button
+                    onClick={() => setShowModal(false)}
+                    type="button"
+                    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="defaultModal"
                   >
-                    <Dialog.Panel
-                      className={
-                        date
-                          ? ""
-                          : fullScreen
-                          ? "relative transform overflow-hidden overflow-y-hidden lg:max-h-full rounded-lg bg-[#F1F1F1]  px-4 lg:pt-3 pb-4 text-left shadow-xl transition-all sm:my-8 sm:p-6 max-w-full sm:w-full md:max-w-full lg:max-w-full xl:max-w-full sm:max-w-full "
-                          : sideBar
-                          ? "relative transform overflow-hidden overflow-y-auto lg:max-h-full rounded-lg bg-white lg:px-3 px-4 lg:pt-3 pb-4 text-left shadow-xl transition-all sm:p-6 h-screen w-4/12 side-ani"
-                          : wide
-                          ? "w-7/12 relative transform overflow-hidden overflow-y-auto  rounded-lg bg-white lg:max-h-02 px-4 lg:pt-3 pb-4 text-left shadow-xl transition-all"
-                          : "relative transform overflow-hidden max-h-001 overflow-y-auto lg:max-h-02 rounded-lg bg-white  lg:pt-3 pb-4 text-left shadow-xl transition-all  sm:my-8  sm:p-6 sm:w-full md:max-w-md lg:max-w-lg xl:max-w-xl sm:max-w-sm "
-                      }
-                    >
-                      <div className="w-full">
-                        <div
-                          className={`relative rounded-lg  ${
-                            fullScreen ? "bg-[#F1F1F1]" : " bg-white "
-                          }`}
-                        >
-                          {date ? (
-                            ""
-                          ) : (
-                            <div className="flex items-start justify-between p-4 border-b rounded-t">
-                              <h3 className="text-xl font-semibold text-gray-900 ">
-                                {title}
-                              </h3>
-                              {!noclose && (
-                                <button
-                                  onClick={() => setShowModal(false)}
-                                  type="button"
-                                  className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-                                  data-modal-hide="defaultModal"
-                                >
-                                  <FaTimes />
-                                </button>
-                              )}
-                            </div>
-                          )}
-                          {modalBusy && (
-                            <div className="absolute w-full h-full justify-center align-top">
-                              <Loading />
-                            </div>
-                          )}
-                          <div className={date ? "" : "p-4 space-y-6"}>
-                            {children}
-                          </div>
-                        </div>
-                      </div>
-                    </Dialog.Panel>
-                  </Transition.Child>
+                    <FaTimes />
+                  </button>
                 </div>
-              </div>
-            </Dialog>
-          </Transition.Root>
-      </div>
+              )}
+              {modalBusy && (
+                <div className="absolute w-full h-full justify-center align-top">
+                  <PulseSpinner size={23} color='#009a06'/>
+                </div>
+              )}
+              <div className={noHead? "py-6 text-center" : "py-6"}>{children}</div>
+            </div>
+          </div>
+        )}
+      </>
     );
   };
 

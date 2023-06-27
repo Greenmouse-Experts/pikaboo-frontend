@@ -2,6 +2,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from '@/shared/redux/store';
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Layouts } from '@/shared/components/layouts/Layout';
 import { MyAppProps } from '@/shared/components/layouts/Types';
 import '@/styles/globals.css'
@@ -16,16 +17,17 @@ export default function MyApp({ Component, pageProps }: MyAppProps) {
     <Provider store={store}>
       <PGate persistor={persistor}>
         <ToastContainer
-          position="top-right"
+          position="top-center"
           autoClose={3000}
-          hideProgressBar={false}
+          hideProgressBar={true}
           newestOnTop={false}
           closeOnClick
           rtl={false}
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="light"
+          theme="colored"
+          className='index-20'
         />
         <Layout>
           <Component {...pageProps} />

@@ -14,4 +14,11 @@ export enum CACHE_LIFETIME {
     DELETE = "DELETE",
   }
 
-  export const BASE_URL = `hello`;
+  export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
+  // auth
+  export const ADMIN_LOGIN = '/auth/admin/login'
+  export const ADMIN_LOGOUT = '/logout'
+  export const ADMIN_CHANGE_PASSWORD = '/admin/profile/update/password'
+  export const ADMIN_UPDATE_PROFILE = '/admin/profile/update'
+  export const ADMIN_UPDATE_PHOTO = '/admin/profile/upload/profile-picture'

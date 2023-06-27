@@ -87,10 +87,6 @@ const LoginForm = () => {
           </p>
         </div>
         <div className="mt-6">
-        {/* <ReCAPTCHA
-          ref={recaptchaRef}
-          sitekey={`${process.env.REACT_APP_SITE_KEY}`}
-        /> */}
         </div>
         <div className="mt-10">
           {/* <Button title={isBusy ? "loading" : "Login"} disabled={!isValid} /> */}

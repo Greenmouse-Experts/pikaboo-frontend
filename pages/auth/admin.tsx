@@ -7,11 +7,20 @@ import { Controller, useForm } from 'react-hook-form'
 import { AiOutlineMail } from 'react-icons/ai'
 import { MdLockOutline } from 'react-icons/md'
 import Button from '@/shared/components/Ui/Button'
-import Link from 'next/link'
+import { useLazyAdminLoginQuery } from '@/services/api/authSlice'
+import { useAppDispatch } from '@/shared/redux/store'
+import { saveUser } from '@/shared/redux/reducers/userSlice'
+import { extractAdminCallBackRoute,  storeLocalToken } from '@/services/helpers'
+import { toast } from 'react-toastify'
+import { Url } from "next/dist/shared/lib/router/router";
+import { PulseSpinner } from '@/shared/components/Ui/Loading'
 
 const AdminLogin:AppPage = () => {
     const router = useRouter();
   const [isBusy, setIsBusy] = useState(false);
+  const [login] = useLazyAdminLoginQuery()
+  const dispatch = useAppDispatch()
+
   const {
     control,
     handleSubmit,
@@ -20,10 +29,41 @@ const AdminLogin:AppPage = () => {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      user: "",
+      email: "",
       password: "",
     },
   });
+
+  const onSubmit = async (data:any) => {
+    setIsBusy(true);
+    await login(data)
+      .then((res:any) => {
+        if (res.data.success) {
+          dispatch(
+            saveUser({
+                token: res.data.token,
+                firstname: res.data.data.first_name,
+                lastname: res.data.data.last_name,
+                id: res.data.data.id,
+                email: res.data.data.email,
+                phone: res.data.data.phone,
+                user_type: res.data.data.account_type,
+                admin_type: res.data.data.role,
+                avatar: res.data.data.avatar
+          }))
+          storeLocalToken("token", res.data.token) 
+          toast.success(res.data.message)
+          router.push(extractAdminCallBackRoute(router.asPath) as Url);
+        }else {
+          toast.error(res.data.message);
+          setIsBusy(false);
+        }
+      })
+      .catch((err) => {
+        toast.error(err?.error?.data.message);
+        setIsBusy(false);
+      });
+  };
 
   return (
     <>
@@ -31,20 +71,20 @@ const AdminLogin:AppPage = () => {
         <div className="flex lg:pt-16 text-sm h-screen items-center justify-center">
           <div className="lg:w-4/12 rounded shadow bg-white w-11/12 p-6 pb-8">
               <Image
-                src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1686648026/pikaboo/Group_26_2_cq9sv4.png"
+                src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1687429795/pikaboo/Group_48061_m4vob9.png"
                 alt="logo"
                 width={300}
-                height={300}
-                className="w-36 lg:w-56 pr-6 mx-auto"
+                height={100}
+                className="w-36 lg:w-64 pr-6 mx-auto"
               />
             <div className="mt-8">
               <p className="fw-500 text-center lg:text-xl mb-12">
-                Login to your account{" "}
+                Admin Login{" "}
               </p>
-              <form  className="fs-700">
+              <form onSubmit={handleSubmit(onSubmit)} className="fs-700">
                 <div>
                   <Controller
-                    name="user"
+                    name="email"
                     control={control}
                     rules={{
                       required: {
@@ -58,7 +98,7 @@ const AdminLogin:AppPage = () => {
                         icon={
                           <AiOutlineMail className="text-2xl text-primary mx-2" />
                         }
-                        error={errors.user?.message}
+                        error={errors.email?.message}
                         type={InputType.email}
                         {...field}
                       />
@@ -93,8 +133,7 @@ const AdminLogin:AppPage = () => {
                   />
                 </div>
                 <div className="mt-12">
-                  {/* <Button title="Login" disabled={!isValid} /> */}
-                  <Link href='/admin' className="btn-like block text-center py-3 text-xl">Login</Link>
+                  <Button title={isBusy? <PulseSpinner size={13} color='white'/> : "Login"} disabled={!isValid} />
                 </div>
               </form>
             </div>

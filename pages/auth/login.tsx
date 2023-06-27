@@ -22,11 +22,11 @@ const FleetLogin: AppPage = () => {
             <div className="hidden lg:block">
               <div>
                 <Image
-                  src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1687359890/pikaboo/Group_17_1_bhrcis.png"
+                  src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1687852832/pikaboo/Group_48062_rxv6ae.png"
                   alt=""
                   width={200}
                   height={80}
-                  className="w-28 lg:w-44"
+                  className="w-28 lg:w-56"
                 />
                 <p className="fw-600 mt-6 text-white lg:text-lg">
                   Sign in to your account
