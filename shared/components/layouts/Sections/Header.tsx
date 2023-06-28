@@ -29,7 +29,7 @@ const Header:FC<Props> = ({setToggled, toggled}) => {
             </div>
             <div className="flex w-4/12 md:w-full justify-end lg:justify-between items-center">
               <div className="hidden lg:flex gap-x-2 items-center">
-                <p className="fs-500 fw-600">Super Admin Dashboard</p>
+                <p className="fs-500 fw-600">{user.user_type} Dashboard</p>
                 <FaRegThumbsUp
                   className="text-[#ffcc33]"
                   onClick={() => setToggled(!toggled)}

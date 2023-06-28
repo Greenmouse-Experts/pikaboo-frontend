@@ -18,6 +18,15 @@ export const authApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
+    userLogin: builder.query<AdminLoginResult | ErrorResult, AdminLoginInput>({
+      query: (login) => ({
+        url: `${ENDPOINT.USER_LOGIN}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        body: login,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
     changePassword: builder.query<AdminLoginResult | ErrorResult, UpdatePasswordInput>({
       query: (payload) => ({
         url: ENDPOINT.ADMIN_CHANGE_PASSWORD,
@@ -69,5 +78,6 @@ export const {
   useLazyChangePasswordQuery,
   useLazyLogoutQuery,
   useLazyUpdateAdminPhotoQuery,
-  useLazyUpdateAdminProfileQuery
+  useLazyUpdateAdminProfileQuery,
+  useLazyUserLoginQuery
 } = authApiSlice;

@@ -2,13 +2,14 @@ import React, {useState} from "react";
 import { AppPage } from "@/shared/components/layouts/Types";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { BsPersonFillAdd } from "react-icons/bs";
-import FleetManagerTable from "@/shared/components/admin/staff/fleet/FleetManagerTable";
-import AddFleetManagerForm from "@/shared/components/admin/staff/fleet/AddFleet";
-import AddWasteManagerForm from "@/shared/components/admin/staff/waste/AddWasteManager";
+import AddFieldOperatorForm from "@/shared/components/admin/staff/field/AddFieldOperator";
+import FieldOperatorTable from "@/shared/components/admin/staff/field/FieldManagerTable";
+import { useGetUsersQuery } from "@/services/api/routineSlice";
 
 const ManageWasteManagers: AppPage = () => {
 
   const [open, setOpen] = useState<number>(1);
+  const {data, refetch, isLoading} = useGetUsersQuery("")
 
   const handleOpen = (value:number) => {
     setOpen(open === value ? value : value);
@@ -22,8 +23,8 @@ const ManageWasteManagers: AppPage = () => {
   return (
     <>
       <div>
-        <div className="h-40 bg-blue-200 flex items-center dash-shade rounded-xl">
-          <div className="pl-12 text-black">
+        <div className="h-40 bg-field flex items-center dash-shade rounded-xl">
+          <div className="pl-12 text-white">
             <p className="text-2xl fw-600">Field Operators</p>
             <p className="fs-400 w-8/12 mt-2">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum
@@ -53,10 +54,10 @@ const ManageWasteManagers: AppPage = () => {
           </div>
           <div className="mt-5">
             {
-              open === 1? <FleetManagerTable/> : ""
+              open === 1? data && <FieldOperatorTable data={data?.data.data}/> : ""
             }
             {
-              open === 2? <AddWasteManagerForm/> : ""
+              open === 2? <AddFieldOperatorForm refetch={refetch}/> : ""
             }
           </div>
         </div>

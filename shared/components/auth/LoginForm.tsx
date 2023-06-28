@@ -1,14 +1,24 @@
 import React, { useState, createRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TextInput, { InputType } from "../Ui/TextInput";
-import ReCAPTCHA from "react-google-recaptcha";
 import Button from "../Ui/Button";
 import Link from "next/link";
 import { MdLockOutline, MdOutlineEmail } from "react-icons/md";
+import { PulseSpinner } from "../Ui/Loading";
+import { useRouter } from "next/router";
+import {  useLazyUserLoginQuery } from "@/services/api/authSlice";
+import { useAppDispatch } from "@/shared/redux/store";
+import { saveUser } from "@/shared/redux/reducers/userSlice";
+import { extractCallBackRoute, extractFieldCallBackRoute, storeLocalToken } from "@/services/helpers";
+import { toast } from "react-toastify";
+import { Url } from "next/dist/shared/lib/router/router";
 
 const LoginForm = () => {
+  const router = useRouter();
   const [isBusy, setIsBusy] = useState(false);
-  const recaptchaRef = createRef<ReCAPTCHA>();
+  const [login] = useLazyUserLoginQuery()
+  const dispatch = useAppDispatch()
+
   const {
     control,
     handleSubmit,
@@ -17,16 +27,47 @@ const LoginForm = () => {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      user: "",
+      email: "",
       password: "",
     },
   });
+
+  const onSubmit = async (data:any) => {
+    setIsBusy(true);
+    await login(data)
+      .then((res:any) => {
+        if (res.data.success) {
+          dispatch(
+            saveUser({
+                token: res.data.token,
+                firstname: res.data.data.first_name,
+                lastname: res.data.data.last_name,
+                id: res.data.data.id,
+                email: res.data.data.email,
+                phone: res.data.data.phone,
+                user_type: res.data.data.account_type,
+                admin_type: res.data.data.role,
+                avatar: res.data.data.avatar
+          }))
+          storeLocalToken("token", res.data.token) 
+          toast.success(res.data.message)
+          router.push('/field');
+        }else {
+          toast.error(res.data.message);
+          setIsBusy(false);
+        }
+      })
+      .catch((err) => {
+        toast.error(err?.error?.data.message);
+        setIsBusy(false);
+      });
+  };
   return (
     <div>
-      <form className="fs-600 mt-10">
+      <form className="fs-600 mt-10" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Controller
-            name="user"
+            name="email"
             control={control}
             rules={{
               required: {
@@ -38,8 +79,8 @@ const LoginForm = () => {
               <TextInput
                 label="Email"
                 icon={<MdOutlineEmail className="text-primary text-2xl mx-2"/>}
-                placeholder="victorchigozie@gmail.com"
-                error={errors.user?.message}
+                placeholder="pikaboo@gmail.com"
+                error={errors.email?.message}
                 type={InputType.email}
                 {...field}
               />
@@ -64,7 +105,6 @@ const LoginForm = () => {
               <TextInput
                 label="Password"
                 icon={<MdLockOutline className="text-primary text-2xl mx-2"/>}
-                placeholder="*********"
                 error={errors.password?.message}
                 type={InputType.password}
                 {...field}
@@ -77,20 +117,8 @@ const LoginForm = () => {
             Forget Password?
           </Link>
         </div>
-        <div className="flex mt-5 pb-2 gap-x-2 items-end">
-          <TextInput type={InputType.checkbox} altClassName=" border-0" />
-          <p className="relative -bottom-[6px]">
-            I agree to{" "}
-            <Link href="/" className="text-primary fw-500">
-              Terms & Conditions
-            </Link>
-          </p>
-        </div>
-        <div className="mt-6">
-        </div>
         <div className="mt-10">
-          {/* <Button title={isBusy ? "loading" : "Login"} disabled={!isValid} /> */}
-          <Link href='/auth/admin' className="btn-like block text-center py-3 text-xl">Login</Link>
+        <Button title={isBusy? <PulseSpinner size={13} color='white'/> : "Login"} disabled={!isValid} />
         </div>
       </form>
     </div>

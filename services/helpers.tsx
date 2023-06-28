@@ -9,6 +9,13 @@ export const extractCallBackRoute = (path: string) => {
   return "/";
 };
 
+export const extractFieldCallBackRoute = (path: string) => {
+  if (path === "/auth/login") return "/field";
+  const indexOfQ = path.indexOf("?");
+  if (indexOfQ) return path.slice(0, indexOfQ);
+  return "/";
+};
+
 export const extractAdminCallBackRoute = (path: string) => {
     if (path === "/auth/admin") return "/admin";
     const indexOfQ = path.indexOf("?");
