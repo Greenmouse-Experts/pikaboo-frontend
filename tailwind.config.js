@@ -25,6 +25,9 @@ module.exports = {
         waste: "linear-gradient(to right, rgba(0,0,0,.8), rgba(0,0,0,.4)),url('https://res.cloudinary.com/greenmouse-tech/image/upload/v1687450763/pikaboo/waste2_zpl64s.jpg')",
         about: "url('https://res.cloudinary.com/dic7regoe/image/upload/v1685763261/sinechat/Testimonials_fpwvzz.png')",
         integration: "url('https://res.cloudinary.com/dic7regoe/image/upload/v1686119272/sinechat/Frame_3233207_djcf13.png')",
+        field: "linear-gradient(to right, rgba(0,0,0,.8), rgba(0,0,0,.4)),url('https://res.cloudinary.com/greenmouse-tech/image/upload/v1687970640/pikaboo/waste4_bur1f9.webp')",
+        waste1: "linear-gradient(to right, rgba(0,0,0,.8), rgba(0,0,0,.4)),url('https://res.cloudinary.com/greenmouse-tech/image/upload/v1687970640/pikaboo/waste5_akt4wf.webp')",
+        fleet: "linear-gradient(to right, rgba(0,0,0,.8), rgba(0,0,0,.4)),url('https://res.cloudinary.com/greenmouse-tech/image/upload/v1687970531/pikaboo/waste3_gzl51i.jpg')",
       },
       gridTemplateColumns: {
         fluid: "repeat(auto-fit,minmax(15rem,1fr))",

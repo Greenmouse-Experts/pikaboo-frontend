@@ -21,8 +21,8 @@ const ManageFleetManagers: AppPage = () => {
   return (
     <>
       <div>
-        <div className="h-40 bg-pri flex items-center dash-shade rounded-xl">
-          <div className="pl-12 text-black">
+        <div className="h-40 bg-fleet bg-cover flex items-center dash-shade rounded-xl">
+          <div className="pl-12 text-white">
             <p className="text-2xl fw-600">Fleet Managers</p>
             <p className="fs-400 w-8/12 mt-2">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum

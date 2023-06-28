@@ -1,34 +1,62 @@
-import React from "react";
+import React, {FC, useState} from "react";
 import TextInput, { InputType } from "@/shared/components/Ui/TextInput";
 import { Controller, useForm } from "react-hook-form";
 import Button from "@/shared/components/Ui/Button";
+import { useLazyCreateFieldQuery } from "@/services/api/onboardSlice";
+import { toast } from "react-toastify";
+import { PulseSpinner } from "@/shared/components/Ui/Loading";
 
-const AddFieldOperatorForm = () => {
+interface Props {
+  refetch: () => void
+}
+const AddFieldOperatorForm:FC<Props> = ({refetch}) => {
+  const [isBusy, setIsBusy] = useState<boolean>(false)
+  const [create] = useLazyCreateFieldQuery()
   const {
     control,
     handleSubmit,
     setError,
+    reset,
     watch,
     formState: { errors, isValid },
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      first_name: "",
+      last_name: "",
       email: "",
-      phoneNumber: "",
-      address: "",
+      gender: "",
       password: "",
-      confirm_password: "",
+      password_confirmation: "",
     },
   });
+
+  const onSubmit = async (data:any) => {
+    setIsBusy(true);
+    await create(data)
+      .then((res:any) => {
+        if (res.data.success) {
+          toast.success(res.data.message)
+          refetch()
+          reset()
+          setIsBusy(false);
+        }else {
+          toast.error(res.data.message);
+          setIsBusy(false);
+        }
+      })
+      .catch((err) => {
+        toast.error(err?.error?.data.message);
+        setIsBusy(false);
+      });
+  };
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-12">
           <div>
             <Controller
-              name="firstName"
+              name="first_name"
               control={control}
               rules={{
                 required: {
@@ -40,7 +68,7 @@ const AddFieldOperatorForm = () => {
                 <TextInput
                   label="First Name"
                   placeholder=""
-                  error={errors.firstName?.message}
+                  error={errors.first_name?.message}
                   type={InputType.text}
                   {...field}
                 />
@@ -49,7 +77,7 @@ const AddFieldOperatorForm = () => {
           </div>
           <div>
             <Controller
-              name="lastName"
+              name="last_name"
               control={control}
               rules={{
                 required: {
@@ -61,7 +89,7 @@ const AddFieldOperatorForm = () => {
                 <TextInput
                   label="Last Name"
                   placeholder=""
-                  error={errors.lastName?.message}
+                  error={errors.last_name?.message}
                   type={InputType.text}
                   {...field}
                 />
@@ -92,23 +120,28 @@ const AddFieldOperatorForm = () => {
             />
           </div>
           <div>
+            <label className="block mt-3 mb-1">Gender</label>
             <Controller
-              name="phoneNumber"
+              name="gender"
               control={control}
               rules={{
                 required: {
                   value: true,
-                  message: "Please enter Phone Number",
+                  message: "Please select an option",
                 },
               }}
               render={({ field }) => (
-                <TextInput
-                  label="Phone Number"
-                  placeholder=""
-                  error={errors.phoneNumber?.message}
-                  type={InputType.tel}
+                <select
                   {...field}
-                />
+                  className="w-full border border-gray-400 rounded p-2"
+                >
+                  <option value="" disabled>
+                    Select Option
+                  </option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="others">Others</option>
+                </select>
               )}
             />
           </div>
@@ -124,7 +157,7 @@ const AddFieldOperatorForm = () => {
                   message: "Password is required",
                 },
                 minLength: {
-                  value: 5,
+                  value: 7,
                   message: "Password is too short",
                 },
               }}
@@ -141,7 +174,7 @@ const AddFieldOperatorForm = () => {
           </div>
           <div className="">
             <Controller
-              name="confirm_password"
+              name="password_confirmation"
               control={control}
               rules={{
                 required: {
@@ -158,7 +191,7 @@ const AddFieldOperatorForm = () => {
                 <TextInput
                   label="Password"
                   placeholder=""
-                  error={errors.confirm_password?.message}
+                  error={errors.password_confirmation?.message}
                   type={InputType.password}
                   {...field}
                 />
@@ -166,31 +199,9 @@ const AddFieldOperatorForm = () => {
             />
           </div>
         </div>
-          <div className="mt-4">
-            <Controller
-              name="address"
-              control={control}
-              rules={{
-                required: {
-                  value: true,
-                  message: "Please enter Phone Number",
-                },
-              }}
-              render={({ field }) => (
-                <TextInput
-                  label="Manger Address"
-                  placeholder=""
-                  error={errors.phoneNumber?.message}
-                  type={InputType.textarea}
-                  {...field}
-                  altClassName="h-24 w-full p-2 rounded outline-none"
-                />
-              )}
-            />
-          </div>
         <div className="flex justify-end">
           <div className="mt-8 lg:mt-16 lg:w-5/12">
-            <Button title="Create Waste Manager" />
+            <Button title={isBusy? <PulseSpinner size={13} color='white'/> : "Create Fleet Manager"} disabled={!isValid} />
           </div>
         </div>
       </form>
