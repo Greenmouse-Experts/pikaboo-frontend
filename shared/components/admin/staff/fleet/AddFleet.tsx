@@ -2,13 +2,13 @@ import React, {useState} from "react";
 import TextInput, { InputType } from "@/shared/components/Ui/TextInput";
 import { Controller, useForm } from "react-hook-form";
 import Button from "@/shared/components/Ui/Button";
-import { useLazyCreateFieldQuery } from "@/services/api/onboardSlice";
+import { useLazyCreateFleetQuery } from "@/services/api/onboardSlice";
 import { toast } from "react-toastify";
 import { PulseSpinner } from "@/shared/components/Ui/Loading";
 
 const AddFleetManagerForm = () => {
   const [isBusy, setIsBusy] = useState<boolean>(false)
-  const [create] = useLazyCreateFieldQuery()
+  const [create] = useLazyCreateFleetQuery()
   const {
     control,
     handleSubmit,
