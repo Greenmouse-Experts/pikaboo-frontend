@@ -32,11 +32,24 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
+
+    createWaste: builder.query<AdminLoginResult | ErrorResult, CreateFleetInput>({
+      query: (payload) => ({
+        url: `${ENDPOINT.CREATE_WASTE}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
   }),
   overrideExisting: true,
 });
 
 export const {
   useLazyCreateFleetQuery,
-  useLazyCreateFieldQuery
+  useLazyCreateFieldQuery,
+  useLazyCreateWasteQuery
 } = authApiSlice;

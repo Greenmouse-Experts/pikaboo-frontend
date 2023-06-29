@@ -11,6 +11,8 @@ const ManageWasteManagers: AppPage = () => {
   const [open, setOpen] = useState<number>(1);
   const {data, refetch, isLoading} = useGetUsersQuery("")
 
+  const field = data?.data?.data.filter((where:any )=> where.account_type === "Field Operator")
+
   const handleOpen = (value:number) => {
     setOpen(open === value ? value : value);
   };
@@ -54,7 +56,7 @@ const ManageWasteManagers: AppPage = () => {
           </div>
           <div className="mt-5">
             {
-              open === 1? data && <FieldOperatorTable data={data?.data.data}/> : ""
+              open === 1? field && !!field.length && <FieldOperatorTable data={field}/> : ""
             }
             {
               open === 2? <AddFieldOperatorForm refetch={refetch}/> : ""

@@ -5,10 +5,15 @@ import { BsPersonFillAdd } from "react-icons/bs";
 import FleetManagerTable from "@/shared/components/admin/staff/fleet/FleetManagerTable";
 import AddFleetManagerForm from "@/shared/components/admin/staff/fleet/AddFleet";
 import AddWasteManagerForm from "@/shared/components/admin/staff/waste/AddWasteManager";
+import { useGetUsersQuery } from "@/services/api/routineSlice";
+import WasteManagerTable from "@/shared/components/admin/staff/waste/WasteManagerTable";
 
 const ManageWasteManagers: AppPage = () => {
 
   const [open, setOpen] = useState<number>(1);
+  const {data, refetch, isLoading} = useGetUsersQuery("")
+
+  const waste = data?.data?.data.filter((where:any )=> where.account_type === "Waste Manager")
 
   const handleOpen = (value:number) => {
     setOpen(open === value ? value : value);
@@ -22,8 +27,8 @@ const ManageWasteManagers: AppPage = () => {
   return (
     <>
       <div>
-        <div className="h-40 bg-red-100 flex items-center dash-shade rounded-xl">
-          <div className="pl-12 text-black">
+        <div className="h-40 bg-waste1 flex items-center dash-shade rounded-xl">
+          <div className="pl-12 text-white">
             <p className="text-2xl fw-600">Waste Managers</p>
             <p className="fs-400 w-8/12 mt-2">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum
@@ -53,10 +58,10 @@ const ManageWasteManagers: AppPage = () => {
           </div>
           <div className="mt-5">
             {
-              open === 1? <FleetManagerTable/> : ""
+              open === 1? waste && !!waste.length && <WasteManagerTable data={waste}/> : ""
             }
             {
-              open === 2? <AddWasteManagerForm/> : ""
+              open === 2? <AddWasteManagerForm refetch={refetch}/> : ""
             }
           </div>
         </div>

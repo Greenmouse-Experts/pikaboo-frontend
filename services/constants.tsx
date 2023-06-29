@@ -27,6 +27,7 @@ export enum CACHE_LIFETIME {
   // onboarding
   export const CREATE_FIELD = '/admin/field-operator/create'
   export const CREATE_FLEET = '/admin/fleet-manager/create'
+  export const CREATE_WASTE = '/fleet-manager/waste-manager/create'
 
   // routine
   export const GET_USERS = '/admin/get/all/user?keyword='
