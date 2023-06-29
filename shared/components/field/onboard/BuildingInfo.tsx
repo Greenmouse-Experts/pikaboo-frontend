@@ -188,7 +188,7 @@ const BuildingInfoForm = () => {
             }}
             render={({ field }) => (
               <TextInput
-                label="Street Name"
+                label="State"
                 error={errors.state?.message}
                 type={InputType.text}
                 {...field}
@@ -509,7 +509,7 @@ const BuildingInfoForm = () => {
         </div>
         <div className="mt-4 grid grid-cols-2 gap-4">
         <div>
-            <label className="mb-2 block mt-2">Building Type</label>
+            <label className="mb-2 block mt-2">Purpose-built Facility</label>
             <Controller
               name="purpose_building"
               control={control}
