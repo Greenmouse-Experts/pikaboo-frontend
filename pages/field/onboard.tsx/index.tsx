@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { AppPage } from '@/shared/components/layouts/Types'
 import { FaHouseUser } from 'react-icons/fa'
 import BasicInfoForm from '@/shared/components/field/onboard/BasicInfo';
+import BuildingInfoForm from '@/shared/components/field/onboard/BuildingInfo';
 
 const OnboardingPage:AppPage = () => {
     const [open, setOpen] = useState<number>(1);
@@ -44,7 +45,7 @@ const OnboardingPage:AppPage = () => {
               open === 1? <BasicInfoForm/> : ""
             }
             {
-              open === 2? "heyyyy" : ""
+              open === 2? <BuildingInfoForm/> : ""
             }
           </div>
                 </div>
