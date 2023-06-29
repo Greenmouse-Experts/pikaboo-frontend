@@ -1,13 +1,14 @@
-import React, { FC,useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import Table from "../../../Ui/table";
+import { formatStatus } from "@/shared/utils/format";
 import { UserData } from "@/shared/utils/types/auth";
 import dayjs from "dayjs";
-import { formatStatus } from "@/shared/utils/format";
 
 interface Props {
-  data: UserData[]
+    data: UserData[]
 }
-const FleetManagerTable:FC<Props> = ({data}) => {
+const WasteManagerTable:FC<Props> = ({data}) => {
+    
   const columns = useMemo(
     () => [
       {
@@ -56,4 +57,4 @@ const FleetManagerTable:FC<Props> = ({data}) => {
   );
 };
 
-export default FleetManagerTable;
+export default WasteManagerTable;

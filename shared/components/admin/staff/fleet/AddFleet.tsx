@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import TextInput, { InputType } from "@/shared/components/Ui/TextInput";
 import { Controller, useForm } from "react-hook-form";
 import Button from "@/shared/components/Ui/Button";
@@ -6,7 +6,10 @@ import { useLazyCreateFleetQuery } from "@/services/api/onboardSlice";
 import { toast } from "react-toastify";
 import { PulseSpinner } from "@/shared/components/Ui/Loading";
 
-const AddFleetManagerForm = () => {
+interface Props{
+  refetch: () => void
+}
+const AddFleetManagerForm:FC<Props> = ({refetch}) => {
   const [isBusy, setIsBusy] = useState<boolean>(false)
   const [create] = useLazyCreateFleetQuery()
   const {
@@ -35,6 +38,7 @@ const AddFleetManagerForm = () => {
         if (res.data.success) {
           toast.success(res.data.message)
           reset()
+          refetch()
           setIsBusy(false);
         }else {
           toast.error(res.data.message);

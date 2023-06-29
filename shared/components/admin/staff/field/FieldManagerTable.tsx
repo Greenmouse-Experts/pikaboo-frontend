@@ -1,7 +1,6 @@
 import React, { FC, useMemo } from "react";
-import { fleetManage } from "../../../Ui/dummyRes";
 import Table from "../../../Ui/table";
-import { FormatStatus, formatStatus } from "@/shared/utils/format";
+import { formatStatus } from "@/shared/utils/format";
 import { UserData } from "@/shared/utils/types/auth";
 import dayjs from "dayjs";
 

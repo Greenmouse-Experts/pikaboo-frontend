@@ -4,10 +4,14 @@ import { MdFormatListBulletedAdd } from "react-icons/md";
 import { BsPersonFillAdd } from "react-icons/bs";
 import FleetManagerTable from "@/shared/components/admin/staff/fleet/FleetManagerTable";
 import AddFleetManagerForm from "@/shared/components/admin/staff/fleet/AddFleet";
+import { useGetUsersQuery } from "@/services/api/routineSlice";
 
 const ManageFleetManagers: AppPage = () => {
 
   const [open, setOpen] = useState<number>(1);
+  const {data, refetch, isLoading} = useGetUsersQuery("")
+
+  const fleet = data?.data?.data.filter((where:any )=> where.account_type === "Fleet Manager")
 
   const handleOpen = (value:number) => {
     setOpen(open === value ? value : value);
@@ -52,10 +56,10 @@ const ManageFleetManagers: AppPage = () => {
           </div>
           <div className="mt-5">
             {
-              open === 1? <FleetManagerTable/> : ""
+              open === 1? fleet && !!fleet.length && <FleetManagerTable data={fleet}/> : ""
             }
             {
-              open === 2? <AddFleetManagerForm/> : ""
+              open === 2? <AddFleetManagerForm refetch={refetch}/> : ""
             }
           </div>
         </div>
