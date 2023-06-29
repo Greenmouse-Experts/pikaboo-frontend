@@ -9,7 +9,7 @@ import { useGetUsersQuery } from "@/services/api/routineSlice";
 const ManageWasteManagers: AppPage = () => {
 
   const [open, setOpen] = useState<number>(1);
-  const {data, refetch, isLoading} = useGetUsersQuery("")
+  const {data, refetch, isLoading} = useGetUsersQuery("Field Operator")
 
   const field = data?.data?.data.filter((where:any )=> where.account_type === "Field Operator")
 

@@ -11,7 +11,7 @@ import WasteManagerTable from "@/shared/components/admin/staff/waste/WasteManage
 const ManageWasteManagers: AppPage = () => {
 
   const [open, setOpen] = useState<number>(1);
-  const {data, refetch, isLoading} = useGetUsersQuery("")
+  const {data, refetch, isLoading} = useGetUsersQuery("Waste Manager")
 
   const waste = data?.data?.data.filter((where:any )=> where.account_type === "Waste Manager")
 
