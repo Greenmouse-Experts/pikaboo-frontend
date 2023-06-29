@@ -98,7 +98,7 @@ const TextInput: React.FC<Props> = ({
             id={name}
             className={
               altClassName ||
-              classNames(fullWidth ? "w-full p-2" : "p-2", className)
+              classNames(fullWidth ? "w-full p-2" : "p-2 h-24", className)
             }
             name={name}
             required={required}
