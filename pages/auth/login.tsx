@@ -36,11 +36,11 @@ const FleetLogin: AppPage = () => {
             <div className="">
             <Link href='/'>
               <Image
-                src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1687359890/pikaboo/Group_17_1_bhrcis.png"
+                src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1687852832/pikaboo/Group_48062_rxv6ae.png"
                 alt=""
                 width={200}
                 height={80}
-                className="w-36 mx-auto mb-12 lg:hidden"
+                className="w-56 mx-auto mb-12 lg:hidden"
               />
               </Link>
               <div className="lg:w-10/12 mx-auto p-6 lg:p-12 bg-white">

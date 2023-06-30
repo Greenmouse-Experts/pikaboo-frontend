@@ -3,7 +3,7 @@ import { AppPage } from "@/shared/components/layouts/Types";
 import React from "react";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 
-const HomeResidents:AppPage = () => {
+const HomeResidents: AppPage = () => {
   return (
     <>
       <div>
@@ -18,13 +18,13 @@ const HomeResidents:AppPage = () => {
           </div>
         </div>
         <div className="mt-5 lg:mt-12 dash-shade p-4 lg:p-8 rounded-xl">
-        <div className='flex kitems-center gap-x-2'>
-                <MdFormatListBulletedAdd className='text-2xl text-primary'/>
-              <p className='fw-500'>Home Residents</p>
-              </div>
-              <div className='mt-5'>
-                <AllResidentTable/>
-              </div>
+          <div className="flex kitems-center gap-x-2">
+            <MdFormatListBulletedAdd className="text-2xl text-primary" />
+            <p className="fw-500">Home Residents</p>
+          </div>
+          <div className="mt-5">
+            <AllResidentTable />
+          </div>
         </div>
       </div>
     </>
@@ -32,4 +32,4 @@ const HomeResidents:AppPage = () => {
 };
 
 export default HomeResidents;
-HomeResidents.Layout = 'Dashboard'
+HomeResidents.Layout = "Dashboard";

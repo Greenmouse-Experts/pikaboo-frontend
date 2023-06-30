@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, FC } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TextInput, { InputType } from "../Ui/TextInput";
 import Button from "../Ui/Button";
-import { useLazyResetPasswordQuery } from "@/services/api/authSlice";
-import { useRouter } from "next/router";
+import {  useLazyUserChangePasswordQuery } from "@/services/api/authSlice";
 import { toast } from "react-toastify";
 import { PulseSpinner } from "../Ui/Loading";
 
-const ResetForm = () => {
+interface Props {
+    close: () => void
+}
+
+const ChangeAdminPasswordUsers:FC<Props> = ({close}) => {
   const [isBusy, setIsBusy] = useState(false);
-  const [reset] = useLazyResetPasswordQuery()
-  const router = useRouter()
+  const [change] = useLazyUserChangePasswordQuery()
   const {
     control,
     handleSubmit,
@@ -20,19 +22,19 @@ const ResetForm = () => {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      code: "",
-      password: "",
-      password_confirmation: "",
+        old_password: "",
+      new_password: "",
+      new_password_confirmation: "",
     },
   });
+
   const onSubmit = async (data:any) => {
     setIsBusy(true);
-    await reset(data)
+    await change(data)
       .then((res:any) => {
         if (res.data.success) {
           toast.success(res.data.message)
-          setIsBusy(false)
-          router.push('/auth/login')
+          close()
         }else {
           toast.error(res.data.message);
           setIsBusy(false);
@@ -45,46 +47,21 @@ const ResetForm = () => {
   };
   return (
     <div>
-      <form className="fs-600" onSubmit={handleSubmit(onSubmit)}>
-      <div>
+      <form className="fs-600" onSubmit={handleSubmit(onSubmit)} >
+        <div>
           <Controller
-            name="code"
-            control={control}
-            rules={{
-              required: {
-                value: true,
-                message: "Please your reset code",
-              },
-            }}
-            render={({ field }) => (
-              <TextInput
-                label="Reset Code"
-                error={errors.code?.message}
-                type={InputType.number}
-                {...field}
-              />
-            )}
-          />
-        </div>
-        <div className="mt-4">
-          <Controller
-            name="password"
+            name="old_password"
             control={control}
             rules={{
               required: {
                 value: true,
                 message: "Password is required",
               },
-              minLength: {
-                value: 6,
-                message: "Password is too short",
-              },
             }}
             render={({ field }) => (
               <TextInput
-                label="New Password"
-                placeholder="*********"
-                error={errors.password?.message}
+                label="Old Password"
+                error={errors.old_password?.message}
                 type={InputType.password}
                 {...field}
               />
@@ -93,24 +70,47 @@ const ResetForm = () => {
         </div>
         <div className="mt-6">
           <Controller
-            name="password_confirmation"
+            name="new_password"
             control={control}
             rules={{
               required: {
                 value: true,
-                message: "Re-enter your password",
+                message: "Password is required",
               },
-              validate: (val) => {
-                if (watch('password') != val) {
-                  return "Your passwords do no match";
-                }
+              minLength: {
+                value: 5,
+                message: "Password is too short",
               },
             }}
             render={({ field }) => (
               <TextInput
-                label="Confirm New Password"
-                placeholder="*********"
-                error={errors.password_confirmation?.message}
+                label="New Password"
+                error={errors.new_password?.message}
+                type={InputType.password}
+                {...field}
+              />
+            )}
+          />
+        </div>
+        <div className="mt-6">
+          <Controller
+            name="new_password_confirmation"
+            control={control}
+            rules={{
+                required: {
+                  value: true,
+                  message: "Please enter your password",
+                },
+                validate: (val) => {
+                  if (watch('new_password') != val) {
+                    return "Your passwords do no match";
+                  }
+                },
+              }}
+            render={({ field }) => (
+              <TextInput
+                label="Re-enter Password"
+                error={errors.new_password_confirmation?.message}
                 type={InputType.password}
                 {...field}
               />
@@ -119,7 +119,7 @@ const ResetForm = () => {
         </div>
         <div className="mt-12">
           <Button
-            title={isBusy ? <PulseSpinner size={13} color="white" /> : "Reset Password"}
+            title={isBusy ? <PulseSpinner size={13} color="white" /> : "Change Password"}
             disabled={!isValid}
           />
         </div>
@@ -128,4 +128,4 @@ const ResetForm = () => {
   );
 };
 
-export default ResetForm;
+export default ChangeAdminPasswordUsers;

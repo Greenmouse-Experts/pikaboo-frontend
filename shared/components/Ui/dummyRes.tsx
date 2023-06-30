@@ -381,3 +381,54 @@ export const payments = [
     status: "paid"
   },
 ]
+
+export const zones = [
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active"
+  },
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active"
+  },
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active"
+  },
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active"
+  },
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active"
+  },
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active"
+  }
+]

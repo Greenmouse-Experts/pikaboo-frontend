@@ -4,7 +4,7 @@ import { BaseResult, ErrorResult } from "@/shared/utils/types";
 import { apiSlice } from "../apiSlice";
 
 import * as ENDPOINT from "../constants";
-import { AdminLoginInput, AdminLoginResult, UpdatePasswordInput, UpdateProfileInput } from "@/shared/utils/types/auth";
+import { AdminLoginInput, AdminLoginResult, ResetPasswordInput, UpdatePasswordInput, UpdateProfileInput, forgetPasswordInput } from "@/shared/utils/types/auth";
 import { requestAuthorization } from "../helpers";
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -38,6 +38,17 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    userChangePassword: builder.query<AdminLoginResult | ErrorResult, UpdatePasswordInput>({
+      query: (payload) => ({
+        url: ENDPOINT.USER_CHANGE_PASSWORD,
+        body: payload ,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+    }),
+
     updateAdminProfile: builder.query<AdminLoginResult | ErrorResult, UpdateProfileInput>({
       query: (payload) => ({
         url: ENDPOINT.ADMIN_UPDATE_PROFILE,
@@ -49,9 +60,53 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    updateUserProfile: builder.query<AdminLoginResult | ErrorResult, UpdateProfileInput>({
+      query: (payload) => ({
+        url: ENDPOINT.USER_UPDATE_PROFILE,
+        body: payload ,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+    }),
+
+    forgetPassword: builder.query<BaseResult | ErrorResult, forgetPasswordInput>({
+      query: (payload) => ({
+        url: ENDPOINT.USER_FORGET_PASSWORD,
+        body: payload ,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+    }),
+
+    resetPassword: builder.query<BaseResult | ErrorResult, ResetPasswordInput>({
+      query: (payload) => ({
+        url: ENDPOINT.USER_RESET_PASSWORD,
+        body: payload ,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+    }),
+
     updateAdminPhoto: builder.query({
         query: (payload) => ({
           url: ENDPOINT.ADMIN_UPDATE_PHOTO,
+          body: payload ,
+          method: ENDPOINT.HTTP_METHODS.POST,
+          headers: {
+            Authorization: requestAuthorization(),
+          },
+        }),
+      }),
+
+      updateUserPhoto: builder.query({
+        query: (payload) => ({
+          url: ENDPOINT.USER_UPDATE_PHOTO,
           body: payload ,
           method: ENDPOINT.HTTP_METHODS.POST,
           headers: {
@@ -79,5 +134,10 @@ export const {
   useLazyLogoutQuery,
   useLazyUpdateAdminPhotoQuery,
   useLazyUpdateAdminProfileQuery,
-  useLazyUserLoginQuery
+  useLazyUserLoginQuery,
+  useLazyUpdateUserPhotoQuery,
+  useLazyUpdateUserProfileQuery,
+  useLazyUserChangePasswordQuery,
+  useLazyForgetPasswordQuery,
+  useLazyResetPasswordQuery
 } = authApiSlice;
