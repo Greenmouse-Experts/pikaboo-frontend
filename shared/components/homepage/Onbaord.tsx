@@ -6,7 +6,7 @@ const OnbaordScreen = () => {
   return (
     <>
       <div className="h-screen pt-24 lg:pt-0 lg:place-center">
-        <div className="box">
+        <div className="box relative z-10">
           <Link href='https://pikaboo-landing.vercel.app/'>
           <Image
             src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1687429795/pikaboo/Group_48061_m4vob9.png"
@@ -27,7 +27,7 @@ const OnbaordScreen = () => {
                   },
                 }}
               >
-                <div className="border border-[#009A06] shades hover:shadow-xl cusor-pointer p-6 rounded-lg">
+                <div className="border border-[#009A06] bg-white shades hover:shadow-xl cusor-pointer p-6 rounded-lg">
                   <Image
                     src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1686648026/pikaboo/Rectangle_62_hhueng.png"
                     alt=""
@@ -44,7 +44,7 @@ const OnbaordScreen = () => {
                     sort: "2",
                   },
                 }}>
-                <div className="border border-[#009A06] shades hover:shadow-xl cusor-pointer p-6 rounded-lg">
+                <div className="border border-[#009A06] bg-white shades hover:shadow-xl cusor-pointer p-6 rounded-lg">
                   <Image
                     src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1686648026/pikaboo/Rectangle_63_tbosse.png"
                     alt=""
@@ -61,7 +61,7 @@ const OnbaordScreen = () => {
                     sort: "3",
                   },
                 }}>
-                <div className="border border-[#009A06] shades hover:shadow-xl cusor-pointer p-6 rounded-lg">
+                <div className="border border-[#009A06] bg-white shades hover:shadow-xl cusor-pointer p-6 rounded-lg">
                   <Image
                     src="https://res.cloudinary.com/greenmouse-tech/image/upload/v1686648026/pikaboo/Rectangle_64_itdwt8.png"
                     alt=""
