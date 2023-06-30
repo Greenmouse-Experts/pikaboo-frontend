@@ -58,3 +58,13 @@ export interface UpdatePasswordInput {
     new_password_confirmation: string
 }
 
+export interface forgetPasswordInput{
+    email: string | string[] | undefined
+}
+
+export interface ResetPasswordInput{
+    code:number
+    password: string
+    password_confirmation: string
+}
+

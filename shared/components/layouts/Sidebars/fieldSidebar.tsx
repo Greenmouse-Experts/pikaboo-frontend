@@ -7,8 +7,8 @@ import { TfiShiftLeft } from "react-icons/tfi";
 import { FiCreditCard } from "react-icons/fi";
 import { IoHomeOutline } from 'react-icons/io5'
 import useModal from "@/hooks/useModal";
-import LogoutModal from "../../admin/dashboard/Logout";
 import { FaHouseUser } from "react-icons/fa";
+import LogoutModalUsers from "../../settings/LogoutUsers";
 
 interface Props {
     setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -73,7 +73,7 @@ const FieldSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
             Submit Complaints
           </MenuItem>
           <MenuItem
-            component={<Link href="/field/settings" />}
+            component={<Link href="/settings" />}
             icon={<BsGear className="text-xl" />}
           >
             Settings
@@ -88,7 +88,7 @@ const FieldSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
         </Menu>
       </Sidebar>
       <Modal title="" noHead>
-        <LogoutModal CloseModal={() => setShowModal(false)} />
+        <LogoutModalUsers CloseModal={() => setShowModal(false)} />
       </Modal>
     </div>
   );
