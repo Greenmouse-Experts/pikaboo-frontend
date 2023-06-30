@@ -64,3 +64,7 @@ interface FetchUser {
   };
   meta: any;
 }
+
+export interface CreateZoneInput {
+  name:string
+}

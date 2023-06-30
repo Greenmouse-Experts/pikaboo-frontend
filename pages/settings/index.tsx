@@ -59,7 +59,7 @@ const UsersSettingsPage:AppPage = () => {
         <div>
           <div className="lg:w-9/12 xl:w-8/10 rounded-lg dash-shade p-6 mx-auto">
             <div>
-              <p className="fw-600 text-xl border-b">Super Admin Settings</p>
+              <p className="fw-600 text-xl border-b">{user.user_type} Settings</p>
             </div>
             <div className="mt-6 grid lg:grid-cols-4 gap-x-6">
               <div>

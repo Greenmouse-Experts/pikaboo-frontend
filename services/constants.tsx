@@ -36,3 +36,5 @@ export enum CACHE_LIFETIME {
 
   // routine
   export const GET_USERS = '/admin/get/all/user?keyword='
+  export const GET_ZONE = '/admin/zone/get'
+  export const ADD_ZONE = '/admin/zone/create'
