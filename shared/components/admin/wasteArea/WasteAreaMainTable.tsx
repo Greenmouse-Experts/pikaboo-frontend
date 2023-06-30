@@ -58,7 +58,7 @@ const WasteAreaMainTable = () => {
         <p className="px-4 btn-like py-1" onClick={() => ShowCreateZone(true)}>Create Zone</p>
         </div>
         <div className="mt-8">
-          {zones && !!zones.data.length && (
+          {zones && !!zones?.data?.length && (
             <div className="lg:p-4">
             <Table columns={columns} data={list} />
             </div>

@@ -1,21 +1,31 @@
-import React, { useState } from "react";
+import React, { FC,useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TextInput, { InputType } from "../../Ui/TextInput";
 import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
 import "react-phone-number-input/style.css";
 import Button from "../../Ui/Button";
+import { useAppDispatch, useAppSelector } from "@/shared/redux/store";
+import { saveForm } from "@/shared/redux/reducers/onboardSlice";
+import { toast } from "react-toastify";
 
-const BasicInfoForm = () => {
+interface Props{
+  next: () => void
+}
+const BasicInfoForm:FC<Props> = ({next}) => {
+
+  const form = useAppSelector((state) => state.onboard.form)
   const [isBusy, setIsBusy] = useState(false);
+  const dispatch = useAppDispatch()
   const {
     control,
+    watch,
     handleSubmit,
     setError,
     formState: { errors, isValid },
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      owner: "",
+      title_others: "",
       title: "",
       first_name: "",
       last_name: "",
@@ -23,18 +33,36 @@ const BasicInfoForm = () => {
       email: "",
       phone: "",
       phone2: "",
-      confirm_password: "",
+      address: "",
     },
   });
 
+  const onSubmit = (data:any) => {
+    dispatch(
+      saveForm({
+        title: data.title,
+        first_name: data.first_name,
+        middle_name: data.middle_name,
+        last_name: data.last_name,
+        email: data.email,
+        phone: data.phone,
+        phone2: data.phone2,
+        address: data.address,
+      })
+    )
+    if(isValid){
+      next()
+    }
+  }
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid lg:grid-cols-4 gap-4">
           <div>
             <label className="mb-2 block mt-2">Title</label>
             <Controller
-              name="owner"
+              name="title"
               control={control}
               rules={{
                 required: {
@@ -56,16 +84,18 @@ const BasicInfoForm = () => {
                   <option value="Prof">PROF.</option>
                   <option value="Dr">DR.</option>
                   <option value="Pastor">PASTOR</option>
+                  <option value="Others">Others</option>
                 </select>
               )}
             />
           </div>
-          <Controller
-            name="title"
+          {
+            watch('title') == "Others" && <Controller
+            name="title_others"
             control={control}
             rules={{
               required: {
-                value: true,
+                value: false,
                 message: "Please enter title",
               },
             }}
@@ -73,12 +103,13 @@ const BasicInfoForm = () => {
               <TextInput
                 label="Others (title)"
                 placeholder="Smith"
-                error={errors.title?.message}
+                error={errors.title_others?.message}
                 type={InputType.text}
                 {...field}
               />
             )}
           />
+          }
         </div>
         <div className="mt-4 grid lg:grid-cols-3 gap-4">
           <Controller
@@ -93,7 +124,7 @@ const BasicInfoForm = () => {
             render={({ field }) => (
               <TextInput
                 label="First Name"
-                error={errors.title?.message}
+                error={errors.first_name?.message}
                 type={InputType.text}
                 {...field}
               />
@@ -129,7 +160,7 @@ const BasicInfoForm = () => {
             render={({ field }) => (
               <TextInput
                 label="Last Name"
-                error={errors.title?.message}
+                error={errors.first_name?.message}
                 type={InputType.text}
                 {...field}
               />
@@ -190,18 +221,18 @@ const BasicInfoForm = () => {
         </div>
         <div className="mt-4">
           <Controller
-            name="first_name"
+            name="address"
             control={control}
             rules={{
               required: {
                 value: true,
-                message: "Please enter first name",
+                message: "Please enter Address",
               },
             }}
             render={({ field }) => (
               <TextInput
                 label="Address"
-                error={errors.title?.message}
+                error={errors.address?.message}
                 type={InputType.textarea}
                 {...field}
               />
@@ -210,7 +241,7 @@ const BasicInfoForm = () => {
         </div>
         <div className="flex justify-end my-12">
             <div className="w-6/12 lg:w-3/12">
-            <Button title='Submit'/>
+              <Button title='Next' disabled={!isValid} />
             </div>
         </div>
       </form>

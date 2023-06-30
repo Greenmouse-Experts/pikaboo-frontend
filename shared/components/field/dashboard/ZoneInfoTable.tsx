@@ -1,9 +1,14 @@
-import React, { useMemo } from 'react'
+import React, {FC, useMemo } from 'react'
 import Table, { SelectColumnFilter } from '../../Ui/table';
 import { FormatStatus, formatAsNgnMoney } from '@/shared/utils/format';
-import { zones } from '../../Ui/dummyRes';
+import dayjs from 'dayjs';
+import { ZonesList } from '@/shared/utils/types';
 
-const ZoneInfoTable = () => {
+interface Props {
+  zones: ZonesList[]
+}
+const ZoneInfoTable:FC<Props> = ({zones}) => {
+  
     const columns = useMemo(
         () => [
           {
@@ -30,6 +35,7 @@ const ZoneInfoTable = () => {
           {
             Header: "Date Created",
             accessor: "created_at",
+            Cell: props => dayjs(props.value).format('DD-MMM-YYYY')
           },
           {
             Header: "Status",
@@ -44,9 +50,9 @@ const ZoneInfoTable = () => {
       const list = useMemo(() => zones, [zones]);
       return (
         <>
-          <div className="lg:p-4 w-full">
+          {zones && !!zones?.length && <div className="lg:p-4 w-full">
             <Table columns={columns} data={list} />
-          </div>
+          </div>}
         </>
       );
 }

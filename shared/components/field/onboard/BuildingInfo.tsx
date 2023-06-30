@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TextInput, { InputType } from "../../Ui/TextInput";
 import Button from "../../Ui/Button";
+import { useAppSelector } from "@/shared/redux/store";
 
 const BuildingInfoForm = () => {
+  const zone = useAppSelector((state) => state.zone.zone)
+  const form = useAppSelector((state) => state.onboard.form)
   const [isBusy, setIsBusy] = useState(false);
   const {
     control,
@@ -43,9 +46,14 @@ const BuildingInfoForm = () => {
     },
   });
 
+  const onSubmit = (data:any) => {
+    console.log({...data,...form});
+    
+  }
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid lg:grid-cols-3 gap-4">
           <Controller
             name="building_no"
@@ -245,10 +253,13 @@ const BuildingInfoForm = () => {
                   <option value="" disabled>
                     Select Option
                   </option>
-                  <option value="ugbowo-central">Ugbowo Central</option>
-                  <option value="akpapava-station">Akpapava Station</option>
-                  <option value="oluku_district">Oluku District</option>
-                  <option value="uppa-sakpomba">Uppa Sakpomba</option>
+                  {
+                    zone && zone.map((item, index) => (
+                      <option value={item.name} key={index}>
+                        {item.name}
+                      </option>
+                    ))
+                  }
                 </select>
               )}
             />

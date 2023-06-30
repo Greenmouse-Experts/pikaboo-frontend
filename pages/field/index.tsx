@@ -1,11 +1,17 @@
+import { useGetZonesQuery } from "@/services/api/routineSlice";
 import ZoneInfoTable from "@/shared/components/field/dashboard/ZoneInfoTable";
 import { AppPage } from "@/shared/components/layouts/Types";
+import { saveZone } from "@/shared/redux/reducers/zoneSlice";
+import { useAppDispatch } from "@/shared/redux/store";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { BsFillPinMapFill } from "react-icons/bs";
 
 const FieldManagerDashboard: AppPage = () => {
+  const {data:zones, isLoading, refetch} = useGetZonesQuery()
+  const dispatch = useAppDispatch()
+  if(zones){dispatch(saveZone(zones.data))}
   return (
     <>
       <div>
@@ -40,7 +46,7 @@ const FieldManagerDashboard: AppPage = () => {
             </div>
             <div className="text-center">
               <p className="lg:text-lg fw-500">Pikaboo Zones</p>
-              <p className="text-center text-4xl mt-8 fw-600">5</p>
+              <p className="text-center text-4xl mt-8 fw-600">{zones?.data?.length}</p>
             </div>
           </div>
         </div>
@@ -50,7 +56,7 @@ const FieldManagerDashboard: AppPage = () => {
             <p className="fw-500 lg:text-lg text-primary">Zone Informations</p>
           </div>
           <div>
-            <ZoneInfoTable/>
+            <ZoneInfoTable zones={zones?.data}/>
           </div>
         </div>
       </div>

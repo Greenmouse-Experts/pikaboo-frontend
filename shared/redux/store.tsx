@@ -17,10 +17,14 @@ import storage from "redux-persist/lib/storage";
 import { RESET_APP_STATE_ACTION_TYPE } from "./actions/resetState";
 import { apiSlice } from "@/services/apiSlice";
 import userReducer from "./reducers/userSlice";
+import zoneReducer from "./reducers/zoneSlice";
+import formReducer from "./reducers/onboardSlice";
 
 const reducers = {
     [apiSlice.reducerPath]: apiSlice.reducer,
-    user: userReducer
+    user: userReducer,
+    zone: zoneReducer,
+    onboard: formReducer
 }
 
 const persistConfig = {
