@@ -40,7 +40,6 @@ const OnboardingPage: AppPage = () => {
                 <li
                   className="cursor-pointer  p-2 rounded-xl px-4"
                   style={open === 2 ? activeStyle : undefined}
-                  onClick={() => handleOpen(2)}
                 >
                   <div className="flex kitems-center gap-x-2">
                     <p className="fw-500">Building Info</p>
@@ -49,7 +48,7 @@ const OnboardingPage: AppPage = () => {
               </ul>
             </div>
             <div className="mt-5">
-              {open === 1 ? <BasicInfoForm /> : ""}
+              {open === 1 ? <BasicInfoForm next={() => handleOpen(2)}/> : ""}
               {open === 2 ? <BuildingInfoForm /> : ""}
             </div>
           </div>

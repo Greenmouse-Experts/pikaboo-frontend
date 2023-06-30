@@ -64,3 +64,46 @@ interface FetchUser {
   };
   meta: any;
 }
+
+export interface CreateZoneInput {
+  name:string
+}
+
+export interface ZonesList {
+  name: string,
+  coordinates: string,
+  lga: string,
+  zone_id: string,
+  created_at: string,
+  status: string,
+  id: number
+}
+
+export interface FormInput1 {
+  title: string,
+  first_name: string,
+  middle_name: string,
+  last_name: string,
+  email: string,
+  phone: string,
+  phone2: string,
+  address: string
+}
+
+export interface CreateResidenceInput extends FormInput1{
+  plot_no: string
+  house_number: string
+  street_name: string
+  area1: string
+  area2: string
+  quarter: string
+  town: string
+  state: string
+  building_type: string
+  zone_id: string
+  facility_type: string
+  flats: string[]
+  shop_store_in: string[]
+  purpose_built_facility: string
+  building_image: file
+}
