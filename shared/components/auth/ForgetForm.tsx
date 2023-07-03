@@ -67,7 +67,7 @@ const ForgetForm = () => {
           />
         </div>
         <div className="mt-12">
-          <Button title={isBusy ? <PulseSpinner size={13} color="white" />: "Login"} disabled={!isValid} />
+          <Button title={isBusy ? <PulseSpinner size={13} color="white" />: "Continue"} disabled={!isValid} />
         </div>
       </form>
     </div>

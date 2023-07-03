@@ -1,6 +1,6 @@
 "use client";
 
-import {  UsersResult, ErrorResult, BaseResult, CreateZoneInput } from "@/shared/utils/types";
+import {  UsersResult, ErrorResult, BaseResult, CreateZoneInput, ZonesList, ZoneResult } from "@/shared/utils/types";
 import { apiSlice } from "../apiSlice";
 
 import * as ENDPOINT from "../constants";
@@ -19,7 +19,18 @@ export const authApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
 
-    getZones: builder.query< any , string | void>({
+    getMyUsers: builder.query<UsersResult , string | void>({
+      query: (query) => ({
+        url: `${ENDPOINT.GET_MY_USERS}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
+    getZones: builder.query< ZoneResult  , string | void>({
       query: (query) => ({
         url: `${ENDPOINT.GET_ZONE}`,
         method: ENDPOINT.HTTP_METHODS.GET,
@@ -48,5 +59,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
 export const {
     useGetUsersQuery,
     useLazyCreateZoneQuery,
-    useGetZonesQuery
+    useGetZonesQuery,
+    useGetMyUsersQuery
 } = authApiSlice;

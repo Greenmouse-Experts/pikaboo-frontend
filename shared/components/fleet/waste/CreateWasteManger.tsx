@@ -2,16 +2,16 @@ import React, {FC, useState} from "react";
 import TextInput, { InputType } from "@/shared/components/Ui/TextInput";
 import { Controller, useForm } from "react-hook-form";
 import Button from "@/shared/components/Ui/Button";
-import { useLazyAdminCreateWasteQuery } from "@/services/api/onboardSlice";
+import { useLazyCreateWasteQuery } from "@/services/api/onboardSlice";
 import { toast } from "react-toastify";
-import { PulseSpinner } from "@/shared/components/Ui/Loading";
+import { PulseSpinner } from "../../Ui/Loading";
 
 interface Props {
   refetch: () => void
 }
-const AddWasteManagerForm:FC<Props> = ({refetch}) => {
+const CreateWasteManagerForm:FC<Props> = ({refetch}) => {
   const [isBusy, setIsBusy] = useState<boolean>(false)
-  const [create] = useLazyAdminCreateWasteQuery()
+  const [create] = useLazyCreateWasteQuery()
   const {
     control,
     handleSubmit,
@@ -208,4 +208,4 @@ const AddWasteManagerForm:FC<Props> = ({refetch}) => {
   );
 };
 
-export default AddWasteManagerForm;
+export default CreateWasteManagerForm;

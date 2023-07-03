@@ -2,52 +2,110 @@ import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TextInput, { InputType } from "../../Ui/TextInput";
 import Button from "../../Ui/Button";
-import { useAppSelector } from "@/shared/redux/store";
+import { useAppDispatch, useAppSelector } from "@/shared/redux/store";
+import { useLazyCreateResidenceQuery } from "@/services/api/onboardSlice";
+import { toast } from "react-toastify";
+import { useGetZonesQuery } from "@/services/api/routineSlice";
+import { ZonesList } from "@/shared/utils/types";
+import { PulseSpinner } from "../../Ui/Loading";
+import { resetForm } from "@/shared/redux/reducers/onboardSlice";
 
 const BuildingInfoForm = () => {
-  const zone = useAppSelector((state) => state.zone.zone)
+  const {data:zone, isLoading} = useGetZonesQuery()
   const form = useAppSelector((state) => state.onboard.form)
+  const [facilityType, setFacilityType] = useState<string[]>([])
+  const [flatType, setFlatType] = useState<string[]>([])
+  const [shopType, setShopType] = useState<string[]>([])
+  const [image, setImage] = useState<any>()
   const [isBusy, setIsBusy] = useState(false);
+  const [create] = useLazyCreateResidenceQuery()
+  const dispatch = useAppDispatch()
+  const handleFacility = (e:any) => {
+    let facility = [...facilityType]
+   if(e.target.checked){
+    facility = [...facilityType, e.target.value]
+   }else{
+    facility.splice(facilityType.indexOf(e.target.value), 1);
+   }
+   setFacilityType(facility)
+    console.log(facilityType);
+    
+  }
+  const handleFlat = (e:any) => {
+    let flat = [...flatType]
+   if(e.target.checked){
+    flat = [...flatType, e.target.value]
+   }else{
+    flat.splice(flatType.indexOf(e.target.value), 1);
+   }
+   setFlatType(flat)
+    console.log(flatType);
+  }
+  const handleFileUpload = (e:any) => {
+    setImage(e.target.files[0])
+  }
+  const handleShop = (e:any) => {
+    let shop = [...shopType]
+   if(e.target.checked){
+    shop = [...shopType, e.target.value]
+   }else{
+    shop.splice(shopType.indexOf(e.target.value), 1);
+   }
+   setShopType(shop)
+    console.log(shopType);
+  }
   const {
     control,
     handleSubmit,
+    reset,
     setError,
     formState: { errors, isValid },
   } = useForm({
     mode: "onChange",
     defaultValues: {
       building_type: "",
-      building_no: "",
+      plot_no: "",
       house_number: "",
       street_name: "",
-      area_name: "",
-      area_name2: "",
+      area1: "",
+      area2: "",
       quarter: "",
       town: "",
-      zone: "",
-      state: "EDO STATE",
-      tenant_house: "",
-      self_con: "",
-      mini_flat: "",
-      duplex: "",
-      duplex_2: "",
-      mansion: "",
-      one_bed: "",
-      two_bed: "",
-      three_bed: "",
-      bungalow: "",
-      bungalow_2: "",
-      resident_store: "",
-      commercial_store: "",
-      market_store: "",
-      sheds_market_store: "",
-      purpose_building: "",
-      images: ""
+      zone_id: "",
+      state: "EDO",
+      purpose_built_facility: "",
+      building_image: ""
     },
   });
 
-  const onSubmit = (data:any) => {
-    console.log({...data,...form});
+  const onSubmit = async(data:any) => {
+    const payload = {
+      ...form,
+      ...data,
+      facility_type: facilityType,
+      shop_store_in: shopType,
+      flats: flatType,
+    }
+    const formData = new FormData();
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value as any);
+    });
+    formData.append("building_image", image);
+    await create(formData)
+      .then((res:any) => {
+        if (res.data.success) {
+          toast.success(res.data.message)
+          reset()
+          dispatch(resetForm())
+        }else {
+          toast.error(res.data.message);
+          setIsBusy(false);
+        }
+      })
+      .catch((err) => {
+        toast.error(err?.error?.data.message);
+        setIsBusy(false);
+      });
     
   }
 
@@ -56,7 +114,7 @@ const BuildingInfoForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid lg:grid-cols-3 gap-4">
           <Controller
-            name="building_no"
+            name="plot_no"
             control={control}
             rules={{
               required: {
@@ -67,7 +125,7 @@ const BuildingInfoForm = () => {
             render={({ field }) => (
               <TextInput
                 label="No. / Plot"
-                error={errors.building_no?.message}
+                error={errors.plot_no?.message}
                 type={InputType.text}
                 {...field}
               />
@@ -112,7 +170,7 @@ const BuildingInfoForm = () => {
         </div>
         <div className="mt-4 grid lg:grid-cols-3 gap-4">
           <Controller
-            name="area_name"
+            name="area1"
             control={control}
             rules={{
               required: {
@@ -123,14 +181,14 @@ const BuildingInfoForm = () => {
             render={({ field }) => (
               <TextInput
                 label="Area 1"
-                error={errors.area_name?.message}
+                error={errors.area1?.message}
                 type={InputType.text}
                 {...field}
               />
             )}
           />
           <Controller
-            name="area_name2"
+            name="area2"
             control={control}
             rules={{
               required: {
@@ -141,7 +199,7 @@ const BuildingInfoForm = () => {
             render={({ field }) => (
               <TextInput
                 label="Area 2"
-                error={errors.area_name2?.message}
+                error={errors.area2?.message}
                 type={InputType.text}
                 {...field}
               />
@@ -158,7 +216,7 @@ const BuildingInfoForm = () => {
             }}
             render={({ field }) => (
               <TextInput
-                label="Street Name"
+                label="Quarter"
                 error={errors.quarter?.message}
                 type={InputType.text}
                 {...field}
@@ -237,7 +295,7 @@ const BuildingInfoForm = () => {
           <div>
             <label className="mb-2 block mt-2">Zone</label>
             <Controller
-              name="building_type"
+              name="zone_id"
               control={control}
               rules={{
                 required: {
@@ -254,8 +312,8 @@ const BuildingInfoForm = () => {
                     Select Option
                   </option>
                   {
-                    zone && zone.map((item, index) => (
-                      <option value={item.name} key={index}>
+                    zone && zone.data.map((item:ZonesList) => (
+                      <option value={item.id} key={item.id}>
                         {item.name}
                       </option>
                     ))
@@ -270,7 +328,7 @@ const BuildingInfoForm = () => {
           <div className="grid md:grid-cols-3">
             <div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="tenant_house"
                   control={control}
                   render={({ field }) => (
@@ -283,10 +341,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="Tenant House"
+                      name="facility"
+                      id="facility"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleFacility(e)}
+                      value="Tenant House"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="self_con"
                   control={control}
                   render={({ field }) => (
@@ -299,10 +368,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="One Room Self-contained"
+                      name="facility"
+                      id="facility"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleFacility(e)}
+                      value="One Room Self-contained"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="mini_flat"
                   control={control}
                   render={({ field }) => (
@@ -315,10 +395,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="A Mini Flat"
+                      name="facility"
+                      id="facility"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleFacility(e)}
+                      value="A Mini Flat"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="duplex"
                   control={control}
                   render={({ field }) => (
@@ -331,10 +422,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="Duplex"
+                      name="facility"
+                      id="facility"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleFacility(e)}
+                      value="Duplex"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="duplex_2"
                   control={control}
                   render={({ field }) => (
@@ -347,10 +449,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="Duplex with Boys Quarter"
+                      name="facility"
+                      id="facility"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleFacility(e)}
+                      value="Duplex with Boys Quarter"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="mansion"
                   control={control}
                   render={({ field }) => (
@@ -363,13 +476,24 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="Mansion"
+                      name="facility"
+                      id="facility"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleFacility(e)}
+                      value="Mansion"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
             </div>
             <div>
             <p className='fw-500'>Flats:</p>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="one_bed"
                   control={control}
                   render={({ field }) => (
@@ -382,10 +506,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="1-Bedroom"
+                      name="flat"
+                      id="flat"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleFlat(e)}
+                      value="1-Bedroom"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="two_bed"
                   control={control}
                   render={({ field }) => (
@@ -398,10 +533,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="2-Bedroom"
+                      name="flat"
+                      id="flat"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleFlat(e)}
+                      value="2-Bedroom"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="three_bed"
                   control={control}
                   render={({ field }) => (
@@ -414,10 +560,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="3-Bedroom"
+                      name="flat"
+                      id="flat"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleFlat(e)}
+                      value="3-Bedroom"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="bungalow"
                   control={control}
                   render={({ field }) => (
@@ -430,10 +587,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="Bungalow"
+                      name="flat"
+                      id="flat"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleFlat(e)}
+                      value="Bungalow"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="bungalow_2"
                   control={control}
                   render={({ field }) => (
@@ -446,13 +614,24 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="Bungalow with Boys Quarter"
+                      name="flat"
+                      id="flat"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleFlat(e)}
+                      value="Bungalow with Boys Quarter"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
             </div>
             <div>
                 <p className='fw-500'>Shops / Stores In:</p>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="resident_store"
                   control={control}
                   render={({ field }) => (
@@ -465,10 +644,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="Residential Areas"
+                      name="shop"
+                      id="shop"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleShop(e)}
+                      value="Residential Areas"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="commercial_store"
                   control={control}
                   render={({ field }) => (
@@ -481,10 +671,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                 <TextInput
+                      label="Commercial Areas"
+                      name="shop"
+                      id="shop"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleShop(e)}
+                      value="Commercial Areas"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="market_store"
                   control={control}
                   render={({ field }) => (
@@ -497,10 +698,21 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="Market Areas"
+                      name="shop"
+                      id="shop"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleShop(e)}
+                      value="Market Areas"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
               <div className="relative">
-                <Controller
+                {/* <Controller
                   name="sheds_market_store"
                   control={control}
                   render={({ field }) => (
@@ -513,7 +725,18 @@ const BuildingInfoForm = () => {
                       {...field}
                     />
                   )}
-                />
+                /> */}
+                <TextInput
+                      label="Sheds within the market"
+                      name="shop"
+                      id="shop"
+                      error={errors.town?.message}
+                      type={InputType.checkbox}
+                      onChange={(e:any) => handleShop(e)}
+                      value="Sheds within the market"
+                      altClassName="block mt-2"
+                      labelClassName="absolute left-6 top-0"
+                    />
               </div>
             </div>
           </div>
@@ -522,7 +745,7 @@ const BuildingInfoForm = () => {
         <div>
             <label className="mb-2 block mt-2">Purpose-built Facility</label>
             <Controller
-              name="purpose_building"
+              name="purpose_built_facility"
               control={control}
               rules={{
                 required: {
@@ -550,9 +773,9 @@ const BuildingInfoForm = () => {
             />
           </div>
           <div>
-            <label className="mt-3 block">Building Images</label>
-          <Controller
-            name="images"
+            <label className="mt-3 block">Building building_Image</label>
+          {/* <Controller
+            name="building_image"
             control={control}
             rules={{
               required: {
@@ -564,12 +787,13 @@ const BuildingInfoForm = () => {
               <input type="file" multiple {...field} className="mt-[2px] border-gray-400 w-full border p-2 rounded"/>
             )}
           />
-          {errors.images?.message}
+          {errors.building_image?.message} */}
+          <input type="file" multiple className="mt-[2px] border-gray-400 w-full border p-2 rounded" onChange={(e:any) => handleFileUpload(e)}/>
           </div>
         </div>
         <div className="flex justify-end my-12">
           <div className="w-6/12 lg:w-3/12">
-            <Button title="Submit" />
+          <Button title={isBusy ? <PulseSpinner size={13} color="white" />: "Submit"} disabled={!isValid} />
           </div>
         </div>
       </form>

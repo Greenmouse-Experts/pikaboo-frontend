@@ -1,6 +1,6 @@
 "use client";
 
-import { BaseResult, CreateFleetInput, ErrorResult } from "@/shared/utils/types";
+import { BaseResult, CreateFleetInput, CreateResidenceInput, ErrorResult } from "@/shared/utils/types";
 import { apiSlice } from "../apiSlice";
 
 import * as ENDPOINT from "../constants";
@@ -21,6 +21,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
+    
     createFleet: builder.query<AdminLoginResult | ErrorResult, CreateFleetInput>({
       query: (payload) => ({
         url: `${ENDPOINT.CREATE_FLEET}`,
@@ -33,7 +34,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
-    createWaste: builder.query<AdminLoginResult | ErrorResult, CreateFleetInput>({
+    adminCreateWaste: builder.query<AdminLoginResult | ErrorResult, CreateFleetInput>({
       query: (payload) => ({
         url: `${ENDPOINT.CREATE_WASTE}`,
         method: ENDPOINT.HTTP_METHODS.POST,
@@ -45,9 +46,21 @@ export const authApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
-    createResidence: builder.query<AdminLoginResult | ErrorResult, CreateFleetInput>({
+    createWaste: builder.query<AdminLoginResult | ErrorResult, CreateFleetInput>({
       query: (payload) => ({
-        url: `${ENDPOINT.CREATE_WASTE}`,
+        url: `${ENDPOINT.FLEET_CREATE_WASTE}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    createResidence: builder.query<BaseResult | ErrorResult, FormData>({
+      query: (payload) => ({
+        url: `${ENDPOINT.ONBOARD_RESISDENCE}`,
         method: ENDPOINT.HTTP_METHODS.POST,
         headers: {
           Authorization: requestAuthorization(),
@@ -63,5 +76,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
 export const {
   useLazyCreateFleetQuery,
   useLazyCreateFieldQuery,
-  useLazyCreateWasteQuery
+  useLazyCreateWasteQuery,
+  useLazyAdminCreateWasteQuery,
+  useLazyCreateResidenceQuery
 } = authApiSlice;

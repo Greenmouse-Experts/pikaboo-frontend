@@ -32,10 +32,12 @@ export enum CACHE_LIFETIME {
   // onboarding
   export const CREATE_FIELD = '/admin/field-operator/create'
   export const CREATE_FLEET = '/admin/fleet-manager/create'
-  export const CREATE_WASTE = '/fleet-manager/waste-manager/create'
+  export const CREATE_WASTE = '/admin/waste-manager/create'
+  export const FLEET_CREATE_WASTE = '/fleet-manager/waste-manager/create'
 
   // routine
   export const GET_USERS = '/admin/get/all/user?keyword='
+  export const GET_MY_USERS = 'user/get/all/users'
   export const GET_ZONE = '/zone/get'
   export const ADD_ZONE = '/admin/zone/create'
 

@@ -1,11 +1,12 @@
 import React, { useMemo } from "react";
 import Table, { SelectColumnFilter } from "../../Ui/table";
-import {formatStatus } from "@/shared/utils/format";
+import { formatStatus } from "@/shared/utils/format";
 import Link from "next/link";
-import { useGetUsersQuery } from "@/services/api/routineSlice";
+import { useGetMyUsersQuery } from "@/services/api/routineSlice";
 
-const AllResidentTable = () => {
-  const {data,  isLoading} = useGetUsersQuery("Home Residence")
+const MyResidentTable = () => {
+
+    const {data, isLoading} = useGetMyUsersQuery()
   const columns = useMemo(
     () => [
       {
@@ -53,11 +54,11 @@ const AllResidentTable = () => {
     []
   );
 
-  const list = useMemo(() => data?.data.data, [data]);
+  const list = useMemo(() => data?.data, [data]);
   return (
     <>
       {
-        data && !!data?.data.data.length && <div className="lg:p-4 w-full">
+        data && !!data.data && <div className="lg:p-4 w-full">
         <Table columns={columns} data={list} />
       </div>
       }
@@ -65,4 +66,4 @@ const AllResidentTable = () => {
   );
 };
 
-export default AllResidentTable;
+export default MyResidentTable;
