@@ -28,10 +28,10 @@ const FieldManagerDashboard: AppPage = () => {
               />
             </div>
             <div className="text-center">
-              <p className="lg:text-lg fw-500">Onboarded Residence</p>
+              <p className="lg:text-lg fw-500">Registered Residence</p>
               <p className="text-center text-4xl mt-8 fw-600">{register?.data.length}</p>
               <div className="mt-6">
-              <Link href='/field/onboard' className="btn-like">Onboard</Link>
+              <Link href='/field/onboard' className="btn-like">Register</Link>
               </div>
             </div>
           </div>

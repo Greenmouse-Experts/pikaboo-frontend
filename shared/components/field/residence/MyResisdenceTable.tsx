@@ -40,7 +40,7 @@ const MyResidentTable = () => {
       },
       {
         Header: "Zone",
-        accessor: "zone",
+        accessor: "zone.name",
         Filter: SelectColumnFilter,
         filter: "includes",
       },
