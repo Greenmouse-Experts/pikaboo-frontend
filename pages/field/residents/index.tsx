@@ -1,9 +1,10 @@
-import AllResidentTable from "@/shared/components/admin/residents/AllResisdentsTable";
-import { AppPage } from "@/shared/components/layouts/Types";
 import React from "react";
+import { AppPage } from "@/shared/components/layouts/Types";
+import MyResidentTable from "@/shared/components/field/residence/MyResisdenceTable";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 
 const ResidentsPage: AppPage = () => {
+  
   return (
     <>
       <div>
@@ -21,7 +22,7 @@ const ResidentsPage: AppPage = () => {
             <p className="fw-500">Home Residents</p>
           </div>
           <div className="mt-5">
-            <AllResidentTable />
+            <MyResidentTable/>
           </div>
         </div>
       </div>

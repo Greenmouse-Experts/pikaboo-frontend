@@ -51,7 +51,7 @@ export interface UserResult {
 export interface UsersResult {
   success: boolean;
   message: string;
-  data: FetchUser;
+  data: FetchUser | any;
 }
 
 interface FetchUser {
@@ -67,6 +67,10 @@ interface FetchUser {
 
 export interface CreateZoneInput {
   name:string
+}
+
+export interface ZoneResult extends BaseResult{
+  data: ZonesList[] | any
 }
 
 export interface ZonesList {
@@ -105,5 +109,5 @@ export interface CreateResidenceInput extends FormInput1{
   flats: string[]
   shop_store_in: string[]
   purpose_built_facility: string
-  building_image: file
+  building_image: File
 }

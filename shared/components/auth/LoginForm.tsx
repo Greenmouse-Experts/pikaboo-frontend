@@ -51,7 +51,13 @@ const LoginForm = () => {
           }))
           storeLocalToken("token", res.data.token) 
           toast.success(res.data.message)
-          router.push('/field');
+          if(res.data.data.account_type === "Fleet Manager"){
+            router.push('/fleet')
+          }else if(res.data.data.account_type === "Waste Manager"){
+            router.push('/waste')
+          }else if(res.data.data.account_type === "Field Operator"){
+            router.push('/field')
+          }else{}
         }else {
           toast.error(res.data.message);
           setIsBusy(false);

@@ -1,14 +1,15 @@
-import { useGetZonesQuery } from "@/services/api/routineSlice";
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useGetMyUsersQuery, useGetZonesQuery } from "@/services/api/routineSlice";
 import ZoneInfoTable from "@/shared/components/field/dashboard/ZoneInfoTable";
 import { AppPage } from "@/shared/components/layouts/Types";
 import { saveZone } from "@/shared/redux/reducers/zoneSlice";
 import { useAppDispatch } from "@/shared/redux/store";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
 import { BsFillPinMapFill } from "react-icons/bs";
 
 const FieldManagerDashboard: AppPage = () => {
+  const {data: register, isLoading: loading} = useGetMyUsersQuery()
   const {data:zones, isLoading, refetch} = useGetZonesQuery()
   const dispatch = useAppDispatch()
   if(zones){dispatch(saveZone(zones.data))}
@@ -28,7 +29,7 @@ const FieldManagerDashboard: AppPage = () => {
             </div>
             <div className="text-center">
               <p className="lg:text-lg fw-500">Onboarded Residence</p>
-              <p className="text-center text-4xl mt-8 fw-600">0</p>
+              <p className="text-center text-4xl mt-8 fw-600">{register?.data.length}</p>
               <div className="mt-6">
               <Link href='/field/onboard' className="btn-like">Onboard</Link>
               </div>

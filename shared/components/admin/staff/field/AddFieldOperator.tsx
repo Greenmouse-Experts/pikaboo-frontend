@@ -201,7 +201,7 @@ const AddFieldOperatorForm:FC<Props> = ({refetch}) => {
         </div>
         <div className="flex justify-end">
           <div className="mt-8 lg:mt-16 lg:w-5/12">
-            <Button title={isBusy? <PulseSpinner size={13} color='white'/> : "Create Fleet Manager"} disabled={!isValid} />
+            <Button title={isBusy? <PulseSpinner size={13} color='white'/> : "Create Field Operator"} disabled={!isValid} />
           </div>
         </div>
       </form>

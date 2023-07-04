@@ -2,16 +2,14 @@ import React, {useState} from "react";
 import { AppPage } from "@/shared/components/layouts/Types";
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { BsPersonFillAdd } from "react-icons/bs";
-import AddWasteManagerForm from "@/shared/components/admin/staff/waste/AddWasteManager";
-import { useGetUsersQuery } from "@/services/api/routineSlice";
+import { useGetMyUsersQuery } from "@/services/api/routineSlice";
 import WasteManagerTable from "@/shared/components/admin/staff/waste/WasteManagerTable";
+import CreateWasteManagerForm from "@/shared/components/fleet/waste/CreateWasteManger";
 
 const ManageWasteManagers: AppPage = () => {
 
   const [open, setOpen] = useState<number>(1);
-  const {data, refetch, isLoading} = useGetUsersQuery("Waste Manager")
-
-  const waste = data?.data?.data.filter((where:any )=> where.account_type === "Waste Manager")
+  const {data, refetch, isLoading} = useGetMyUsersQuery()
 
   const handleOpen = (value:number) => {
     setOpen(open === value ? value : value);
@@ -56,10 +54,10 @@ const ManageWasteManagers: AppPage = () => {
           </div>
           <div className="mt-5">
             {
-              open === 1? waste && !!waste.length && <WasteManagerTable data={waste}/> : ""
+              open === 1? data && !!data?.data.length && <WasteManagerTable data={data?.data} /> : ""
             }
             {
-              open === 2? <AddWasteManagerForm refetch={refetch}/> : ""
+              open === 2? <CreateWasteManagerForm refetch={refetch}/> : ""
             }
           </div>
         </div>

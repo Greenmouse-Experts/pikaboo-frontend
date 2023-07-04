@@ -1,4 +1,4 @@
-import React, { FC,useState } from "react";
+import React, { FC, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TextInput, { InputType } from "../../Ui/TextInput";
 import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
@@ -8,14 +8,13 @@ import { useAppDispatch, useAppSelector } from "@/shared/redux/store";
 import { saveForm } from "@/shared/redux/reducers/onboardSlice";
 import { toast } from "react-toastify";
 
-interface Props{
-  next: () => void
+interface Props {
+  next: () => void;
 }
-const BasicInfoForm:FC<Props> = ({next}) => {
-
-  const form = useAppSelector((state) => state.onboard.form)
+const BasicInfoForm: FC<Props> = ({ next }) => {
+  const form = useAppSelector((state) => state.onboard.form);
   const [isBusy, setIsBusy] = useState(false);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const {
     control,
     watch,
@@ -25,19 +24,19 @@ const BasicInfoForm:FC<Props> = ({next}) => {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      title_others: "",
-      title: "",
-      first_name: "",
-      last_name: "",
-      middle_name: "",
-      email: "",
-      phone: "",
-      phone2: "",
-      address: "",
+      title_others: form.title || "",
+      title: form.title || "",
+      first_name: form.first_name || "",
+      last_name: form.last_name || "",
+      middle_name: form.middle_name || "",
+      email: form.email || "",
+      phone: form.phone || "",
+      phone2: form.phone2 || "",
+      address: form.address || "",
     },
   });
 
-  const onSubmit = (data:any) => {
+  const onSubmit = (data: any) => {
     dispatch(
       saveForm({
         title: data.title,
@@ -49,11 +48,11 @@ const BasicInfoForm:FC<Props> = ({next}) => {
         phone2: data.phone2,
         address: data.address,
       })
-    )
-    if(isValid){
-      next()
+    );
+    if (isValid) {
+      next();
     }
-  }
+  };
 
   return (
     <>
@@ -89,27 +88,27 @@ const BasicInfoForm:FC<Props> = ({next}) => {
               )}
             />
           </div>
-          {
-            watch('title') == "Others" && <Controller
-            name="title_others"
-            control={control}
-            rules={{
-              required: {
-                value: false,
-                message: "Please enter title",
-              },
-            }}
-            render={({ field }) => (
-              <TextInput
-                label="Others (title)"
-                placeholder="Smith"
-                error={errors.title_others?.message}
-                type={InputType.text}
-                {...field}
-              />
-            )}
-          />
-          }
+          {watch("title") == "Others" && (
+            <Controller
+              name="title_others"
+              control={control}
+              rules={{
+                required: {
+                  value: false,
+                  message: "Please enter title",
+                },
+              }}
+              render={({ field }) => (
+                <TextInput
+                  label="Others (title)"
+                  placeholder="Smith"
+                  error={errors.title_others?.message}
+                  type={InputType.text}
+                  {...field}
+                />
+              )}
+            />
+          )}
         </div>
         <div className="mt-4 grid lg:grid-cols-3 gap-4">
           <Controller
@@ -168,7 +167,7 @@ const BasicInfoForm:FC<Props> = ({next}) => {
           />
         </div>
         <div className="mt-4 grid lg:grid-cols-3 gap-4">
-        <Controller
+          <Controller
             name="email"
             control={control}
             rules={{
@@ -187,15 +186,19 @@ const BasicInfoForm:FC<Props> = ({next}) => {
             )}
           />
           <div className="">
-            <label className="mb-2 mt-2 block ">
-              Phone Number
-            </label>
+            <label className="mb-2 mt-2 block ">Phone Number</label>
             <PhoneInputWithCountry
               international
               defaultCountry="NG"
               name="phone"
               control={control}
-              rules={{ required: true }}
+              rules={{
+                required: true,
+                pattern: {
+                  value: /^(\+?234|0)?[789]\d{9}$/,
+                  message: "Please Enter A Valid Number",
+                },
+              }}
               className="border lg:p-2 p-2 border-gray-400 rounded outline-none"
             />
             {errors.phone && (
@@ -203,18 +206,22 @@ const BasicInfoForm:FC<Props> = ({next}) => {
             )}
           </div>
           <div className="">
-            <label className="mb-2 mt-2 block">
-              Phone Number (Alternate)
-            </label>
+            <label className="mb-2 mt-2 block">Phone Number (Alternate)</label>
             <PhoneInputWithCountry
               international
               defaultCountry="NG"
               name="phone2"
               control={control}
-              rules={{ required: true }}
+              rules={{
+                required: true,
+                pattern: {
+                  value: /^(\+?234|0)?[789]\d{9}$/,
+                  message: "Please Enter A Valid Number",
+                },
+              }}
               className="border lg:p-2 p-2 border-gray-400 rounded outline-none"
             />
-            {errors.phone && (
+            {errors.phone2 && (
               <p className="error text-red-500 fw-500">Invalid Phone Number</p>
             )}
           </div>
@@ -240,9 +247,9 @@ const BasicInfoForm:FC<Props> = ({next}) => {
           />
         </div>
         <div className="flex justify-end my-12">
-            <div className="w-6/12 lg:w-3/12">
-              <Button title='Next' disabled={!isValid} />
-            </div>
+          <div className="w-6/12 lg:w-3/12">
+            <Button title="Next" disabled={!isValid} />
+          </div>
         </div>
       </form>
     </>
