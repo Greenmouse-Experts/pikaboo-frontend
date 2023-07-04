@@ -13,6 +13,7 @@ const initialState = {
     phone: "",
     phone2: "",
     address: "",
+    gender: "",
   } as FormInput1,
 };
 

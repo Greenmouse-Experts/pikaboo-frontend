@@ -79,6 +79,7 @@ const BuildingInfoForm = () => {
   });
 
   const onSubmit = async(data:any) => {
+    setIsBusy(true)
     const payload = {
       ...form,
       ...data,
@@ -97,6 +98,7 @@ const BuildingInfoForm = () => {
           toast.success(res.data.message)
           reset()
           dispatch(resetForm())
+          setIsBusy(false);
         }else {
           toast.error(res.data.message);
           setIsBusy(false);
@@ -106,7 +108,6 @@ const BuildingInfoForm = () => {
         toast.error(err?.error?.data.message);
         setIsBusy(false);
       });
-    
   }
 
   return (

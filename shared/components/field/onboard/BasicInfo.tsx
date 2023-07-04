@@ -13,7 +13,6 @@ interface Props {
 }
 const BasicInfoForm: FC<Props> = ({ next }) => {
   const form = useAppSelector((state) => state.onboard.form);
-  const [isBusy, setIsBusy] = useState(false);
   const dispatch = useAppDispatch();
   const {
     control,
@@ -33,6 +32,7 @@ const BasicInfoForm: FC<Props> = ({ next }) => {
       phone: form.phone || "",
       phone2: form.phone2 || "",
       address: form.address || "",
+      gender: form.gender || "",
     },
   });
 
@@ -47,6 +47,7 @@ const BasicInfoForm: FC<Props> = ({ next }) => {
         phone: data.phone,
         phone2: data.phone2,
         address: data.address,
+        gender: data.gender
       })
     );
     if (isValid) {
@@ -109,6 +110,33 @@ const BasicInfoForm: FC<Props> = ({ next }) => {
               )}
             />
           )}
+          <div>
+            <label className="mb-2 block mt-2">Gender</label>
+            <Controller
+              name="gender"
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Please select an option",
+                },
+              }}
+              render={({ field }) => (
+                <select
+                  {...field}
+                  className="w-full border border-gray-400 rounded h-[42px]"
+                >
+                  <option value="" disabled>
+                    Select Option
+                  </option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Others">Others</option>
+                </select>
+              )}
+            />
+            {errors?.gender?.message}
+          </div>
         </div>
         <div className="mt-4 grid lg:grid-cols-3 gap-4">
           <Controller
