@@ -46,6 +46,10 @@ export interface UserResult {
   type_of_building: string | null;
   unit_of_operation: string | null;
   wallet: string | null;
+  zone: {
+    zone_id: string
+    name: string
+  }
 }
 
 export interface UsersResult {

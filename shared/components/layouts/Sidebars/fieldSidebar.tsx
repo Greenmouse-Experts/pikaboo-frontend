@@ -58,7 +58,7 @@ const FieldSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
             component={<Link href="/field/onboard" />}
             icon={<FaHouseUser className="text-lg" />}
           >
-            Onboarding
+            Register Home
           </MenuItem>
           <MenuItem
             component={<Link href="/field/residents" />}
