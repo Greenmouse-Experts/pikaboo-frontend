@@ -60,7 +60,7 @@ const FleetSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
             Waste Managers
           </MenuItem>
           <MenuItem
-            component={<Link href="/fleet/residents" />}
+            component={<Link href="/fleet/cleanups" />}
             icon={<RiDeleteBinLine className="text-lg" />}
           >
             Cleanups

@@ -119,79 +119,79 @@ export const residentData = [
 ];
 
 export const fleetManage = [
-    {
-        firstName: "Boms",
-        lastName: "Drake",
-        email: "drake@gmail.com",
-        gender: "male",
-        phoneNumber: "+2348012345678",
-        status: "active",
-        date: "22-May-2023"
-    },
-    {
-        firstName: "Boms",
-        lastName: "Drake",
-        email: "drake@gmail.com",
-        gender: "male",
-        phoneNumber: "+2348012345678",
-        status: "active",
-        date: "22-May-2023"
-    },
-    {
-        firstName: "Boms",
-        lastName: "Drake",
-        email: "drake@gmail.com",
-        gender: "male",
-        phoneNumber: "+2348012345678",
-        status: "active",
-        date: "22-May-2023"
-    },
-    {
-        firstName: "Boms",
-        lastName: "Drake",
-        email: "drake@gmail.com",
-        gender: "male",
-        phoneNumber: "+2348012345678",
-        status: "active",
-        date: "22-May-2023"
-    },
-    {
-        firstName: "Boms",
-        lastName: "Drake",
-        email: "drake@gmail.com",
-        gender: "male",
-        phoneNumber: "+2348012345678",
-        status: "active",
-        date: "22-May-2023"
-    },
-    {
-        firstName: "Boms",
-        lastName: "Drake",
-        email: "drake@gmail.com",
-        gender: "male",
-        phoneNumber: "+2348012345678",
-        status: "active",
-        date: "22-May-2023"
-    },
-    {
-        firstName: "Boms",
-        lastName: "Drake",
-        email: "drake@gmail.com",
-        gender: "male",
-        phoneNumber: "+2348012345678",
-        status: "active",
-        date: "22-May-2023"
-    },
-    {
-        firstName: "Boms",
-        lastName: "Drake",
-        email: "drake@gmail.com",
-        gender: "male",
-        phoneNumber: "+2348012345678",
-        status: "active",
-        date: "22-May-2023"
-    },
-]
+  {
+    firstName: "Boms",
+    lastName: "Drake",
+    email: "drake@gmail.com",
+    gender: "male",
+    phoneNumber: "+2348012345678",
+    status: "active",
+    date: "22-May-2023",
+  },
+  {
+    firstName: "Boms",
+    lastName: "Drake",
+    email: "drake@gmail.com",
+    gender: "male",
+    phoneNumber: "+2348012345678",
+    status: "active",
+    date: "22-May-2023",
+  },
+  {
+    firstName: "Boms",
+    lastName: "Drake",
+    email: "drake@gmail.com",
+    gender: "male",
+    phoneNumber: "+2348012345678",
+    status: "active",
+    date: "22-May-2023",
+  },
+  {
+    firstName: "Boms",
+    lastName: "Drake",
+    email: "drake@gmail.com",
+    gender: "male",
+    phoneNumber: "+2348012345678",
+    status: "active",
+    date: "22-May-2023",
+  },
+  {
+    firstName: "Boms",
+    lastName: "Drake",
+    email: "drake@gmail.com",
+    gender: "male",
+    phoneNumber: "+2348012345678",
+    status: "active",
+    date: "22-May-2023",
+  },
+  {
+    firstName: "Boms",
+    lastName: "Drake",
+    email: "drake@gmail.com",
+    gender: "male",
+    phoneNumber: "+2348012345678",
+    status: "active",
+    date: "22-May-2023",
+  },
+  {
+    firstName: "Boms",
+    lastName: "Drake",
+    email: "drake@gmail.com",
+    gender: "male",
+    phoneNumber: "+2348012345678",
+    status: "active",
+    date: "22-May-2023",
+  },
+  {
+    firstName: "Boms",
+    lastName: "Drake",
+    email: "drake@gmail.com",
+    gender: "male",
+    phoneNumber: "+2348012345678",
+    status: "active",
+    date: "22-May-2023",
+  },
+];
 
 export const specialData = [
   {
@@ -209,7 +209,7 @@ export const specialData = [
     no_of_bin: "4",
     date_required: "20-July-2023",
     amount: "5000",
-    request_status: "pending"
+    request_status: "pending",
   },
   {
     residence_id: "PBR-27294399",
@@ -226,7 +226,7 @@ export const specialData = [
     no_of_bin: "2",
     date_required: "17-July-2023",
     amount: "3000",
-    request_status: "accepted"
+    request_status: "accepted",
   },
   {
     residence_id: "PBR-94708399",
@@ -243,7 +243,7 @@ export const specialData = [
     no_of_bin: "1",
     date_required: "17-July-2023",
     amount: "1500",
-    request_status: "accepted"
+    request_status: "accepted",
   },
   {
     residence_id: "PBR-28293992",
@@ -260,7 +260,7 @@ export const specialData = [
     no_of_bin: "4",
     date_required: "20-July-2023",
     amount: "5000",
-    request_status: "pending"
+    request_status: "pending",
   },
   {
     residence_id: "PBR-27294399",
@@ -277,7 +277,7 @@ export const specialData = [
     no_of_bin: "4",
     date_required: "20-July-2023",
     amount: "5000",
-    request_status: "pending"
+    request_status: "pending",
   },
   {
     residence_id: "PBR-94708399",
@@ -294,7 +294,7 @@ export const specialData = [
     no_of_bin: "4",
     date_required: "20-July-2023",
     amount: "5000",
-    request_status: "cleared"
+    request_status: "cleared",
   },
 ];
 
@@ -306,7 +306,7 @@ export const payments = [
     reference: "TRX-7484949403",
     amount: "32200",
     user_id: "902340092002020",
-    status: "paid"
+    status: "paid",
   },
   {
     id: "TRX-7484949403",
@@ -315,7 +315,7 @@ export const payments = [
     reference: "TRX-7484949403",
     amount: "32200",
     user_id: "902340092002020",
-    status: "paid"
+    status: "paid",
   },
   {
     id: "TRX-7484949403",
@@ -324,7 +324,7 @@ export const payments = [
     reference: "TRX-7484949403",
     amount: "32200",
     user_id: "902340092002020",
-    status: "paid"
+    status: "paid",
   },
   {
     id: "TRX-7484949403",
@@ -333,7 +333,7 @@ export const payments = [
     reference: "TRX-7484949403",
     amount: "32200",
     user_id: "902340092002020",
-    status: "paid"
+    status: "paid",
   },
   {
     id: "TRX-7484949403",
@@ -342,7 +342,7 @@ export const payments = [
     reference: "TRX-7484949403",
     amount: "32200",
     user_id: "902340092002020",
-    status: "paid"
+    status: "paid",
   },
   {
     id: "TRX-7484949403",
@@ -351,7 +351,7 @@ export const payments = [
     reference: "TRX-7484949403",
     amount: "32200",
     user_id: "902340092002020",
-    status: "paid"
+    status: "paid",
   },
   {
     id: "TRX-7484949403",
@@ -360,7 +360,7 @@ export const payments = [
     reference: "TRX-7484949403",
     amount: "32200",
     user_id: "902340092002020",
-    status: "paid"
+    status: "paid",
   },
   {
     id: "TRX-7484949403",
@@ -369,7 +369,7 @@ export const payments = [
     reference: "TRX-7484949403",
     amount: "32200",
     user_id: "902340092002020",
-    status: "paid"
+    status: "paid",
   },
   {
     id: "TRX-7484949403",
@@ -378,9 +378,9 @@ export const payments = [
     reference: "TRX-7484949403",
     amount: "32200",
     user_id: "902340092002020",
-    status: "paid"
+    status: "paid",
   },
-]
+];
 
 export const zones = [
   {
@@ -389,7 +389,7 @@ export const zones = [
     coordinates: "1550lat, 23899lon",
     no_of_residence: 49,
     created_at: "20-jun-2023",
-    status: "active"
+    status: "active",
   },
   {
     zone_id: "PKB-ZN-5678999",
@@ -397,7 +397,7 @@ export const zones = [
     coordinates: "1550lat, 23899lon",
     no_of_residence: 49,
     created_at: "20-jun-2023",
-    status: "active"
+    status: "active",
   },
   {
     zone_id: "PKB-ZN-5678999",
@@ -405,7 +405,7 @@ export const zones = [
     coordinates: "1550lat, 23899lon",
     no_of_residence: 49,
     created_at: "20-jun-2023",
-    status: "active"
+    status: "active",
   },
   {
     zone_id: "PKB-ZN-5678999",
@@ -413,7 +413,7 @@ export const zones = [
     coordinates: "1550lat, 23899lon",
     no_of_residence: 49,
     created_at: "20-jun-2023",
-    status: "active"
+    status: "active",
   },
   {
     zone_id: "PKB-ZN-5678999",
@@ -421,7 +421,7 @@ export const zones = [
     coordinates: "1550lat, 23899lon",
     no_of_residence: 49,
     created_at: "20-jun-2023",
-    status: "active"
+    status: "active",
   },
   {
     zone_id: "PKB-ZN-5678999",
@@ -429,6 +429,174 @@ export const zones = [
     coordinates: "1550lat, 23899lon",
     no_of_residence: 49,
     created_at: "20-jun-2023",
-    status: "active"
-  }
-]
+    status: "active",
+  },
+];
+
+export const cleanup = [
+  {
+    created_at: "11-jun-2023",
+    scheduled_at: "12-jun-2023",
+    assigned_trucks: "12",
+    cleaned_house: "8",
+    total_resisdence: "12",
+    status: "ongoing",
+    zone_name: "Wasota Development"
+  },
+  {
+    created_at: "11-jun-2023",
+    scheduled_at: "12-jun-2023",
+    assigned_trucks: "12",
+    cleaned_house: "8",
+    total_resisdence: "12",
+    status: "pending",
+    zone_name: "Akpapava Station"
+  },
+  {
+    created_at: "11-jun-2023",
+    scheduled_at: "12-jun-2023",
+    assigned_trucks: "12",
+    cleaned_house: "8",
+    total_resisdence: "12",
+    status: "ongoing",
+    zone_name: "New Benin"
+  },
+  {
+    created_at: "9-jun-2023",
+    scheduled_at: "10-jun-2023",
+    assigned_trucks: "9",
+    cleaned_house: "18",
+    total_resisdence: "18",
+    status: "completed",
+    zone_name: "Oluku Main"
+  },
+  {
+    created_at: "9-jun-2023",
+    scheduled_at: "10-jun-2023",
+    assigned_trucks: "8",
+    cleaned_house: "14",
+    total_resisdence: "14",
+    status: "completed",
+    zone_name: "Wasota Development"
+  },
+  {
+    created_at: "9-jun-2023",
+    scheduled_at: "10-jun-2023",
+    assigned_trucks: "9",
+    cleaned_house: "18",
+    total_resisdence: "18",
+    status: "completed",
+    zone_name: "Oluku Main"
+  },
+  {
+    created_at: "9-jun-2023",
+    scheduled_at: "10-jun-2023",
+    assigned_trucks: "8",
+    cleaned_house: "14",
+    total_resisdence: "14",
+    status: "completed",
+    zone_name: "New Benin"
+  },
+  {
+    created_at: "9-jun-2023",
+    scheduled_at: "10-jun-2023",
+    assigned_trucks: "9",
+    cleaned_house: "18",
+    total_resisdence: "18",
+    status: "completed",
+    zone_name: "Akpapava Station"
+  },
+  {
+    created_at: "9-jun-2023",
+    scheduled_at: "10-jun-2023",
+    assigned_trucks: "8",
+    cleaned_house: "14",
+    total_resisdence: "14",
+    status: "completed",
+    zone_name: "Akpapava Station"
+  },
+  {
+    created_at: "9-jun-2023",
+    scheduled_at: "10-jun-2023",
+    assigned_trucks: "9",
+    cleaned_house: "18",
+    total_resisdence: "18",
+    status: "completed",
+    zone_name: "New Benin"
+  },
+  {
+    created_at: "9-jun-2023",
+    scheduled_at: "10-jun-2023",
+    assigned_trucks: "8",
+    cleaned_house: "14",
+    total_resisdence: "14",
+    status: "completed",
+    zone_name: "New Benin"
+  },
+  {
+    created_at: "03-jun-2023",
+    scheduled_at: "04-jun-2023",
+    assigned_trucks: "9",
+    cleaned_house: "15",
+    total_resisdence: "44",
+    status: "completed",
+    zone_name: "Wasota Development"
+  },
+];
+
+export const duezones = [
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active",
+    last_cleanup: "06-10-2023",
+  },
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active",
+    last_cleanup: "06-06-2023",
+  },
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active",
+    last_cleanup: "06-06-2023",
+  },
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active",
+    last_cleanup: "06-03-2023",
+  },
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active",
+    last_cleanup: "06-02-2023",
+  },
+  {
+    zone_id: "PKB-ZN-5678999",
+    name: "Ugbowo Central",
+    coordinates: "1550lat, 23899lon",
+    no_of_residence: 49,
+    created_at: "20-jun-2023",
+    status: "active",
+    last_cleanup: "06-02-2023",
+  },
+];

@@ -91,7 +91,8 @@ export interface FormInput1 {
   email: string,
   phone: string,
   phone2: string,
-  address: string
+  address: string,
+  gender: string
 }
 
 export interface CreateResidenceInput extends FormInput1{
