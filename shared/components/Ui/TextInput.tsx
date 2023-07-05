@@ -51,6 +51,7 @@ interface Props {
   altClassName?: string;
   icon?:JSX.Element;
   [key: string]: any;
+  readonly?: any
 }
 
 const TextInput: React.FC<Props> = ({
@@ -80,6 +81,7 @@ const TextInput: React.FC<Props> = ({
   customRightElement,
   altClassName,
   icon,
+  readonly,
   ...rest
 }) => {
   const [isPasswordType, setIsPasswordType] = useState<boolean>(false);

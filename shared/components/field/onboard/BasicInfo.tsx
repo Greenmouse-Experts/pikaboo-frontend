@@ -162,7 +162,7 @@ const BasicInfoForm: FC<Props> = ({ next }) => {
             control={control}
             rules={{
               required: {
-                value: true,
+                value: false,
                 message: "Please enter middle name",
               },
             }}
@@ -241,7 +241,7 @@ const BasicInfoForm: FC<Props> = ({ next }) => {
               name="phone2"
               control={control}
               rules={{
-                required: true,
+                required: false,
                 pattern: {
                   value: /^(\+?234|0)?[789]\d{9}$/,
                   message: "Please Enter A Valid Number",

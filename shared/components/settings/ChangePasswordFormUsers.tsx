@@ -36,7 +36,9 @@ const ChangeAdminPasswordUsers:FC<Props> = ({close}) => {
           toast.success(res.data.message)
           close()
         }else {
-          toast.error(res.data.message);
+          Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+            toast.error(value[0]);
+          });
           setIsBusy(false);
         }
       })

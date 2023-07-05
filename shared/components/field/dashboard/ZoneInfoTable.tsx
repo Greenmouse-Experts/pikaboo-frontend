@@ -26,7 +26,7 @@ const ZoneInfoTable:FC<Props> = ({zones}) => {
           },
           {
             Header: "Location (Coordinates)",
-            accessor: "coordinates",
+            accessor: "coordinate",
           },
           {
             Header: "No of Residence",

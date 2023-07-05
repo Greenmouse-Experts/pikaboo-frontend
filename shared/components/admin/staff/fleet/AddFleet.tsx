@@ -41,7 +41,9 @@ const AddFleetManagerForm:FC<Props> = ({refetch}) => {
           refetch()
           setIsBusy(false);
         }else {
-          toast.error(res.data.message);
+          Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+            toast.error(value[0]);
+          });
           setIsBusy(false);
         }
       })

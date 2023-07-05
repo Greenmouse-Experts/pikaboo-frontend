@@ -20,7 +20,12 @@ const WasteAreaMainTable = () => {
       {
         Header: "Zone ID",
         accessor: "zone_id",
-        Cell: (props:any) => <p className="fw-500 text-primary">{props.value}</p>
+        Cell: (row:any) => <Link href={{
+          pathname: `/admin/waste-area/home`,
+          query: {
+            sort: row.row.original.id,
+          },
+        }} className="fw-500 text-primary">{row.value}</Link>
       },
       {
         Header: "Name",
@@ -28,7 +33,7 @@ const WasteAreaMainTable = () => {
       },
       {
         Header: "Coordinates",
-        accessor: "phone[0]",
+        accessor: "coordinate",
       },
       {
         Header: "LGA",

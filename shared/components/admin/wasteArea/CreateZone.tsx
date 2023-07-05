@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useLazyCreateZoneQuery } from "@/services/api/routineSlice";
 import Button from "../../Ui/Button";
 import { PulseSpinner } from "../../Ui/Loading";
+const NaijaStates = require('naija-state-local-government');
 
 interface Props {
     close: () => void
@@ -13,6 +14,7 @@ interface Props {
 const CreateZoneForm:FC<Props> = ({close, refetch}) => {
   const [isBusy, setIsBusy] = useState(false);
   const [create] = useLazyCreateZoneQuery();
+  
 
   const {
     control,
@@ -24,7 +26,7 @@ const CreateZoneForm:FC<Props> = ({close, refetch}) => {
     defaultValues: {
       name: "",
       lga: "",
-      coordinates: "",
+      coordinate: "",
     },
   });
 
@@ -73,6 +75,7 @@ const CreateZoneForm:FC<Props> = ({close, refetch}) => {
             />
           </div>
           <div className="mt-4">
+            <label className="mb-2 block mt-2">Local Government Area</label>
             <Controller
               name="lga"
               control={control}
@@ -83,29 +86,38 @@ const CreateZoneForm:FC<Props> = ({close, refetch}) => {
                 },
               }}
               render={({ field }) => (
-                <TextInput
-                  label="Local Government Area"
-                  error={errors.name?.message}
-                  type={InputType.text}
+                <select
                   {...field}
-                />
+                  className="w-full border border-gray-400 rounded h-[42px]"
+                >
+                  <option value="" disabled>
+                    Select Option
+                  </option>
+                  {
+                    NaijaStates.lgas("Edo") && NaijaStates.lgas("Edo").lgas?.map((item:string, index:any) => (
+                      <option value={item} key={index}>
+                        {item}
+                      </option>
+                    ))
+                  }
+                </select>
               )}
             />
           </div>
           <div className="mt-4">
             <Controller
-              name="coordinates"
+              name="coordinate"
               control={control}
               rules={{
                 required: {
                   value: false,
-                  message: "Please enter Lga name",
+                  message: "Please Input Area Coordinates",
                 },
               }}
               render={({ field }) => (
                 <TextInput
                   label="Area Coordinates"
-                  error={errors.coordinates?.message}
+                  error={errors.coordinate?.message}
                   type={InputType.text}
                   {...field}
                 />

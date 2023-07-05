@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Table, { SelectColumnFilter } from "../../Ui/table";
-import { formatStatus } from "@/shared/utils/format";
+import { FormatStatus } from "@/shared/utils/format";
 import Link from "next/link";
 import { useGetMyUsersQuery } from "@/services/api/routineSlice";
 
@@ -48,7 +48,7 @@ const MyResidentTable = () => {
         Header: "Status",
         accessor: "status",
         Cell: (props: any) =>
-          formatStatus[props.value as keyof typeof formatStatus],
+          FormatStatus[props.value as keyof typeof FormatStatus],
       },
     ], // eslint-disable-next-line
     []
