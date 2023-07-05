@@ -1,16 +1,34 @@
+import { useGetZoneResidenceQuery, useLazyGetZoneResidenceQuery } from '@/services/api/routineSlice'
 import WasteAreaResidentTable from '@/shared/components/admin/wasteArea/WasteAreaResideTable'
 import { AppPage } from '@/shared/components/layouts/Types'
-import React from 'react'
+import { ZoneResidenceResult } from '@/shared/utils/types'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 import { MdFormatListBulletedAdd} from 'react-icons/md'
 
 const WasteAreaDetail:AppPage = () => {
+  const route = useRouter()
+  const id = route.query.sort
+  const [zone, setZone] = useState<ZoneResidenceResult>()
+  const [getZoneList] = useLazyGetZoneResidenceQuery()
+  useEffect(() => {
+    if(id){
+      getZoneList(id)
+      .then((res) => {
+        if(res?.data?.success){
+      setZone(res.data)
+        }
+      })
+    }
+  }, [id])
+
   return (
     <>
         <div>
             <div className='h-40 bg-waste bg-cover bg-center flex items-center dash-shade rounded-xl'>
                 <div className='pl-12 text-white'>
-                    <p className='text-2xl fw-600'>Ekhewan Road Zone</p>
-                    <p className='fs-400 w-8/12 mt-2'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum architecto dolore voluptatum assumenda. Iste aliquam hic fuga perspiciatis voluptates necessitatibus ex volupta.</p>
+                    <p className='text-2xl fw-600'>{zone?.data && `${zone?.data?.name} Zone`}</p>
+                    <p className='fs-400 mt-2'>View the details of all home resisdents registered under this zone.</p>
                 </div>
             </div>
             <div className='p-5 dash-shade rounded-xl mt-8'>
@@ -19,7 +37,7 @@ const WasteAreaDetail:AppPage = () => {
               <p className='fw-500'>Home Residents</p>
               </div>
               <div className='mt-5'>
-                <WasteAreaResidentTable/>
+                {zone && !!zone?.data?.residence?.length && <WasteAreaResidentTable data={zone?.data?.residence}/>}
               </div>
             </div>
         </div>

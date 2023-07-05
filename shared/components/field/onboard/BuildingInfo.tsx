@@ -42,7 +42,7 @@ const BuildingInfoForm = () => {
     console.log(flatType);
   }
   const handleFileUpload = (e:any) => {
-    setImage(e.target.files[0])
+      setImage(e.target.files[0])
   }
   const handleShop = (e:any) => {
     let shop = [...shopType]
@@ -100,7 +100,9 @@ const BuildingInfoForm = () => {
           dispatch(resetForm())
           setIsBusy(false);
         }else {
-          toast.error(res.data.message);
+          Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+            toast.error(value[0]);
+          });
           setIsBusy(false);
         }
       })
@@ -119,8 +121,8 @@ const BuildingInfoForm = () => {
             control={control}
             rules={{
               required: {
-                value: false,
-                message: "Please enter title",
+                value: true,
+                message: "Please enter value",
               },
             }}
             render={({ field }) => (
@@ -137,8 +139,8 @@ const BuildingInfoForm = () => {
             control={control}
             rules={{
               required: {
-                value: false,
-                message: "Please enter title",
+                value: true,
+                message: "Please enter value",
               },
             }}
             render={({ field }) => (
@@ -175,7 +177,7 @@ const BuildingInfoForm = () => {
             control={control}
             rules={{
               required: {
-                value: false,
+                value: true,
                 message: "Please enter value",
               },
             }}
@@ -258,6 +260,7 @@ const BuildingInfoForm = () => {
                 label="State"
                 error={errors.state?.message}
                 type={InputType.text}
+                readOnly
                 {...field}
               />
             )}
@@ -329,20 +332,6 @@ const BuildingInfoForm = () => {
           <div className="grid md:grid-cols-3">
             <div>
               <div className="relative">
-                {/* <Controller
-                  name="tenant_house"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="Tenant House"
-                      error={errors.town?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="Tenant House"
                       name="facility"
@@ -356,20 +345,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="self_con"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="One Room Self-contained"
-                      error={errors.self_con?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="One Room Self-contained"
                       name="facility"
@@ -383,20 +358,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="mini_flat"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="A Mini Flat"
-                      error={errors.mini_flat?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="A Mini Flat"
                       name="facility"
@@ -410,20 +371,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="duplex"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="Duplex"
-                      error={errors.duplex?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="Duplex"
                       name="facility"
@@ -437,20 +384,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="duplex_2"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="Duplex with Boys Quarter"
-                      error={errors.duplex_2?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="Duplex with Boys Quarter"
                       name="facility"
@@ -464,20 +397,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="mansion"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="Mansion"
-                      error={errors.mansion?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="Mansion"
                       name="facility"
@@ -494,20 +413,6 @@ const BuildingInfoForm = () => {
             <div>
             <p className='fw-500'>Flats:</p>
               <div className="relative">
-                {/* <Controller
-                  name="one_bed"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="1-Bedroom"
-                      error={errors.one_bed?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="1-Bedroom"
                       name="flat"
@@ -521,20 +426,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="two_bed"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="2-Bedroom"
-                      error={errors.two_bed?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="2-Bedroom"
                       name="flat"
@@ -548,20 +439,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="three_bed"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="3-Bedroom"
-                      error={errors.three_bed?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="3-Bedroom"
                       name="flat"
@@ -575,20 +452,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="bungalow"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="Bungalow"
-                      error={errors.bungalow?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="Bungalow"
                       name="flat"
@@ -602,20 +465,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="bungalow_2"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="Bungalow with Boys Quarter"
-                      error={errors.bungalow_2?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="Bungalow with Boys Quarter"
                       name="flat"
@@ -632,20 +481,6 @@ const BuildingInfoForm = () => {
             <div>
                 <p className='fw-500'>Shops / Stores In:</p>
               <div className="relative">
-                {/* <Controller
-                  name="resident_store"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="Residential Areas"
-                      error={errors.resident_store?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="Residential Areas"
                       name="shop"
@@ -659,20 +494,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="commercial_store"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="Commercial Areas"
-                      error={errors.commercial_store?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                  <TextInput
                       label="Commercial Areas"
                       name="shop"
@@ -686,20 +507,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="market_store"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="Market Areas"
-                      error={errors.market_store?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="Market Areas"
                       name="shop"
@@ -713,20 +520,6 @@ const BuildingInfoForm = () => {
                     />
               </div>
               <div className="relative">
-                {/* <Controller
-                  name="sheds_market_store"
-                  control={control}
-                  render={({ field }) => (
-                    <TextInput
-                      label="Sheds within the market"
-                      error={errors.sheds_market_store?.message}
-                      type={InputType.checkbox}
-                      altClassName="block mt-2"
-                      labelClassName="absolute left-6 top-0"
-                      {...field}
-                    />
-                  )}
-                /> */}
                 <TextInput
                       label="Sheds within the market"
                       name="shop"
@@ -775,20 +568,6 @@ const BuildingInfoForm = () => {
           </div>
           <div>
             <label className="mt-3 block">Building building_Image</label>
-          {/* <Controller
-            name="building_image"
-            control={control}
-            rules={{
-              required: {
-                value: false,
-                message: "Please upload an image",
-              },
-            }}
-            render={({ field }) => (
-              <input type="file" multiple {...field} className="mt-[2px] border-gray-400 w-full border p-2 rounded"/>
-            )}
-          />
-          {errors.building_image?.message} */}
           <input type="file" multiple className="mt-[2px] border-gray-400 w-full border p-2 rounded" onChange={(e:any) => handleFileUpload(e)}/>
           </div>
         </div>

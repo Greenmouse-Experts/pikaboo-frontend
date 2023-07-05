@@ -26,6 +26,7 @@ const LogoutModalUsers:FC<Props> = ({CloseModal}) => {
                     toast.success(res.data.message)
                     router.push('/auth/login')
                 }
+                router.push('/auth/login')
             })
             .catch(() => {})
         setIsBusy(false)

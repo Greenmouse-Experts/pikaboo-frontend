@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from "react";
 import Table from "../../../Ui/table";
-import { formatStatus } from "@/shared/utils/format";
+import { FormatStatus, formatStatus } from "@/shared/utils/format";
 import { UserData } from "@/shared/utils/types/auth";
 import dayjs from "dayjs";
 
@@ -41,7 +41,7 @@ const WasteManagerTable:FC<Props> = ({data}) => {
       {
         Header: "Status",
         accessor: "status",
-        Cell: (props) => formatStatus[props.value as keyof typeof formatStatus],
+        Cell: (props) => FormatStatus[props.value as keyof typeof FormatStatus],
       },
     ], // eslint-disable-next-line
     []

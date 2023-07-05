@@ -1,5 +1,6 @@
 "use client";
 
+import { getLocalToken } from "@/services/helpers";
 import { selectUser } from "@/shared/redux/reducers/userSlice";
 import { resetUser } from "@/shared/redux/reducers/userSlice";
 import { useAppDispatch, useAppSelector } from "@/shared/redux/store";
@@ -12,6 +13,8 @@ const useAuthCheck = () => {
 
   const IsAuthenticated = !!authenticatedUser.user.token;
 
+  const IsAuth = getLocalToken
+
   const LoggedInUser = authenticatedUser.user;
 
   const SignOut = () => dispatch(resetUser());
@@ -19,6 +22,7 @@ const useAuthCheck = () => {
   return {
     AuthenticatedUserHaveValidToken,
     IsAuthenticated,
+    IsAuth,
     SignOut,
     LoggedInUser,
   };

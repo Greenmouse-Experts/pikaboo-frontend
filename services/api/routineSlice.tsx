@@ -1,6 +1,6 @@
 "use client";
 
-import {  UsersResult, ErrorResult, BaseResult, CreateZoneInput, ZonesList, ZoneResult } from "@/shared/utils/types";
+import {  UsersResult, ErrorResult, BaseResult, CreateZoneInput, ZonesList, ZoneResult, ZoneResidenceResult, UserDetailsResult } from "@/shared/utils/types";
 import { apiSlice } from "../apiSlice";
 
 import * as ENDPOINT from "../constants";
@@ -30,9 +30,31 @@ export const authApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
 
+    getUserDetail: builder.query<UserDetailsResult , string | string[]>({
+      query: (query) => ({
+        url: `${ENDPOINT.GET_USER_DETAIL}?user_id=${query}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
     getZones: builder.query< ZoneResult  , string | void>({
       query: (query) => ({
         url: `${ENDPOINT.GET_ZONE}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
+    getZoneResidence: builder.query<ZoneResidenceResult , string | string[] | undefined >({
+      query: (query) => ({
+        url: `${ENDPOINT.GET_ZONE_RESIDENCE}?zone_id=${query}`,
         method: ENDPOINT.HTTP_METHODS.GET,
         headers: {
           Authorization: requestAuthorization(),
@@ -60,5 +82,8 @@ export const {
     useGetUsersQuery,
     useLazyCreateZoneQuery,
     useGetZonesQuery,
-    useGetMyUsersQuery
+    useGetMyUsersQuery,
+    useGetZoneResidenceQuery,
+    useLazyGetZoneResidenceQuery,
+    useLazyGetUserDetailQuery,
 } = authApiSlice;

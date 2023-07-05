@@ -25,7 +25,7 @@ const LogoutModal:FC<Props> = ({CloseModal}) => {
                     dispatch(resetUser())
                     toast.success(res.data.message)
                     router.push('/auth/admin')
-                }
+                }router.push('/auth/admin')
             })
             .catch(() => {})
         setIsBusy(false)
