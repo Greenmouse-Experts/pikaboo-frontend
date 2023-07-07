@@ -28,8 +28,6 @@ const BuildingInfoForm = () => {
     facility.splice(facilityType.indexOf(e.target.value), 1);
    }
    setFacilityType(facility)
-    console.log(facilityType);
-    
   }
   const handleFlat = (e:any) => {
     let flat = [...flatType]

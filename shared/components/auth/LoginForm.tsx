@@ -1,4 +1,4 @@
-import React, { useState, createRef } from "react";
+import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TextInput, { InputType } from "../Ui/TextInput";
 import Button from "../Ui/Button";
@@ -9,9 +9,8 @@ import { useRouter } from "next/router";
 import {  useLazyUserLoginQuery } from "@/services/api/authSlice";
 import { useAppDispatch } from "@/shared/redux/store";
 import { saveUser } from "@/shared/redux/reducers/userSlice";
-import { extractCallBackRoute, extractFieldCallBackRoute, storeLocalToken } from "@/services/helpers";
+import {  storeLocalToken } from "@/services/helpers";
 import { toast } from "react-toastify";
-import { Url } from "next/dist/shared/lib/router/router";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -53,8 +52,10 @@ const LoginForm = () => {
           toast.success(res.data.message)
           if(res.data.data.account_type === "Fleet Manager"){
             router.push('/fleet')
-          }else if(res.data.data.account_type === "Waste Manager"){
-            router.push('/waste')
+          }else if(res.data.data.account_type === "Waste Manager Zone"){
+            router.push('/waste-zone')
+          }else if(res.data.data.account_type === "Waste Manager Truck"){
+            router.push('/waste-truck')
           }else if(res.data.data.account_type === "Field Operator"){
             router.push('/field')
           }else{}

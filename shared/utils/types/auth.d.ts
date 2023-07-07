@@ -16,9 +16,10 @@ export interface UserData {
     title: string | null
     first_name: string
     middle_name: string | null
-    surname: string
+    last_name: string
     email: string
-    phone: string | null
+    phone: string
+    phone2: string | null
     gender: string | null
     dob: string | null
     avatar: string | null
@@ -27,6 +28,11 @@ export interface UserData {
     role: string
     wallet: number | null
     fcm_token: string | null
+    means_of_identification: string | null
+    address: string | null
+    zone_id: string | null
+    truck_id: string | null
+    isVerified: string
     status: string
     created_at: string
     updated_at: string
