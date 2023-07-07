@@ -19,7 +19,7 @@ const WasteAreaDetail:AppPage = () => {
       setZone(res.data)
         }
       })
-    }
+    }// eslint-disable-next-line
   }, [id])
 
   return (

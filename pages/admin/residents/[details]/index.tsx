@@ -133,21 +133,21 @@ const HomeResidentsDetails: AppPage = () => {
                     <p className="w-4/12 fw-500">Facility Type</p>
                     <div>
                       {!dataRows && <p>None</p>}
-                      <p>{dataRows && dataRows.map((item) => <p>{item}</p>)}</p>
+                      <p>{dataRows && dataRows.map((item,index) => <p key={index}>{item}</p>)}</p>
                     </div>
                   </div>
                   <div className="border-b flex py-2 mt-2">
                     <p className="w-4/12 fw-500">Flats</p>
                     <div>
                       {!flatRows && <p>None</p>}
-                      <p>{flatRows && flatRows.map((item) => <p>{item}</p>)}</p>
+                      <p>{flatRows && flatRows.map((item, index) => <p key={index}>{item}</p>)}</p>
                     </div>
                   </div>
                   <div className="border-b flex py-2 mt-2">
                     <p className="w-4/12 fw-500">Shops</p>
                     <div>
                       {!shopRows && <p>None</p>}
-                      <p>{shopRows && shopRows.map((item) => <p>{item}</p>)}</p>
+                      <p>{shopRows && shopRows.map((item, index) => <p key={index}>{item}</p>)}</p>
                     </div>
                   </div>
                   <div className="mt-8 flex justify-center">
