@@ -6,7 +6,7 @@ import { apiSlice } from "../apiSlice";
 import * as ENDPOINT from "../constants";
 import { requestAuthorization } from "../helpers";
 
-export const authApiSlice = apiSlice.injectEndpoints({
+export const routineApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query<UsersResult | any , string | void>({
       query: (query) => ({
@@ -86,4 +86,4 @@ export const {
     useGetZoneResidenceQuery,
     useLazyGetZoneResidenceQuery,
     useLazyGetUserDetailQuery,
-} = authApiSlice;
+} = routineApiSlice;

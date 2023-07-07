@@ -1,23 +1,19 @@
 import React, {useState} from "react";
 import { AppPage } from "@/shared/components/layouts/Types";
-import { MdFormatListBulletedAdd } from "react-icons/md";
-import { BsPersonFillAdd } from "react-icons/bs";
-import { useGetMyUsersQuery } from "@/services/api/routineSlice";
-import WasteManagerTable from "@/shared/components/admin/staff/waste/WasteManagerTable";
-import CreateWasteManagerForm from "@/shared/components/fleet/waste/CreateWasteManger";
+import { FaMapMarkedAlt, FaTruckMoving } from "react-icons/fa";
+import FleetWasteManagerZone from "@/shared/components/fleet/waste/WasteManagerZone";
+import FleetWasteManagerTruck from "@/shared/components/fleet/waste/WasteManTruck";
 
 const ManageWasteManagers: AppPage = () => {
 
   const [open, setOpen] = useState<number>(1);
-  const {data, refetch, isLoading} = useGetMyUsersQuery()
-
   const handleOpen = (value:number) => {
     setOpen(open === value ? value : value);
   };
   const activeStyle = {
-    backgroundColor: '#009a06',
-    color: "white",
-    transition: "0.6s",
+    borderBottom: "6px solid black",
+    color: "black",
+    fontWeight: "600"
   };
 
   return (
@@ -33,31 +29,31 @@ const ManageWasteManagers: AppPage = () => {
             </p>
           </div>
         </div>
-        <div className="p-5 lg:p-9 dash-shade mt-5 lg:mt-10 rounded-lg">
-          <div className="border-b pb-2">
-            <ul className="flex items-center gap-x-6">
-              <li className="cursor-pointer p-2 rounded-xl px-4" style={open === 1 ? activeStyle : undefined}
+        <div className="mt-8">
+          <div className="border-b">
+            <ul className="flex items-center gap-x-6 text-gray-500">
+              <li className="cursor-pointer p-2  px-4" style={open === 1 ? activeStyle : undefined}
               onClick={() => handleOpen(1)}>
-                <div className="flex kitems-center gap-x-2">
-                  <MdFormatListBulletedAdd className="text-2xl" />
-                  <p className="fw-500">Waste Managers Listing</p>
+                <div className="flex items-center gap-x-2">
+                  <FaMapMarkedAlt className="text-2xl" />
+                  <p className="fw-500">Waste Manager Zone</p>
                 </div>
               </li>
-              <li className="cursor-pointer  p-2 rounded-xl px-4" style={open === 2 ? activeStyle : undefined}
+              <li className="cursor-pointer  p-2  px-4" style={open === 2 ? activeStyle : undefined}
               onClick={() => handleOpen(2)}>
-                <div className="flex kitems-center gap-x-2">
-                  <BsPersonFillAdd className="text-2xl" />
-                  <p className="fw-500">Add New Waste Manager</p>
+                <div className="flex items-center gap-x-2">
+                  <FaTruckMoving className="text-2xl" />
+                  <p className="fw-500">Waste Manager Truck</p>
                 </div>
               </li>
             </ul>
           </div>
-          <div className="mt-5">
+          <div className="">
             {
-              open === 1? data && !!data?.data.length && <WasteManagerTable data={data?.data} /> : ""
+              open === 1?  <FleetWasteManagerZone/> : ""
             }
             {
-              open === 2? <CreateWasteManagerForm refetch={refetch}/> : ""
+              open === 2? <FleetWasteManagerTruck/> : ""
             }
           </div>
         </div>

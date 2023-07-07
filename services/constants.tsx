@@ -34,6 +34,7 @@ export enum CACHE_LIFETIME {
   export const CREATE_FLEET = '/admin/fleet-manager/create'
   export const CREATE_WASTE = '/admin/waste-manager-truck/create'
   export const FLEET_CREATE_WASTE = '/fleet-manager/waste-manager-truck/create'
+  export const FLEET_CREATE_WASTE_ZONE = '/fleet-manager/waste-manager-zone/create'
 
   // routine
   export const GET_USERS = '/admin/get/all/user?keyword='
@@ -45,3 +46,5 @@ export enum CACHE_LIFETIME {
 
   // residence
   export const ONBOARD_RESISDENCE = '/field-operator/home-residence/create'
+  export const FLAG_RESIDENCE = '/admin/flag/user'
+  export const UPDATE_BILL = '/admin/bills/user/update'

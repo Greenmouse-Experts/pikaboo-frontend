@@ -7,7 +7,7 @@ import * as ENDPOINT from "../constants";
 import {  AdminLoginResult } from "@/shared/utils/types/auth";
 import { requestAuthorization } from "../helpers";
 
-export const authApiSlice = apiSlice.injectEndpoints({
+export const onboardApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createField: builder.query<AdminLoginResult | ErrorResult, CreateFleetInput>({
       query: (payload) => ({
@@ -58,6 +58,18 @@ export const authApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
+    createWasteZoneMan: builder.query<AdminLoginResult | ErrorResult, CreateFleetInput>({
+      query: (payload) => ({
+        url: `${ENDPOINT.FLEET_CREATE_WASTE_ZONE}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
     createResidence: builder.query<BaseResult | ErrorResult, FormData>({
       query: (payload) => ({
         url: `${ENDPOINT.ONBOARD_RESISDENCE}`,
@@ -78,5 +90,6 @@ export const {
   useLazyCreateFieldQuery,
   useLazyCreateWasteQuery,
   useLazyAdminCreateWasteQuery,
-  useLazyCreateResidenceQuery
-} = authApiSlice;
+  useLazyCreateResidenceQuery,
+  useLazyCreateWasteZoneManQuery
+} = onboardApiSlice;

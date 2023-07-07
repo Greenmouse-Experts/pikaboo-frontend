@@ -1,3 +1,5 @@
+import { UserData } from "./auth";
+
 export interface BaseResult {
   success: boolean;
   message: string;
@@ -17,6 +19,7 @@ export interface CreateFleetInput {
   email: string;
   password: string;
   password_confirmation: string;
+  zone_id?: string
 }
 
 export interface UserResult {
@@ -174,6 +177,7 @@ export interface UserDetail {
       created_at: string
       id: number
       waste_bin_monthly: string
+      bin_amount_paid: string
     }
     building_information: {
       area1: string
@@ -217,4 +221,20 @@ export interface UserDetail {
     truck_id:  string | null
     wallet: string
     zone_id:  string | null
+}
+
+export interface UpdateBillInput {
+  user_id: string
+  bill_monthly: number
+  waste_bin_monthly: number
+}
+export interface UpdateBillResult extends BaseResult {
+  data: {
+    user: UserData
+    id: number
+    bill_monthly: string
+    bin_amount_paid: string | null
+    waste_bin_monthly: string
+    created_at: string
+  }
 }
