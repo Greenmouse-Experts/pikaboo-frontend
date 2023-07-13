@@ -6,7 +6,7 @@ import { PulseSpinner } from "../Ui/Loading";
 import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
 import "react-phone-number-input/style.css";
 import { store, useAppDispatch, useAppSelector } from "@/shared/redux/store";
-import { useLazyUpdateAdminProfileQuery, useLazyUpdateUserProfileQuery } from "@/services/api/authSlice";
+import { useLazyUpdateUserProfileQuery } from "@/services/api/authSlice";
 import { saveUser } from "@/shared/redux/reducers/userSlice";
 import { toast } from "react-toastify";
 

@@ -14,7 +14,7 @@ interface Props {
     toggled:boolean,
   }
 
-const WasteZoneSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
+const WasteSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
 
   const {Modal, setShowModal} = useModal()
 
@@ -48,23 +48,29 @@ const WasteZoneSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
           }}
         >
           <MenuItem
-            component={<Link href="/fleet" />}
+            component={<Link href="/waste" />}
             icon={<MdOutlineDashboard className="text-xl" />}
           >
             Dashboard
           </MenuItem>
-          {/* <MenuItem
-            component={<Link href="/fleet/waste" />}
+          <MenuItem
+            component={<Link href="/waste/trucks" />}
             icon={<BsTruck className="text-lg" />}
           >
-            Waste Managers
+            Trucks
           </MenuItem>
           <MenuItem
-            component={<Link href="/fleet/cleanups" />}
+            component={<Link href="/waste/service" />}
+            icon={<BsTruck className="text-lg" />}
+          >
+            Service Personnel
+          </MenuItem>
+          <MenuItem
+            component={<Link href="/waste/cleanups" />}
             icon={<RiDeleteBinLine className="text-lg" />}
           >
             Cleanups
-          </MenuItem> */}
+          </MenuItem>
           <MenuItem
             component={<Link href="/settings" />}
             icon={<BsGear className="text-xl" />}
@@ -73,7 +79,7 @@ const WasteZoneSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
           </MenuItem>
           <MenuItem
             className="mt-24"
-            icon={<TfiShiftLeft className="/admin/" />}
+            icon={<TfiShiftLeft className="" />}
             onClick={() => setShowModal(true)}
           >
             Logout
@@ -87,4 +93,4 @@ const WasteZoneSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
   );
 };
 
-export default WasteZoneSidebarLayout;
+export default WasteSidebarLayout;

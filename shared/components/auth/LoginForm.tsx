@@ -52,10 +52,8 @@ const LoginForm = () => {
           toast.success(res.data.message)
           if(res.data.data.account_type === "Fleet Manager"){
             router.push('/fleet')
-          }else if(res.data.data.account_type === "Waste Manager Zone"){
-            router.push('/waste-zone')
-          }else if(res.data.data.account_type === "Waste Manager Truck"){
-            router.push('/waste-truck')
+          }else if(res.data.data.account_type === "Waste Manager"){
+            router.push('/waste')
           }else if(res.data.data.account_type === "Field Operator"){
             router.push('/field')
           }else{}

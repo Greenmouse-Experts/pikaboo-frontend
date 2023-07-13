@@ -1,24 +1,21 @@
 import React, { FC, useMemo, useState } from "react";
-import Table from "../../../Ui/table";
-import { FormatStatus } from "@/shared/utils/format";
+import Table from "../../Ui/table";
 import { UserData } from "@/shared/utils/types/auth";
-import dayjs from "dayjs";
 import {
   Menu,
   MenuHandler,
   MenuItem,
   MenuList,
   Button,
-} from "../../../Ui/dropdown";
+} from "../../Ui/dropdown";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import useModal from "@/hooks/useModal";
-import AddWasteManagerZoneForm from "./AddWasteManagerZone";
 
 interface Props {
   data: UserData[];
   refetch: () => void;
 }
-const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
+const WasteTruckTable: FC<Props> = ({ data, refetch }) => {
   const { Modal, setShowModal } = useModal();
   const [selectedItem, setSelectedItem] = useState<any>();
   const openModal = (item: any) => {
@@ -33,37 +30,37 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
         accessor: (row: any, index: number) => index + 1, //RDT provides index by default
       },
       {
-        Header: "Name",
-        accessor: "first_name",
-        Cell: (row: any) => ` ${row.value} ${row.row.original.last_name}`,
+        Header: "Vehicle Tag",
+        accessor: "pikaboo_tag_id",
+        Cell: (row: any) => <p className="fw-500 text-primary">{row.value}</p>,
       },
       {
-        Header: "Email",
-        accessor: "email",
+        Header: "Vehicle Make",
+        accessor: "make",
       },
       {
-        Header: "Phone Number",
-        accessor: "phone",
+        Header: "Year",
+        accessor: "year",
       },
       {
-        Header: "Gender",
-        accessor: "gender",
-        Cell: (props: any) => <p className="capitalize">{props.value}</p>,
+        Header: "VIN",
+        accessor: "vin",
       },
       {
-        Header: "Date Registered",
-        accessor: "created_at",
-        Cell: (props) => dayjs(props.value).format("DD-MMM-YYYY"),
+        Header: "Model",
+        accessor: "model",
       },
       {
-        Header: "Zone Incharage",
-        accessor: "zone",
-        Cell: (props) => (props.value ? props.value.name : "Nill"),
+        Header: "Color",
+        accessor: "color",
       },
       {
-        Header: "Status",
-        accessor: "status",
-        Cell: (props) => FormatStatus[props.value as keyof typeof FormatStatus],
+        Header: "Fuel Type",
+        accessor: "fuel_type",
+      },
+      {
+        Header: "Purchase Date",
+        accessor: "date_purchase",
       },
       {
         Header: "Action",
@@ -78,9 +75,9 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
               </MenuHandler>
               <MenuList>
                 <MenuItem onClick={() => openModal(row.row.original)}>
-                  Assign Zone
+                  Edit
                 </MenuItem>
-                <MenuItem className="bg-red-600 text-white">Suspend</MenuItem>
+                <MenuItem className="bg-red-600 text-white">Delete</MenuItem>
               </MenuList>
             </Menu>
           </div>
@@ -93,18 +90,18 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
   const list = useMemo(() => data, [data]);
   return (
     <>
-      <div className="lg:p-4">
+      <div className="lg:p-4 dash-shade">
         <Table columns={columns} data={list} />
       </div>
       <Modal title="Assign a Zone">
-        <AddWasteManagerZoneForm
+        {/* <FleetAssignWasteManager
           refetch={refetch}
           item={selectedItem}
           close={() => setShowModal(false)}
-        />
+        /> */}
       </Modal>
     </>
   );
 };
 
-export default WasteManagerTable;
+export default WasteTruckTable;

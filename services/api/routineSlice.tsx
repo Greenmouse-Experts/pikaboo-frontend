@@ -41,7 +41,7 @@ export const routineApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
 
-    getZones: builder.query< ZoneResult  , string | void>({
+    getZones: builder.query<ZoneResult  , string | void>({
       query: (query) => ({
         url: `${ENDPOINT.GET_ZONE}`,
         method: ENDPOINT.HTTP_METHODS.GET,

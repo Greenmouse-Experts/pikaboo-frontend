@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import TextInput, { InputType } from "@/shared/components/Ui/TextInput";
 import { Controller, useForm } from "react-hook-form";
 import Button from "@/shared/components/Ui/Button";
-import { useLazyAdminCreateWasteQuery, useLazyCreateWasteZoneManQuery } from "@/services/api/onboardSlice";
+import { useLazyAssignZoneQuery } from "@/services/api/onboardSlice";
 import { toast } from "react-toastify";
 import { PulseSpinner } from "@/shared/components/Ui/Loading";
 import { useGetZonesQuery } from "@/services/api/routineSlice";
@@ -10,43 +10,37 @@ import { ZonesList } from "@/shared/utils/types";
 
 interface Props {
   refetch: () => void;
+  item: any;
+  close: () => void;
 }
-const ZoneAddWasteManager: FC<Props> = ({ refetch }) => {
+const FleetAssignWasteManager: FC<Props> = ({ refetch, item, close }) => {
   const { data: zone, isLoading } = useGetZonesQuery();
   const [isBusy, setIsBusy] = useState<boolean>(false);
-  const [create] = useLazyCreateWasteZoneManQuery();
+  const [assign] = useLazyAssignZoneQuery();
   const {
     control,
     handleSubmit,
-    reset,
     setError,
-    watch,
     formState: { errors, isValid },
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      email: "",
-      gender: "",
-      password: "",
-      password_confirmation: "",
+      name: `${item.first_name} ${item.last_name}`,
       zone_id: "",
+      user_id: `${item.id}`,
     },
   });
   const onSubmit = async (data: any) => {
     setIsBusy(true);
-    await create(data)
+    await assign(data)
       .then((res: any) => {
         if (res.data.success) {
           toast.success(res.data.message);
           refetch();
-          reset();
+          close();
           setIsBusy(false);
         } else {
-          Object.entries<any>(res.data.errors).forEach(([key, value]) => {
-            toast.error(value[0]);
-          });
+          toast.error(res.data.message);
           setIsBusy(false);
         }
       })
@@ -58,8 +52,28 @@ const ZoneAddWasteManager: FC<Props> = ({ refetch }) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 mb-4">
-          <div>
+      <div>
+            <Controller
+              name="name"
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Please enter First Name",
+                },
+              }}
+              render={({ field }) => (
+                <TextInput
+                  label="Name"
+                  placeholder=""
+                  error={errors.name?.message}
+                  type={InputType.text}
+                  {...field}
+                />
+              )}
+            />
+          </div>
+          <div className="mt-4">
             <label className="mb-2 block mt-2">Zone</label>
             <Controller
               name="zone_id"
@@ -88,170 +102,21 @@ const ZoneAddWasteManager: FC<Props> = ({ refetch }) => {
               )}
             />
           </div>
-        </div>
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12">
-          <div>
-            <Controller
-              name="first_name"
-              control={control}
-              rules={{
-                required: {
-                  value: true,
-                  message: "Please enter First Name",
-                },
-              }}
-              render={({ field }) => (
-                <TextInput
-                  label="First Name"
-                  placeholder=""
-                  error={errors.first_name?.message}
-                  type={InputType.text}
-                  {...field}
-                />
-              )}
-            />
-          </div>
-          <div>
-            <Controller
-              name="last_name"
-              control={control}
-              rules={{
-                required: {
-                  value: true,
-                  message: "Please enter Last Name",
-                },
-              }}
-              render={({ field }) => (
-                <TextInput
-                  label="Last Name"
-                  placeholder=""
-                  error={errors.last_name?.message}
-                  type={InputType.text}
-                  {...field}
-                />
-              )}
-            />
-          </div>
-        </div>
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 mt-4">
-          <div>
-            <Controller
-              name="email"
-              control={control}
-              rules={{
-                required: {
-                  value: true,
-                  message: "Please enter Email",
-                },
-              }}
-              render={({ field }) => (
-                <TextInput
-                  label="Email"
-                  placeholder=""
-                  error={errors.email?.message}
-                  type={InputType.email}
-                  {...field}
-                />
-              )}
-            />
-          </div>
-          <div>
-            <label className="block mt-3 mb-1">Gender</label>
-            <Controller
-              name="gender"
-              control={control}
-              rules={{
-                required: {
-                  value: true,
-                  message: "Please select an option",
-                },
-              }}
-              render={({ field }) => (
-                <select
-                  {...field}
-                  className="w-full border border-gray-400 rounded p-2"
-                >
-                  <option value="" disabled>
-                    Select Option
-                  </option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="others">Others</option>
-                </select>
-              )}
-            />
-          </div>
-        </div>
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 mt-4">
-          <div className="">
-            <Controller
-              name="password"
-              control={control}
-              rules={{
-                required: {
-                  value: true,
-                  message: "Password is required",
-                },
-                minLength: {
-                  value: 5,
-                  message: "Password is too short",
-                },
-              }}
-              render={({ field }) => (
-                <TextInput
-                  label="Password"
-                  placeholder=""
-                  error={errors.password?.message}
-                  type={InputType.password}
-                  {...field}
-                />
-              )}
-            />
-          </div>
-          <div className="">
-            <Controller
-              name="password_confirmation"
-              control={control}
-              rules={{
-                required: {
-                  value: true,
-                  message: "Please enter your password",
-                },
-                validate: (val) => {
-                  if (watch("password") != val) {
-                    return "Your passwords do no match";
-                  }
-                },
-              }}
-              render={({ field }) => (
-                <TextInput
-                  label="Password"
-                  placeholder=""
-                  error={errors.password_confirmation?.message}
-                  type={InputType.password}
-                  {...field}
-                />
-              )}
-            />
-          </div>
-        </div>
-        <div className="flex justify-end">
-          <div className="mt-8 lg:mt-16 lg:w-5/12">
+          <div className="mt-8 lg:mt-16">
             <Button
               title={
                 isBusy ? (
                   <PulseSpinner size={13} color="white" />
                 ) : (
-                  "Create Waste Manager"
+                  "Assign Zone"
                 )
               }
               disabled={!isValid}
             />
-          </div>
         </div>
       </form>
     </>
   );
 };
 
-export default ZoneAddWasteManager;
+export default FleetAssignWasteManager;

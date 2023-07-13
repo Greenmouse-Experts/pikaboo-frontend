@@ -1,10 +1,10 @@
 "use client";
 
-import { BaseResult, CreateFleetInput, CreateResidenceInput, ErrorResult } from "@/shared/utils/types";
+import { BaseResult, CreateFleetInput, ErrorResult } from "@/shared/utils/types";
 import { apiSlice } from "../apiSlice";
 
 import * as ENDPOINT from "../constants";
-import {  AdminLoginResult } from "@/shared/utils/types/auth";
+import {  AdminLoginResult, AssignZoneInput } from "@/shared/utils/types/auth";
 import { requestAuthorization } from "../helpers";
 
 export const onboardApiSlice = apiSlice.injectEndpoints({
@@ -46,6 +46,18 @@ export const onboardApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
+    adminAssignZone: builder.query<AdminLoginResult | ErrorResult, AssignZoneInput>({
+      query: (payload) => ({
+        url: `${ENDPOINT.ASSIGN_ZONE}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
     createWaste: builder.query<AdminLoginResult | ErrorResult, CreateFleetInput>({
       query: (payload) => ({
         url: `${ENDPOINT.FLEET_CREATE_WASTE}`,
@@ -58,9 +70,9 @@ export const onboardApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
-    createWasteZoneMan: builder.query<AdminLoginResult | ErrorResult, CreateFleetInput>({
+    assignZone: builder.query<AdminLoginResult | ErrorResult, AssignZoneInput>({
       query: (payload) => ({
-        url: `${ENDPOINT.FLEET_CREATE_WASTE_ZONE}`,
+        url: `${ENDPOINT.FLEET_ASSIGN_ZONE}`,
         method: ENDPOINT.HTTP_METHODS.POST,
         headers: {
           Authorization: requestAuthorization(),
@@ -81,6 +93,18 @@ export const onboardApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
+
+    createDriver: builder.query<AdminLoginResult | ErrorResult, CreateFleetInput>({
+      query: (payload) => ({
+        url: `${ENDPOINT.CREATE_DRIVER}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
   }),
   overrideExisting: true,
 });
@@ -91,5 +115,7 @@ export const {
   useLazyCreateWasteQuery,
   useLazyAdminCreateWasteQuery,
   useLazyCreateResidenceQuery,
-  useLazyCreateWasteZoneManQuery
+  useLazyAdminAssignZoneQuery,
+  useLazyAssignZoneQuery,
+  useLazyCreateDriverQuery
 } = onboardApiSlice;

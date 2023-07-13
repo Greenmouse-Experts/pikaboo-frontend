@@ -32,9 +32,11 @@ export enum CACHE_LIFETIME {
   // onboarding
   export const CREATE_FIELD = '/admin/field-operator/create'
   export const CREATE_FLEET = '/admin/fleet-manager/create'
-  export const CREATE_WASTE = '/admin/waste-manager-truck/create'
-  export const FLEET_CREATE_WASTE = '/fleet-manager/waste-manager-truck/create'
-  export const FLEET_CREATE_WASTE_ZONE = '/fleet-manager/waste-manager-zone/create'
+  export const CREATE_WASTE = '/admin/waste-manager/create'
+  export const ASSIGN_ZONE = '/admin/waste-manager/assign/zone'
+  export const FLEET_CREATE_WASTE = '/fleet-manager/waste-manager/create'
+  export const FLEET_ASSIGN_ZONE = '/fleet-manager/waste-manager/assign/zone'
+  export const CREATE_DRIVER = '/waste-manager/service-personnel/create'
 
   // routine
   export const GET_USERS = '/admin/get/all/user?keyword='
@@ -48,3 +50,9 @@ export enum CACHE_LIFETIME {
   export const ONBOARD_RESISDENCE = '/field-operator/home-residence/create'
   export const FLAG_RESIDENCE = '/admin/flag/user'
   export const UPDATE_BILL = '/admin/bills/user/update'
+
+  //waste manager
+  export const GET_TRUCKS = '/waste-manager/truck/get'
+  export const ADD_TRUCKS = '/waste-manager/truck/create'
+  export const UPDATE_TRUCKS = '/waste-manager/truck/update'
+  export const DELETE_TRUCKS = '/waste-manager/truck/delete'

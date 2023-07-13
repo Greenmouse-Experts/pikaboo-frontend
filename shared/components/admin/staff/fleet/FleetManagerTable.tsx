@@ -2,7 +2,7 @@ import React, { FC,useMemo } from "react";
 import Table from "../../../Ui/table";
 import { UserData } from "@/shared/utils/types/auth";
 import dayjs from "dayjs";
-import { formatStatus } from "@/shared/utils/format";
+import { FormatStatus } from "@/shared/utils/format";
 
 interface Props {
   data: UserData[]
@@ -40,7 +40,7 @@ const FleetManagerTable:FC<Props> = ({data}) => {
       {
         Header: "Status",
         accessor: "status",
-        Cell: (props) => formatStatus[props.value as keyof typeof formatStatus],
+        Cell: (props) => FormatStatus[props.value as keyof typeof FormatStatus],
       },
     ], // eslint-disable-next-line
     []
