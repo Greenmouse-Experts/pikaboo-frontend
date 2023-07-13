@@ -1,15 +1,16 @@
 import React, {useState} from "react";
 import { AppPage } from "@/shared/components/layouts/Types";
-import { FaMapMarkedAlt, FaTruckMoving } from "react-icons/fa";
-import { useGetUsersQuery } from "@/services/api/routineSlice";
-import AddWasteManagerForm from "@/shared/components/admin/staff/waste/AddWasteManager";
-import WasteManagerTable from "@/shared/components/admin/staff/waste/WasteManagerTable";
+import { FaTruckPickup, FaTruckMoving } from "react-icons/fa";
+import AddWasteTruckForm from "@/shared/components/waste/truck/AddWasteTruck";
+import { useGetTrucksQuery } from "@/services/api/wasteSlice";
+import WasteTruckTable from "@/shared/components/waste/truck/WasteTruckTable";
 
-const ManageWasteManagers: AppPage = () => {
+const ManageWasteTrucks: AppPage = () => {
+
   const [open, setOpen] = useState<number>(1);
-  const {data, refetch, isLoading} = useGetUsersQuery("Waste Manager")
+  const {data, refetch, isLoading} = useGetTrucksQuery()
   
-    const waste = data?.data?.data
+    const waste = data?.data
   const handleOpen = (value:number) => {
     setOpen(open === value ? value : value);
   };
@@ -32,31 +33,31 @@ const ManageWasteManagers: AppPage = () => {
             </p>
           </div>
         </div>
-        <div className="mt-8">
+        <div className="mt-8 px-4">
           <div className="border-b">
             <ul className="flex items-center gap-x-6 text-gray-500">
               <li className="cursor-pointer p-2  px-4" style={open === 1 ? activeStyle : undefined}
               onClick={() => handleOpen(1)}>
                 <div className="flex items-center gap-x-2">
-                  <FaMapMarkedAlt className="text-2xl" />
-                  <p className="fw-500">Waste Manager Listing</p>
+                  <FaTruckPickup className="text-2xl" />
+                  <p className="fw-500">My Trucks</p>
                 </div>
               </li>
               <li className="cursor-pointer  p-2  px-4" style={open === 2 ? activeStyle : undefined}
               onClick={() => handleOpen(2)}>
                 <div className="flex items-center gap-x-2">
                   <FaTruckMoving className="text-2xl" />
-                  <p className="fw-500">Add Waste Manager</p>
+                  <p className="fw-500">Add New Truck</p>
                 </div>
               </li>
             </ul>
           </div>
-          <div className="bg-white dash-shade pt-5">
-          {
-              open === 1? waste && !!waste.length && <WasteManagerTable data={waste} refetch={refetch}/> : ""
+          <div className="">
+            {
+              open === 1? waste && !!waste.length && <WasteTruckTable data={waste} refetch={refetch}/> : ""
             }
             {
-              open === 2? <div className="p-5 lg:px-12 lg:pb-12"><AddWasteManagerForm refetch={refetch}/></div> : ""
+              open === 2? <div className="p-5 lg:px-12 lg:py-12 dash-shade"><AddWasteTruckForm refetch={refetch}/> </div>: ""
             }
           </div>
         </div>
@@ -65,5 +66,5 @@ const ManageWasteManagers: AppPage = () => {
   );
 };
 
-export default ManageWasteManagers;
-ManageWasteManagers.Layout = "Dashboard";
+export default ManageWasteTrucks;
+ManageWasteTrucks.Layout = "Dashboard";

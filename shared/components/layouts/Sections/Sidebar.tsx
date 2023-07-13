@@ -3,8 +3,7 @@ import AdminSidebarLayout from '../Sidebars/adminSidebar';
 import { useAppSelector } from '@/shared/redux/store';
 import FieldSidebarLayout from '../Sidebars/fieldSidebar';
 import FleetSidebarLayout from '../Sidebars/fleetSidebar';
-import WasteZoneSidebarLayout from '../Sidebars/wasteZoneSidebar';
-import WasteTruckSidebarLayout from '../Sidebars/wasteTruckSidebar';
+import WasteSidebarLayout from '../Sidebars/wasteSidebar';
 interface Props {
   setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
   toggled:boolean,
@@ -19,10 +18,8 @@ const SidebarLayout:FC<Props>  = ({setToggled, toggled})  => {
     return <FieldSidebarLayout  setToggled={setToggled} toggled={toggled}/>
   }else if(user === "Fleet Manager"){
     return <FleetSidebarLayout  setToggled={setToggled} toggled={toggled}/>
-  }else if(user === "Waste Manager Zone"){
-    return <WasteZoneSidebarLayout  setToggled={setToggled} toggled={toggled}/>
-  }else if(user === "Waste Manager Truck"){
-    return <WasteTruckSidebarLayout  setToggled={setToggled} toggled={toggled}/>
+  }else if(user === "Waste Manager"){
+    return <WasteSidebarLayout  setToggled={setToggled} toggled={toggled}/>
   }
   return (<></>
   )

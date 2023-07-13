@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useState } from "react";
-import Table from "../../../Ui/table";
+import Table from "../../../components/Ui/table";
 import { FormatStatus } from "@/shared/utils/format";
 import { UserData } from "@/shared/utils/types/auth";
 import dayjs from "dayjs";
@@ -9,16 +9,15 @@ import {
   MenuItem,
   MenuList,
   Button,
-} from "../../../Ui/dropdown";
+} from "../../../components/Ui/dropdown";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import useModal from "@/hooks/useModal";
-import AddWasteManagerZoneForm from "./AddWasteManagerZone";
 
 interface Props {
   data: UserData[];
   refetch: () => void;
 }
-const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
+const ServicePersonnelTable: FC<Props> = ({ data, refetch }) => {
   const { Modal, setShowModal } = useModal();
   const [selectedItem, setSelectedItem] = useState<any>();
   const openModal = (item: any) => {
@@ -56,11 +55,6 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
         Cell: (props) => dayjs(props.value).format("DD-MMM-YYYY"),
       },
       {
-        Header: "Zone Incharage",
-        accessor: "zone",
-        Cell: (props) => (props.value ? props.value.name : "Nill"),
-      },
-      {
         Header: "Status",
         accessor: "status",
         Cell: (props) => FormatStatus[props.value as keyof typeof FormatStatus],
@@ -78,7 +72,7 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
               </MenuHandler>
               <MenuList>
                 <MenuItem onClick={() => openModal(row.row.original)}>
-                  Assign Zone
+                  View Details
                 </MenuItem>
                 <MenuItem className="bg-red-600 text-white">Suspend</MenuItem>
               </MenuList>
@@ -93,18 +87,18 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
   const list = useMemo(() => data, [data]);
   return (
     <>
-      <div className="lg:p-4">
+      <div className="lg:p-8 lg:pt-12 dash-shade">
         <Table columns={columns} data={list} />
       </div>
       <Modal title="Assign a Zone">
-        <AddWasteManagerZoneForm
+        {/* <FleetAssignWasteManager
           refetch={refetch}
           item={selectedItem}
           close={() => setShowModal(false)}
-        />
+        /> */}
       </Modal>
     </>
   );
 };
 
-export default WasteManagerTable;
+export default ServicePersonnelTable;

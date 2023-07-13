@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useState } from "react";
-import Table from "../../../Ui/table";
+import Table from "../../../components/Ui/table";
 import { FormatStatus } from "@/shared/utils/format";
 import { UserData } from "@/shared/utils/types/auth";
 import dayjs from "dayjs";
@@ -9,16 +9,16 @@ import {
   MenuItem,
   MenuList,
   Button,
-} from "../../../Ui/dropdown";
+} from "../../../components/Ui/dropdown";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import useModal from "@/hooks/useModal";
-import AddWasteManagerZoneForm from "./AddWasteManagerZone";
+import FleetAssignWasteManager from "./CreateWasteManagerZone";
 
 interface Props {
   data: UserData[];
   refetch: () => void;
 }
-const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
+const FleetWasteManagerTable: FC<Props> = ({ data, refetch }) => {
   const { Modal, setShowModal } = useModal();
   const [selectedItem, setSelectedItem] = useState<any>();
   const openModal = (item: any) => {
@@ -97,7 +97,7 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
         <Table columns={columns} data={list} />
       </div>
       <Modal title="Assign a Zone">
-        <AddWasteManagerZoneForm
+        <FleetAssignWasteManager
           refetch={refetch}
           item={selectedItem}
           close={() => setShowModal(false)}
@@ -107,4 +107,4 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
   );
 };
 
-export default WasteManagerTable;
+export default FleetWasteManagerTable;

@@ -10,6 +10,11 @@ export interface AdminLoginResult extends BaseResult {
     data: UserData
 }
 
+export interface AssignZoneInput {
+    user_id: string
+    zone_id: string
+}
+
 export interface UserData {
     id: number
     account_type: string
