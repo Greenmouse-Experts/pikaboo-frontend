@@ -1,5 +1,4 @@
 import React, {FC} from 'react'
-import { text } from 'stream/consumers'
 
 interface Props {
   size: number
