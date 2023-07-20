@@ -56,3 +56,11 @@ export enum CACHE_LIFETIME {
   export const ADD_TRUCKS = '/waste-manager/truck/create'
   export const UPDATE_TRUCKS = '/waste-manager/truck/update'
   export const DELETE_TRUCKS = '/waste-manager/truck/delete'
+
+  // schedule request
+  export const CREATE_REQUEST = '/fleet-manager/schedule-request/create'
+  export const GET_SCHEDULE = '/fleet-manager/schedule-request/get'
+  export const GET_ONE_SCHEDULE = '/view/single/schedule/request'
+  export const ASSIGN_DRIVER = '/fleet-manager/schedule-request/assign/service-personnel'
+  export const WASTE_GET_REQUEST = '/waste-manager/schedule-request/get'
+  export const SUBMIT_PERSONNEL = '/waste-manager/schedule-request/submit/service-personnels'

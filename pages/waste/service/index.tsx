@@ -2,8 +2,6 @@ import React, {useState} from "react";
 import { AppPage } from "@/shared/components/layouts/Types";
 import { FaTruckPickup, FaTruckMoving } from "react-icons/fa";
 import { useGetMyUsersQuery } from "@/services/api/routineSlice";
-import FleetWasteManagerTable from "@/shared/components/fleet/waste/WasteManagerTable";
-import AddWasteTruckForm from "@/shared/components/waste/truck/AddWasteTruck";
 import AddPersonnelForm from "@/shared/components/waste/service/AddPersonnel";
 import ServicePersonnelTable from "@/shared/components/waste/service/serviceTable";
 

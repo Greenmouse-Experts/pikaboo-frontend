@@ -41,6 +41,7 @@ export interface UserData {
     status: string
     created_at: string
     updated_at: string
+    pikaboo_id: string
 }
 
 export interface authUser {

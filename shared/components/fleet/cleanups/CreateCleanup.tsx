@@ -1,52 +1,59 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import Button from "../../Ui/Button";
 import { PulseSpinner } from "../../Ui/Loading";
 import { Controller, useForm } from "react-hook-form";
+import { useGetZonesQuery } from "@/services/api/routineSlice";
+import { ZonesList } from "@/shared/utils/types";
+import { useLazyCreateScheduleQuery } from "@/services/api/scheduleSlice";
+import { toast } from "react-toastify";
 
-const CreateCleanupModal = () => {
+interface Props {
+  close: () => void
+  refetch: () => void
+}
+const CreateCleanupModal:FC<Props> = ({close, refetch}) => {
+  const {data:zone, isLoading} = useGetZonesQuery()
   const [isBusy, setIsBusy] = useState<boolean>(false);
+  const [create] = useLazyCreateScheduleQuery()
   const {
     control,
     handleSubmit,
-    setError,
-    reset,
     watch,
     formState: { errors, isValid },
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      zone: "",
+      zone_id: "",
       schedule_date: "",
-      email: "",
     },
   });
 
-  //   const onSubmit = async (data:any) => {
-  //     setIsBusy(true);
-  //     await create(data)
-  //       .then((res:any) => {
-  //         if (res.data.success) {
-  //           toast.success(res.data.message)
-  //           reset()
-  //           refetch()
-  //           setIsBusy(false);
-  //         }else {
-  //           toast.error(res.data.message);
-  //           setIsBusy(false);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         toast.error(err?.error?.data.message);
-  //         setIsBusy(false);
-  //       });
-  //   };
+    const onSubmit = async (data:any) => {
+      setIsBusy(true);
+      await create(data)
+        .then((res:any) => {
+          if (res.data.success) {
+            toast.success(res.data.message)
+            close()
+            refetch()
+            setIsBusy(false);
+          }else {
+            toast.error(res.data.message);
+            setIsBusy(false);
+          }
+        })
+        .catch((err) => {
+          toast.error(err?.error?.data.message);
+          setIsBusy(false);
+        });
+    };
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label className="block mt-3 mb-1">Select Zone</label>
           <Controller
-            name="zone"
+            name="zone_id"
             control={control}
             rules={{
               required: {
@@ -56,16 +63,20 @@ const CreateCleanupModal = () => {
             }}
             render={({ field }) => (
               <select
-                {...field}
-                className="w-full border border-gray-400 rounded p-2"
-              >
-                <option value="" disabled>
-                  Select Option
-                </option>
-                <option value="male">Ugbowo Central</option>
-                <option value="female">Akpapava District</option>
-                <option value="others">Siloco Road</option>
-              </select>
+              {...field}
+              className="w-full border border-gray-400 rounded h-[42px]"
+            >
+              <option value="" disabled>
+                Select Option
+              </option>
+              {
+                zone && zone.data.map((item:ZonesList) => (
+                  <option value={item.id} key={item.id}>
+                    {item.name}
+                  </option>
+                ))
+              }
+            </select>
             )}
           />
         </div>
@@ -90,7 +101,7 @@ const CreateCleanupModal = () => {
               isBusy ? (
                 <PulseSpinner size={13} color="white" />
               ) : (
-                "Set Cleanup Zone"
+                "Create Schedule Request"
               )
             }
             disabled={!isValid}
