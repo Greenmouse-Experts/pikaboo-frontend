@@ -14,6 +14,7 @@ import { ScheduleRequest } from "@/shared/utils/types/schedule";
 import { useGetZonesQuery } from "@/services/api/routineSlice";
 import { ZonesList } from "@/shared/utils/types";
 import Link from "next/link";
+import { CircleLoader } from "@/shared/components/Ui/Loading";
 
 const CleanupPage: AppPage = () => {
   const {data:schedule, isLoading, refetch} = useGetScheduleQuery()
@@ -53,19 +54,23 @@ const CleanupPage: AppPage = () => {
   const filterStatus = (e: any) => {
     if (e.target.value === "all") {
       setData(schedule?.data);
+      setCurrentPage(1)
     } else {
       const filts = schedule?.data?.filter((where:ScheduleRequest) => where.status === e.target.value);
       setData(filts);
+      setCurrentPage(1)
     }
   };
   const filterZone = (e: any) => {
     if (e.target.value === "all") {
       setData(schedule?.data);
+      setCurrentPage(1)
     } else {
       const filts = schedule?.data?.filter(
         (where:ScheduleRequest) => where.zone.name === e.target.value
       );
       setData(filts);
+      setCurrentPage(1)
     }
   };
 
@@ -125,6 +130,9 @@ const CleanupPage: AppPage = () => {
               }
               </select>
           </div>
+          {
+            isLoading && <div className="flex justify-center my-12"><CircleLoader size="70" /></div>
+          }
           <div className="grid grid-cols-2 gap-10 w-11/12 mx-auto">
             {data &&
               !!data.length &&

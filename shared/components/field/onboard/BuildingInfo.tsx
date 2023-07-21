@@ -37,7 +37,6 @@ const BuildingInfoForm = () => {
     flat.splice(flatType.indexOf(e.target.value), 1);
    }
    setFlatType(flat)
-    console.log(flatType);
   }
   const handleFileUpload = (e:any) => {
       setImage(e.target.files[0])
@@ -50,7 +49,6 @@ const BuildingInfoForm = () => {
     shop.splice(shopType.indexOf(e.target.value), 1);
    }
    setShopType(shop)
-    console.log(shopType);
   }
   const {
     control,

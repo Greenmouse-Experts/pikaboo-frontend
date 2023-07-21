@@ -84,7 +84,7 @@ const WasteScheduleTable: FC<Props> = ({ data }) => {
         <Table columns={columns} data={list} />
       </div>
       <Modal title="Assign my Personnel" wide>
-        <WasteAssignModal/>
+        <WasteAssignModal item={selectedItem} close={() => setShowModal(false)}/>
       </Modal>
     </>
   );

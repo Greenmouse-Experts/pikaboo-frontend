@@ -8,8 +8,10 @@ import { requestAuthorization } from "../helpers";
 import {
   AssignServicePersonnelInput,
   CreateScheduleInput,
+  PersonelRequestResult,
   ScheduleHomeResisdenceResult,
   ScheduleRequestResult,
+  SubmitServicePersonnelInput,
 } from "@/shared/utils/types/schedule";
 
 export const routineApiSlice = apiSlice.injectEndpoints({
@@ -31,7 +33,7 @@ export const routineApiSlice = apiSlice.injectEndpoints({
 
     assignDriver: builder.query<
       BaseResult | ErrorResult,
-      AssignServicePersonnelInput
+      FormData
     >({
       query: (payload) => ({
         url: `${ENDPOINT.ASSIGN_DRIVER}`,
@@ -42,6 +44,17 @@ export const routineApiSlice = apiSlice.injectEndpoints({
         body: payload,
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    getPersonnel: builder.query<PersonelRequestResult | ErrorResult, number | void>({
+      query: (param) => ({
+        url: `${ENDPOINT.GET_PERSONNEL}?cleanup_request_id=${param}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
 
     getSchedule: builder.query<ScheduleRequestResult | ErrorResult, string | void>({
@@ -76,6 +89,22 @@ export const routineApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
+
+    submitPersonnel: builder.query<
+      BaseResult | ErrorResult,
+      FormData
+    >({
+      query: (payload) => ({
+        url: `${ENDPOINT.SUBMIT_PERSONNEL}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
   }),
   overrideExisting: true,
 });
@@ -86,5 +115,7 @@ export const {
   useGetScheduleQuery,
   useGetOneScheduleQuery,
   useLazyGetOneScheduleQuery,
-  useWasteGetScheduleQuery
+  useWasteGetScheduleQuery,
+  useLazySubmitPersonnelQuery,
+  useGetPersonnelQuery
 } = routineApiSlice;

@@ -1,8 +1,13 @@
 import { BaseResult } from ".";
 
 export interface AssignServicePersonnelInput {
+  cleanup_request_id: number;
+  crsp_id: string[];
+}
+
+export interface SubmitServicePersonnelInput {
   cleanup_request_id: string;
-  crsp_id: string;
+  service_personnel_id: string[];
 }
 
 export interface CreateScheduleInput {
@@ -103,3 +108,8 @@ export interface ServicePersonnelData {
     id: number
     service_personnel: ServicePersonnel
 }
+
+export interface PersonelRequestResult extends BaseResult  {
+  data: ServicePersonnelData[]
+}
+

@@ -18,12 +18,16 @@ const HomeListTable: FC<Props> = ({ data, refetch }) => {
       },
       {
         Header: "Name",
-        accessor: "first_name",
-        Cell: (row: any) => ` ${row.value} ${row.row.original.last_name}`,
+        accessor: "residence.home_residence.first_name",
+        Cell: (row: any) => ` ${row.value} ${row.row.original.residence.home_residence.last_name}`,
       },
       {
         Header: "Email",
-        accessor: "email",
+        accessor: "residence.home_residence.email",
+      },
+      {
+        Header: "Phone",
+        accessor: "residence.home_residence.phone",
       },
       {
         Header: "Address",
@@ -46,7 +50,7 @@ const HomeListTable: FC<Props> = ({ data, refetch }) => {
   const list = useMemo(() => data, [data]);
   return (
     <>
-      <div className="lg:p-4">
+      <div className="lg:p-4 lg:pt-10 dash-shade">
         <Table columns={columns} data={list} />
       </div>
     </>

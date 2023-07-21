@@ -61,6 +61,7 @@ export enum CACHE_LIFETIME {
   export const CREATE_REQUEST = '/fleet-manager/schedule-request/create'
   export const GET_SCHEDULE = '/fleet-manager/schedule-request/get'
   export const GET_ONE_SCHEDULE = '/view/single/schedule/request'
+  export const GET_PERSONNEL = '/fleet-manager/schedule-request/view/service-personnel'
   export const ASSIGN_DRIVER = '/fleet-manager/schedule-request/assign/service-personnel'
   export const WASTE_GET_REQUEST = '/waste-manager/schedule-request/get'
   export const SUBMIT_PERSONNEL = '/waste-manager/schedule-request/submit/service-personnels'

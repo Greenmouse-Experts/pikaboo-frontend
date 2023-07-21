@@ -7,6 +7,8 @@ import { ScheduleHomeResisdenceData } from "@/shared/utils/types/schedule";
 import dayjs from "dayjs";
 import HomeListTable from "@/shared/components/fleet/cleanups/HomeList";
 import PersonnelList from "@/shared/components/fleet/cleanups/PersonnelList";
+import PersonnelRequest from "@/shared/components/fleet/cleanups/PersonnelRequest";
+import { CircleLoader } from "@/shared/components/Ui/Loading";
 
 const ScheduleDetails: AppPage = () => {
   const router = useRouter();
@@ -35,6 +37,7 @@ const ScheduleDetails: AppPage = () => {
 
   return (
     <>
+    {!sched && <div className="flex justify-center my-12 lg:mt-24"><CircleLoader size="140" /></div>}
       {sched && (
         <div>
           <div className="p-5 ">
@@ -77,7 +80,7 @@ const ScheduleDetails: AppPage = () => {
             <div className="">
               {open === 1 ? <HomeListTable data={sched.home_residence} refetch={() => getDetail(id)}/> : ""}
               {open === 2 ? <PersonnelList data={sched.service_personnels} /> : ""}
-              {open === 3 ? "list of requested drivers" : ""}
+              {open === 3 ? <PersonnelRequest id={sched.id} refetchId={() => getDetail(id)}/> : ""}
             </div>
           </div>
         </div>

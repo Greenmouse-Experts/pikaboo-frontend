@@ -1,6 +1,7 @@
 import Initials from "@/shared/utils/initials";
 import { ServicePersonnelData } from "@/shared/utils/types/schedule";
 import React, { FC } from "react";
+import EmptyState from "../../Ui/EmptyState";
 
 interface Props {
   data: ServicePersonnelData[];
@@ -8,7 +9,8 @@ interface Props {
 const PersonnelList: FC<Props> = ({ data }) => {
   return (
     <>
-      <div className="grid lg:grid-cols-2 gap-6 mt-12">
+      <div className="dash-shade py-2 pb-6">
+      <div className="grid lg:grid-cols-2 gap-6 mt-12 px-6">
         {data &&
           !!data.length &&
           data.map((item, index) => (
@@ -34,6 +36,15 @@ const PersonnelList: FC<Props> = ({ data }) => {
               </div>
             </div>
           ))}
+      </div>
+      {data && !data?.length && (
+          <div className="mt-6">
+            <EmptyState
+              message="No assigned personnel yet"
+              imageClass="lg:w-36 mx-auto"
+            />
+          </div>
+        )}
       </div>
     </>
   );

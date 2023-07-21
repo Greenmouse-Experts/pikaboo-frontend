@@ -1,26 +1,52 @@
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import { useGetMyUsersQuery } from "@/services/api/routineSlice";
 import { ScheduleRequest } from "@/shared/utils/types/schedule";
 import Initials from "@/shared/utils/initials";
 import { UserData } from "@/shared/utils/types/auth";
 import Button from "../../Ui/Button";
+import { useLazySubmitPersonnelQuery } from "@/services/api/scheduleSlice";
+import { toast } from "react-toastify";
+import { PulseSpinner } from "../../Ui/Loading";
 
-const WasteAssignModal = () => {
+interface Props {
+  item: any
+  close: () => void
+}
+const WasteAssignModal:FC<Props> = ({item, close}) => {
   const { data, refetch, isLoading } = useGetMyUsersQuery();
-  const [isChecked, setIsChecked] = useState(false);
+  const [isBusy, setIsBusy] = useState(false);
+  const [submit] = useLazySubmitPersonnelQuery()
   const [values, setValues] = useState<string[]>([]);
 
   const handleCheckboxChange = (event:any) => {
-    setIsChecked(event.target.checked);
-
     if (event.target.checked) {
-      // Add value to the state array when checkbox is checked
       const newValue = event.target.value; // Replace this with the value you want to add
       setValues(prevValues => [...prevValues, newValue]);
-    }
+    }else{
+      values.splice(values.indexOf(event.target.value), 1);
+     }
+    
   };
-
-  console.log(values);
+  const onSubmit = async() => {
+    setIsBusy(true)
+    const formData = new FormData();
+    formData.append('cleanup_request_id', item.id)
+    for (let i = 0; i < values.length; i++) {
+      formData.append(`service_personnel_id[]`, values[i]);
+    }
+    await submit(formData)
+    .then((res:any) => {
+      if(res.isSuccess){
+        toast.success(res.data.message)
+        close()
+      }else {
+        toast.error(res.error.data.message)
+        setIsBusy(true)
+      }
+    })
+    .catch((res) => {})
+    setIsBusy(true)
+  }
   
   return (
     <>
@@ -50,7 +76,6 @@ const WasteAssignModal = () => {
                   type="checkbox"
                   value={item.id}
                   className="w-6 h-6 absolute top-5 right-3"
-                  checked={isChecked}
                   onChange={handleCheckboxChange}
                 />
               </div>
@@ -59,7 +84,7 @@ const WasteAssignModal = () => {
       </div>
       {data && (
         <div className="lg:w-7/12 mx-auto mt-12">
-          <Button title="Submit Personnels" />
+          <Button title={isBusy ? <PulseSpinner size={13} color="white" />: "Submit Personnels"} disabled={!values.length} onClick={onSubmit} />
         </div>
       )}
     </>
