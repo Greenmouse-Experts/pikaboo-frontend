@@ -4,6 +4,8 @@ import { FaTruckPickup, FaTruckMoving } from "react-icons/fa";
 import { useGetMyUsersQuery } from "@/services/api/routineSlice";
 import AddPersonnelForm from "@/shared/components/waste/service/AddPersonnel";
 import ServicePersonnelTable from "@/shared/components/waste/service/serviceTable";
+import { CircleLoader } from "@/shared/components/Ui/Loading";
+import EmptyState from "@/shared/components/Ui/EmptyState";
 
 const ManageServicePesonnel: AppPage = () => {
 
@@ -53,8 +55,23 @@ const ManageServicePesonnel: AppPage = () => {
             </ul>
           </div>
           <div className="">
+          {isLoading && (
+              <div className="flex justify-center py-12">
+                <CircleLoader size="100" />
+              </div>
+            )}
             {
-              open === 1? waste && !!waste.length && <ServicePersonnelTable data={waste} refetch={refetch}/> : ""
+              open === 1? <div>
+                {waste && !waste.length && (
+                  <div className="py-12">
+                    <EmptyState
+                    imageClass="w-24 mx-auto"
+                    message="No registered service personnel currently"
+                  />
+                  </div>
+                )}
+                {waste && !!waste.length && <ServicePersonnelTable data={waste} refetch={refetch}/>}
+              </div> : ""
             }
             {
               open === 2? <div className="p-5 lg:px-12 lg:py-12 dash-shade"><AddPersonnelForm refetch={refetch}/> </div>: ""
