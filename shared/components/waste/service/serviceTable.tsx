@@ -3,13 +3,13 @@ import Table from "../../../components/Ui/table";
 import { FormatStatus } from "@/shared/utils/format";
 import { UserData } from "@/shared/utils/types/auth";
 import dayjs from "dayjs";
-import {
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
-  Button,
-} from "../../../components/Ui/dropdown";
+// import {
+//   Menu,
+//   MenuHandler,
+//   MenuItem,
+//   MenuList,
+//   Button,
+// } from "../../../components/Ui/dropdown";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import useModal from "@/hooks/useModal";
 
@@ -64,7 +64,7 @@ const ServicePersonnelTable: FC<Props> = ({ data, refetch }) => {
         accessor: "id",
         Cell: (row) => (
           <div>
-            <Menu placement="bottom-end">
+            {/* <Menu placement="bottom-end">
               <MenuHandler>
                 <Button className="bg-transparent px-0 mx-0 hover:shadow-none text-md flex items-center font-normal shadow-none text-black capitalize">
                   <BsThreeDotsVertical className="text-xl" />
@@ -76,7 +76,7 @@ const ServicePersonnelTable: FC<Props> = ({ data, refetch }) => {
                 </MenuItem>
                 <MenuItem className="bg-red-600 text-white">Suspend</MenuItem>
               </MenuList>
-            </Menu>
+            </Menu> */}
           </div>
         ),
       },

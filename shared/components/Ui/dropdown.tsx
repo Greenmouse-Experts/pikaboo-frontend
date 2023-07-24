@@ -1,4 +1,4 @@
-"use client";
+// "use client";
  
 // import { ThemeProvider,Menu, MenuHandler, MenuItem, MenuList, Button } from "@material-tailwind/react";
  
