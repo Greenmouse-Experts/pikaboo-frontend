@@ -6,6 +6,8 @@ import { useGetZonesQuery } from "@/services/api/routineSlice";
 import Table from "../../Ui/table";
 import { FormatStatus } from "@/shared/utils/format";
 import dayjs from "dayjs";
+import { CircleLoader } from "../../Ui/Loading";
+import EmptyState from "../../Ui/EmptyState";
 
 const WasteAreaMainTable = () => {
   const {Modal:CreateZone, setShowModal:ShowCreateZone} = useModal()
@@ -63,6 +65,17 @@ const WasteAreaMainTable = () => {
         <p className="px-4 btn-like py-1" onClick={() => ShowCreateZone(true)}>Create Zone</p>
         </div>
         <div className="mt-8">
+        {isLoading && (
+              <div className="flex justify-center py-12">
+                <CircleLoader size="100" />
+              </div>
+            )}
+            {
+              zones && !zones?.data?.length && <EmptyState
+              imageClass="w-24 mx-auto"
+              message="No Created Zones Yet"
+            />
+            }
           {zones && !!zones?.data?.length && (
             <div className="lg:p-4">
             <Table columns={columns} data={list} />

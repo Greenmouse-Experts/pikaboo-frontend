@@ -3,6 +3,8 @@ import Table, { SelectColumnFilter } from "../../Ui/table";
 import {FormatStatus, formatStatus } from "@/shared/utils/format";
 import Link from "next/link";
 import { useGetUsersQuery } from "@/services/api/routineSlice";
+import { CircleLoader } from "../../Ui/Loading";
+import EmptyState from "../../Ui/EmptyState";
 
 const AllResidentTable = () => {
   const {data,  isLoading} = useGetUsersQuery("Home Residence")
@@ -60,6 +62,17 @@ const AllResidentTable = () => {
   const list = useMemo(() => data?.data?.data, [data]);
   return (
     <>
+    {isLoading && (
+              <div className="flex justify-center py-12">
+                <CircleLoader size="100" />
+              </div>
+            )}
+            {
+              data && !data?.data?.data?.length && <EmptyState
+              imageClass="w-24 mx-auto"
+              message="No Created Resisdence Yet"
+            />
+            }
       {
         data && !!data?.data?.data?.length && <div className="lg:p-4 w-full">
         <Table columns={columns} data={list} />

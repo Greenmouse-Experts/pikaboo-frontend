@@ -5,6 +5,8 @@ import { BsPersonFillAdd } from "react-icons/bs";
 import AddFieldOperatorForm from "@/shared/components/admin/staff/field/AddFieldOperator";
 import FieldOperatorTable from "@/shared/components/admin/staff/field/FieldManagerTable";
 import { useGetUsersQuery } from "@/services/api/routineSlice";
+import { CircleLoader } from "@/shared/components/Ui/Loading";
+import EmptyState from "@/shared/components/Ui/EmptyState";
 
 const ManageWasteManagers: AppPage = () => {
 
@@ -55,8 +57,23 @@ const ManageWasteManagers: AppPage = () => {
             </ul>
           </div>
           <div className="mt-5">
+          {isLoading && (
+              <div className="flex justify-center py-12">
+                <CircleLoader size="100" />
+              </div>
+            )}
             {
-              open === 1? field && !!field.length && <FieldOperatorTable data={field}/> : ""
+              open === 1? <div>
+                {
+                  field && !field.length && <EmptyState
+                  imageClass="w-24 mx-auto"
+                  message="No Field Operator Yet"
+                />
+                }
+                {
+                  field && !!field.length && <FieldOperatorTable data={field}/>
+                }
+              </div> : ""
             }
             {
               open === 2? <AddFieldOperatorForm refetch={refetch}/> : ""

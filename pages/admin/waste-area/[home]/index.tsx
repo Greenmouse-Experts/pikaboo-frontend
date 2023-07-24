@@ -1,4 +1,5 @@
 import { useGetZoneResidenceQuery, useLazyGetZoneResidenceQuery } from '@/services/api/routineSlice'
+import { CircleLoader } from '@/shared/components/Ui/Loading'
 import WasteAreaResidentTable from '@/shared/components/admin/wasteArea/WasteAreaResideTable'
 import { AppPage } from '@/shared/components/layouts/Types'
 import { ZoneResidenceResult } from '@/shared/utils/types'
@@ -9,14 +10,17 @@ import { MdFormatListBulletedAdd} from 'react-icons/md'
 const WasteAreaDetail:AppPage = () => {
   const route = useRouter()
   const id = route.query.sort
+  const [isBusy, setIsBusy] = useState(false)
   const [zone, setZone] = useState<ZoneResidenceResult>()
   const [getZoneList] = useLazyGetZoneResidenceQuery()
   useEffect(() => {
     if(id){
+      setIsBusy(true)
       getZoneList(id)
       .then((res) => {
         if(res?.data?.success){
       setZone(res.data)
+      setIsBusy(false)
         }
       })
     }// eslint-disable-next-line
@@ -37,6 +41,7 @@ const WasteAreaDetail:AppPage = () => {
               <p className='fw-500'>Home Residents</p>
               </div>
               <div className='mt-5'>
+                {isBusy && <div className="flex justify-center my-12 lg:mt-24"><CircleLoader size="140" /></div>}
                 {zone && !!zone?.data?.residence?.length && <WasteAreaResidentTable data={zone?.data?.residence}/>}
               </div>
             </div>
