@@ -104,7 +104,7 @@ const ChangeAdminPasswordUsers:FC<Props> = ({close}) => {
                   message: "Please enter your password",
                 },
                 validate: (val) => {
-                  if (watch('new_password') != val) {
+                  if (watch('new_password') !== val) {
                     return "Your passwords do no match";
                   }
                 },

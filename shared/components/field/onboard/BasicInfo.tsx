@@ -6,7 +6,6 @@ import "react-phone-number-input/style.css";
 import Button from "../../Ui/Button";
 import { useAppDispatch, useAppSelector } from "@/shared/redux/store";
 import { saveForm } from "@/shared/redux/reducers/onboardSlice";
-import { toast } from "react-toastify";
 
 interface Props {
   next: () => void;

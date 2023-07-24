@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AppPage } from "@/shared/components/layouts/Types";
 import Image from "next/image";
 import { BiExpand } from "react-icons/bi";
@@ -9,15 +9,27 @@ import { MdFormatListBulletedAdd } from "react-icons/md";
 import DueZoneDisposalTable from "@/shared/components/fleet/cleanups/DueZonesTable";
 import useModal from "@/hooks/useModal";
 import CreateCleanupModal from "@/shared/components/fleet/cleanups/CreateCleanup";
+import { useGetScheduleQuery } from "@/services/api/scheduleSlice";
+import { ScheduleRequest } from "@/shared/utils/types/schedule";
+import { useGetZonesQuery } from "@/services/api/routineSlice";
+import { ZonesList } from "@/shared/utils/types";
+import Link from "next/link";
+import { CircleLoader } from "@/shared/components/Ui/Loading";
 
 const CleanupPage: AppPage = () => {
+  const {data:schedule, isLoading, refetch} = useGetScheduleQuery()
+  const {data:zone, isLoading:zoneLoad} = useGetZonesQuery()
     const {Modal, setShowModal} = useModal()
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(6);
-  const [data, setData] = useState(cleanup);
+  const [postsPerPage] = useState(8);
+  const [data, setData] = useState<ScheduleRequest[] | any>();
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
+  useEffect(() => {
+    setData(schedule?.data)
+  }, [schedule])
+  
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -33,7 +45,7 @@ const CleanupPage: AppPage = () => {
   };
 
   const nextPage = () => {
-    if (currentPage !== Math.ceil(data.length / postsPerPage)) {
+    if (currentPage !== Math.ceil(data?.length / postsPerPage)) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -41,27 +53,31 @@ const CleanupPage: AppPage = () => {
   //   filter status
   const filterStatus = (e: any) => {
     if (e.target.value === "all") {
-      setData(cleanup);
+      setData(schedule?.data);
+      setCurrentPage(1)
     } else {
-      const filts = cleanup.filter((where) => where.status === e.target.value);
+      const filts = schedule?.data?.filter((where:ScheduleRequest) => where.status === e.target.value);
       setData(filts);
+      setCurrentPage(1)
     }
   };
   const filterZone = (e: any) => {
     if (e.target.value === "all") {
-      setData(cleanup);
+      setData(schedule?.data);
+      setCurrentPage(1)
     } else {
-      const filts = cleanup.filter(
-        (where) => where.zone_name === e.target.value
+      const filts = schedule?.data?.filter(
+        (where:ScheduleRequest) => where.zone.name === e.target.value
       );
       setData(filts);
+      setCurrentPage(1)
     }
   };
 
   const formatBgColor = {
-    pending: "bg-gray-400",
-    ongoing: "bg-orange-800",
-    completed: "bg-primary",
+    PENDING: "bg-gray-400",
+    ONGOING: "bg-orange-800",
+    COMPLETED: "bg-primary",
   };
   return (
     <>
@@ -93,28 +109,34 @@ const CleanupPage: AppPage = () => {
                 Filter by Status
               </option>
               <option value="all">All</option>
-              <option value="pending">Pending</option>
-              <option value="ongoing">Ongoing</option>
-              <option value="completed">Completed</option>
+              <option value="PENDING">Pending</option>
+              <option value="ONGOING">Ongoing</option>
+              <option value="COMPLETED">Completed</option>
             </select>
             <select
               className="w-3/12 border border-gray-500 py-2"
               onChange={(e) => filterZone(e)}
             >
               <option value="" disabled>
-                Filter by Zone
+                Select Option
               </option>
               <option value="all">All</option>
-              <option value="New Benin">New Benin</option>
-              <option value="Akpapava Station">Akpapava Station</option>
-              <option value="Wasota Development">Wasota Development</option>
-              <option value="Oluku Main">Oluku Main</option>
-            </select>
+              {
+                zone && zone.data.map((item:ZonesList) => (
+                  <option value={item.name} key={item.id}>
+                    {item.name}
+                  </option>
+                ))
+              }
+              </select>
           </div>
+          {
+            isLoading && <div className="flex justify-center my-12"><CircleLoader size="70" /></div>
+          }
           <div className="grid grid-cols-2 gap-10 w-11/12 mx-auto">
             {data &&
               !!data.length &&
-              currentPosts.map((item, index) => (
+              currentPosts.map((item:ScheduleRequest, index:number) => (
                 <div
                   className={`p-5 relative dash-shade text-white flex items-center gap-6 ${
                     formatBgColor[item.status as keyof typeof formatBgColor]
@@ -123,31 +145,31 @@ const CleanupPage: AppPage = () => {
                 >
                   <div className="w-24 h-24 circle bg-white grid place-content-center text-black">
                     <p className="text-3xl fw-600">
-                      {item.cleaned_house}
-                      <span>/{item.total_resisdence}</span>
+                      {item.completed}
+                      <span>/{item.zone.no_of_residence}</span>
                     </p>
                     <p className="text-[10px] fw-500">Residence</p>
                   </div>
                   <div>
-                    <p className="fw-600 text-xl">{item.zone_name}</p>
+                    <p className="fw-600 text-xl">{item.zone.name}</p>
                     <div className="flex gap-x-2 itmes-center">
                       <p>Assigned Trucks:</p>
-                      <p className="fw-600 fs-800">{item.assigned_trucks}</p>
+                      {/* <p className="fw-600 fs-800">{item.assigned_trucks}</p> */}
                     </div>
                     <div className="flex gap-x-2 itmes-center">
                       <p>Scheduled Date:</p>
-                      <p className="fw-600 fs-800">{item.scheduled_at}</p>
+                      <p className="fw-600 fs-800">{item.schedule_date}</p>
                     </div>
                   </div>
-                  <div className="absolute top-2 right-2">
+                  <Link className="absolute top-2 right-2" href={{ pathname: '/fleet/cleanups/zone', query: { id: item.id } }}>
                     <BiExpand className="text-3xl duration-100 cursor-pointer hover:scale-110 hover:" />
-                  </div>
+                  </Link>
                 </div>
               ))}
           </div>
           <Paginate
             postsPerPage={postsPerPage}
-            totalPosts={data.length}
+            totalPosts={data?.length}
             paginate={paginate}
             previousPage={previousPage}
             nextPage={nextPage}
@@ -164,8 +186,8 @@ const CleanupPage: AppPage = () => {
             </div>
         </div>
       </div>
-      <Modal title="Set Zone for Cleanup">
-        <CreateCleanupModal/>
+      <Modal title="Create a Schedule Cleanup">
+        <CreateCleanupModal refetch={refetch} close={() => setShowModal(false)}/>
       </Modal>
     </>
   );

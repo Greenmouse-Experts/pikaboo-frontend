@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, { FC, useState } from "react";
 import TextInput, { InputType } from "@/shared/components/Ui/TextInput";
 import { Controller, useForm } from "react-hook-form";
 import Button from "@/shared/components/Ui/Button";
@@ -10,12 +10,12 @@ import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
 import "react-phone-number-input/style.css";
 
 interface Props {
-  refetch: () => void
+  refetch: () => void;
 }
-const AddPersonnelForm:FC<Props> = ({refetch}) => {
-  const [isBusy, setIsBusy] = useState<boolean>(false)
-  const {data:truck, isLoading} = useGetTrucksQuery()
-  const [create] = useLazyCreateDriverQuery()
+const AddPersonnelForm: FC<Props> = ({ refetch }) => {
+  const [isBusy, setIsBusy] = useState<boolean>(false);
+  const { data: truck, isLoading } = useGetTrucksQuery();
+  const [create] = useLazyCreateDriverQuery();
   const {
     control,
     handleSubmit,
@@ -33,19 +33,19 @@ const AddPersonnelForm:FC<Props> = ({refetch}) => {
       password: "",
       password_confirmation: "",
       phone: "",
-      truck_id: ""
+      truck_id: "",
     },
   });
-  const onSubmit = async (data:any) => {
+  const onSubmit = async (data: any) => {
     setIsBusy(true);
     await create(data)
-      .then((res:any) => {
+      .then((res: any) => {
         if (res.data.success) {
-          toast.success(res.data.message)
-          refetch()
-          reset()
+          toast.success(res.data.message);
+          refetch();
+          reset();
           setIsBusy(false);
-        }else {
+        } else {
           toast.error(res.data.message);
           setIsBusy(false);
         }
@@ -205,23 +205,23 @@ const AddPersonnelForm:FC<Props> = ({refetch}) => {
           </div>
         </div>
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 mt-4">
-        <div className="mt-3">
-                  <label className="mb-2 mt-2 block text-gray-500">Phone Number</label>
-                  <PhoneInputWithCountry
-                    international
-                    defaultCountry="NG"
-                    name="phone"
-                    control={control}
-                    rules={{ required: true }}
-                    className="border lg:p-2 p-2 border-gray-400 rounded outline-none"
-                  />
-                  {errors.phone && (
-                    <p className="error text-red-500 fw-500">
-                      Invalid Phone Number
-                    </p>
-                  )}
-                </div>
-                <div className="mt-3">
+          <div className="mt-3">
+            <label className="mb-2 mt-2 block text-gray-500">
+              Phone Number
+            </label>
+            <PhoneInputWithCountry
+              international
+              defaultCountry="NG"
+              name="phone"
+              control={control}
+              rules={{ required: true }}
+              className="border lg:p-2 p-2 border-gray-400 rounded outline-none"
+            />
+            {errors.phone && (
+              <p className="error text-red-500 fw-500">Invalid Phone Number</p>
+            )}
+          </div>
+          <div className="mt-3">
             <label className="mb-2 block mt-2">Trucks</label>
             <Controller
               name="truck_id"
@@ -253,7 +253,16 @@ const AddPersonnelForm:FC<Props> = ({refetch}) => {
         </div>
         <div className="flex justify-end">
           <div className="mt-8 lg:mt-16 lg:w-5/12">
-          <Button title={isBusy ? <PulseSpinner size={13} color="white" />: "Create Service Personnel"} disabled={!isValid} />
+            <Button
+              title={
+                isBusy ? (
+                  <PulseSpinner size={13} color="white" />
+                ) : (
+                  "Create Service Personnel"
+                )
+              }
+              disabled={!isValid}
+            />
           </div>
         </div>
       </form>

@@ -16,10 +16,12 @@ import { useLazyFlagResidenceQuery } from "@/services/api/residenceSlice";
 import { toast } from "react-toastify";
 import ReusableModal from "@/shared/components/helpers/ReusableModal";
 import SetMonthBillModal from "@/shared/components/admin/residents/SetMonthBill";
+import { CircleLoader } from "@/shared/components/Ui/Loading";
 
 const HomeResidentsDetails: AppPage = () => {
   const route = useRouter();
   const id = route.query.sort;
+  const [isLoading, setIsLoading] = useState(false)
   const [user, setUser] = useState<UserDetail>();
   const [getDetail] = useLazyGetUserDetailQuery();
   const dataRows = user?.building_information?.facility_type?.split(",");
@@ -27,16 +29,18 @@ const HomeResidentsDetails: AppPage = () => {
   const shopRows = user?.building_information?.shop_store_in?.split(",");
 
   const fetchDetails = async (id: any) => {
+    setIsLoading(true)
     await getDetail(id).then((res) => {
       if (res?.data?.success) {
         setUser(res.data.data);
-      }
+        setIsLoading(false)
+      }else setIsLoading(false)
     });
   };
   useEffect(() => {
     if (id) {
       fetchDetails(id);
-    }
+    }//eslint-disable-next-line
   }, [id]);
 
   // bill updates
@@ -80,6 +84,7 @@ const HomeResidentsDetails: AppPage = () => {
             Back
           </Link>
         </div>
+        {isLoading && <div className="flex justify-center my-12 lg:mt-24"><CircleLoader size="140" /></div>}
         {user && (
           <div>
             <div className="grid lg:grid-cols-2 lg:gap-12">

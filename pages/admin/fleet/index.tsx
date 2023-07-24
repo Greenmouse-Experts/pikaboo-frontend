@@ -5,6 +5,8 @@ import { BsPersonFillAdd } from "react-icons/bs";
 import FleetManagerTable from "@/shared/components/admin/staff/fleet/FleetManagerTable";
 import AddFleetManagerForm from "@/shared/components/admin/staff/fleet/AddFleet";
 import { useGetUsersQuery } from "@/services/api/routineSlice";
+import EmptyState from "@/shared/components/Ui/EmptyState";
+import { CircleLoader } from "@/shared/components/Ui/Loading";
 
 const ManageFleetManagers: AppPage = () => {
 
@@ -56,7 +58,17 @@ const ManageFleetManagers: AppPage = () => {
           </div>
           <div className="mt-5">
             {
-              open === 1? fleet && !!fleet.length && <FleetManagerTable data={fleet}/> : ""
+              isLoading && <div className="flex justify-center py-12"><CircleLoader size="100"/></div>
+            }
+            {
+              open === 1? <div>
+                {
+                  fleet && !fleet.length && <EmptyState imageClass="w-24 mx-auto" message="No Fleet Manager Yet"/>
+                }
+                {
+                  fleet && !!fleet.length && <FleetManagerTable data={fleet}/>
+                }
+              </div> : ""
             }
             {
               open === 2? <AddFleetManagerForm refetch={refetch}/> : ""

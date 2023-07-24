@@ -45,15 +45,15 @@ body {
 }
 /* target the active bullet */
 span.swiper-pagination-bullet.swiper-pagination-bullet-active {
-  background-color: #b3561b;
+  background-color: #009a06;
   opacity: 1;
 }
 /* checked input */
 input[type="radio"]:checked {
-  accent-color: #b3561b !important;
+  accent-color: #009a06 !important;
 }
 input[type="checkbox"]:checked {
-  accent-color: #b3561b !important;
+  accent-color: #009a06 !important;
 }
 
 /* target all bullets */
@@ -108,11 +108,11 @@ input[type="checkbox"]:checked {
   }
 }
 .border-btn {
-  border: 2px solid #b3561b;
-  color: #b3561b;
+  border: 2px solid #009a06;
+  color: #009a06;
 }
 .border-btn:hover {
-  background-color: #b3561b;
+  background-color: #009a06;
   color: white;
   transition: 0.3s;
 }
@@ -246,7 +246,7 @@ input[type="checkbox"]:checked {
     border-radius: 50%;
   }
   .text-tertial {
-    color: #b3561b;
+    color: #009a06;
   }
   .text-grey {
     color: #828282;
@@ -258,13 +258,13 @@ input[type="checkbox"]:checked {
     background: #e3f9ff;
   }
   .bg-tertial {
-    background: #b3561b;
+    background: #009a06;
   }
   .border-ter {
-    border: 1px solid #b3561b;
+    border: 1px solid #009a06;
   }
   .border-tertial {
-    border-bottom: 6px solid #b3561b !important;
+    border-bottom: 6px solid #009a06 !important;
     transition: 0.5s;
   }
   .bg-tertial-op {

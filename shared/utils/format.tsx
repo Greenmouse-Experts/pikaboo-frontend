@@ -39,4 +39,7 @@ export const FormatStatus=  {
 export const formatStatus=  {
   "1": <p className="w-28 text-center py-1 text-green-800 bg-green-100 border border-green-800 rounded">Active</p>,
   "0": <p className="w-28 text-center py-1 text-orange-800 bg-orange-100 border border-orange-800 rounded">Inactive</p>,
+    "COMPLETED": <p className="w-28 text-center py-1 text-green-800 bg-green-100 border border-green-800 rounded">Completed</p>,
+    "ONGOING": <p className="w-28 text-center py-1 text-purple-800 bg-purple-100 border border-purple-800 rounded">Ongoing</p>,
+    "PENDING": <p className="w-28 text-center py-1 text-orange-800 bg-orange-100 border border-orange-800 rounded">Pending</p>,
 }
