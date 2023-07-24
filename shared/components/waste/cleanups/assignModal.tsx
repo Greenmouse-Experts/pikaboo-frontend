@@ -7,6 +7,7 @@ import Button from "../../Ui/Button";
 import { useLazySubmitPersonnelQuery } from "@/services/api/scheduleSlice";
 import { toast } from "react-toastify";
 import { PulseSpinner } from "../../Ui/Loading";
+import EmptyState from "../../Ui/EmptyState";
 
 interface Props {
   item: any
@@ -50,6 +51,9 @@ const WasteAssignModal:FC<Props> = ({item, close}) => {
   
   return (
     <>
+    {
+          data && !data?.data?.length && <div className="py-6"><EmptyState imageClass="w-20 mx-auto" message="You do not have any service personnel"/></div>
+        }
       <div className="grid lg:grid-cols-2 gap-6 max-h-[300px]">
         {data &&
           !!data?.data?.length &&

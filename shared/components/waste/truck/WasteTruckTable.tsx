@@ -93,7 +93,7 @@ const WasteTruckTable: FC<Props> = ({ data, refetch }) => {
       <div className="lg:p-4 dash-shade">
         <Table columns={columns} data={list} />
       </div>
-      <Modal title="Assign a Zone">
+      <Modal title="Edit Truck Details">
         {/* <FleetAssignWasteManager
           refetch={refetch}
           item={selectedItem}
