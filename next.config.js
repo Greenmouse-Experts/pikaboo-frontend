@@ -3,8 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   output: "export",
   images: {
-    loader: "cloudinary",
-    path: "",
+    // loader: "cloudinary",
+    // path: "",
     remotePatterns: [
       {
         protocol: "https",
