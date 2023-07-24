@@ -24,7 +24,7 @@ const ScheduleDetails: AppPage = () => {
           setShed(res.data.data);
         }
       })
-      .catch((err) => {});
+      .catch((err) => {});//eslint-disable-next-line
   }, [id]);
   const handleOpen = (value: number) => {
     setOpen(open === value ? value : value);

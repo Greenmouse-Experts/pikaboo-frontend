@@ -40,7 +40,7 @@ const HomeResidentsDetails: AppPage = () => {
   useEffect(() => {
     if (id) {
       fetchDetails(id);
-    }
+    }//eslint-disable-next-line
   }, [id]);
 
   // bill updates
