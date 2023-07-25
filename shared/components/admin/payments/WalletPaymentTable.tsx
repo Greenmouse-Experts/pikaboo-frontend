@@ -1,9 +1,12 @@
-import React, { useMemo } from 'react'
+import React, { FC, useMemo } from 'react'
 import Table, { SelectColumnFilter } from '../../Ui/table';
 import { FormatStatus, formatAsNgnMoney } from '@/shared/utils/format';
-import { payments } from '../../Ui/dummyRes';
+import dayjs from 'dayjs';
 
-const WalletPaymentTable = () => {
+interface Props {
+  data: PaymentItem[]
+}
+const WalletPaymentTable:FC<Props> = ({data}) => {
     const columns = useMemo(
         () => [
           {
@@ -12,11 +15,12 @@ const WalletPaymentTable = () => {
           },
           {
             Header: "Payment Reference",
-            accessor: "reference",
+            accessor: "ref_id",
           },
           {
             Header: "Resident",
-            accessor: "name",
+            accessor: "user.first_name",
+            Cell: (row:any) => <p>{`${row.value} ${row.row.original.user.last_name}`}</p>
           },
           {
             Header: "Amount",
@@ -25,7 +29,8 @@ const WalletPaymentTable = () => {
           },
           {
             Header: "Date",
-            accessor: "date",
+            accessor: "created_at",
+            Cell: (Props:(any)) => dayjs(Props.value).format('DD-MMM-YYYY')
           },
           {
             Header: "Status",
@@ -37,7 +42,7 @@ const WalletPaymentTable = () => {
         []
       );
     
-      const list = useMemo(() => payments, [payments]);
+      const list = useMemo(() => data, [data]);
       return (
         <>
           <div className="lg:p-4 w-full">

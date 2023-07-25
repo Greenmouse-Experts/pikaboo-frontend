@@ -45,6 +45,7 @@ export enum CACHE_LIFETIME {
   export const ADD_ZONE = '/admin/zone/create'
   export const GET_ZONE_RESIDENCE = '/zone/get/home-residence'
   export const GET_USER_DETAIL = '/view/single/user'
+  export const SEND_TOKEN = '/user/add/fcm/token'
 
   // residence
   export const ONBOARD_RESISDENCE = '/field-operator/home-residence/create'
@@ -65,3 +66,18 @@ export enum CACHE_LIFETIME {
   export const ASSIGN_DRIVER = '/fleet-manager/schedule-request/assign/service-personnel'
   export const WASTE_GET_REQUEST = '/waste-manager/schedule-request/get'
   export const SUBMIT_PERSONNEL = '/waste-manager/schedule-request/submit/service-personnels'
+  export const GET_WASTE_SCHEDULE = '/waste-manager/schedule-request/get/my/zone'
+
+  // notification
+  export const GET_NOTIFICATION = '/user/get/all/notifications'
+  export const GET_UNREAD_NOTIFICATION = '/user/get/all/unread/notifications'
+  export const READ_NOTIFICATION = '/user/read/notification'
+  export const DELETE_NOTIFICATION = '/user/delete/notification'
+  export const GET_ADMIN_NOTIFICATION = '/admin/get/all/notifications'
+  export const GET_ADMIN_UNREAD_NOTIFICATION = '/admin/get/all/unread/notifications'
+  export const READ_ADMIN_NOTIFICATION = '/admin/read/notification'
+  export const DELETE_ADMIN_NOTIFICATION = '/admin/delete/notification'
+
+  // get transaction
+  export const GET_TRANSACTION = '/admin/get/all/transaction/histories'
+

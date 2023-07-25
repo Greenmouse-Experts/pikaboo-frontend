@@ -2,12 +2,12 @@ import React, {FC} from "react";
 import Link from "next/link";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { BsGear, BsPinMap } from "react-icons/bs";
-import { MdOutlineDashboard } from "react-icons/md";
+import {  MdOutlineDashboard } from "react-icons/md";
 import { TfiShiftLeft } from "react-icons/tfi";
 import { FiCreditCard } from "react-icons/fi";
 import { AiOutlinePieChart } from "react-icons/ai";
 import { HiOutlineUser } from "react-icons/hi";
-import { IoHomeOutline } from 'react-icons/io5'
+import { IoHomeOutline, IoNotificationsOutline } from 'react-icons/io5'
 import useModal from "@/hooks/useModal";
 import LogoutModal from "../../admin/dashboard/Logout";
 
@@ -92,6 +92,12 @@ const AdminSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
             icon={<FiCreditCard className="text-xl" />}
           >
             Payment History
+          </MenuItem>
+          <MenuItem
+            component={<Link href="/admin/notification" />}
+            icon={<IoNotificationsOutline className="text-xl" />}
+          >
+            Notification
           </MenuItem>
           <MenuItem
             component={<Link href="/admin/complaints" />}

@@ -35,6 +35,7 @@ export const FormatStatus=  {
   "accepted": <p className="w-28 text-center py-1 text-green-800 bg-green-100 border border-green-800 rounded">Accepted</p>,
   "cleared": <p className="w-28 text-center py-1 text-blue-800 bg-blue-100 border border-blue-800 rounded">Cleared</p>,
   "paid": <p className="fw-600 text-primary">Paid</p>,
+  "success": <p className="fw-600 text-primary">Paid</p>,
 }
 export const formatStatus=  {
   "1": <p className="w-28 text-center py-1 text-green-800 bg-green-100 border border-green-800 rounded">Active</p>,

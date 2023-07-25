@@ -19,6 +19,6 @@
       "react": [ "./node_modules/@types/react" ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/field/onboard"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/field/onboard","src/firebase-messaging-sw.js"],
   "exclude": ["node_modules"]
 }

@@ -49,7 +49,7 @@ const OnboardingPage: AppPage = () => {
             </div>
             <div className="mt-5">
               {open === 1 ? <BasicInfoForm next={() => handleOpen(2)}/> : ""}
-              {open === 2 ? <BuildingInfoForm /> : ""}
+              {open === 2 ? <BuildingInfoForm prev={() => handleOpen(1)}/> : ""}
             </div>
           </div>
         </div>

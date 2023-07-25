@@ -17,6 +17,7 @@ const initialState = {
     admin_type: "",
     avatar: ""
   } as authUser,
+  fcm_token: "",
 };
 
 export const userSlice = createSlice({
@@ -26,13 +27,16 @@ export const userSlice = createSlice({
     saveUser: (state, action: PayloadAction<authUser>) => {
       state.user = action.payload;
     },
+    saveToken: (state, action: PayloadAction<any>) => {
+      state.fcm_token = action.payload;
+    },
     resetUser: (state) => {
       state.user = initialState.user;
     },
   },
 });
 
-export const { saveUser, resetUser } = userSlice.actions;
+export const { saveUser, resetUser, saveToken } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
 

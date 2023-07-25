@@ -8,6 +8,7 @@ import { RiDeleteBinLine} from "react-icons/ri";
 import { BsTruck } from 'react-icons/bs'
 import useModal from "@/hooks/useModal";
 import LogoutModalUsers from "../../settings/LogoutUsers";
+import { IoNotificationsOutline } from "react-icons/io5";
 
 interface Props {
     setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -70,6 +71,12 @@ const WasteSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
             icon={<RiDeleteBinLine className="text-lg" />}
           >
             Cleanups
+          </MenuItem>
+          <MenuItem
+            component={<Link href="/notification" />}
+            icon={<IoNotificationsOutline className="text-xl" />}
+          >
+            Notification
           </MenuItem>
           <MenuItem
             component={<Link href="/settings" />}

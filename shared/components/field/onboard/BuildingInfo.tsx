@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TextInput, { InputType } from "../../Ui/TextInput";
 import Button from "../../Ui/Button";
@@ -10,7 +10,10 @@ import { ZonesList } from "@/shared/utils/types";
 import { PulseSpinner } from "../../Ui/Loading";
 import { resetForm } from "@/shared/redux/reducers/onboardSlice";
 
-const BuildingInfoForm = () => {
+interface Props {
+  prev: () => void;
+}
+const BuildingInfoForm:FC<Props> = ({prev}) => {
   const {data:zone, isLoading} = useGetZonesQuery()
   const form = useAppSelector((state) => state.onboard.form)
   const [facilityType, setFacilityType] = useState<string[]>([])
@@ -94,6 +97,7 @@ const BuildingInfoForm = () => {
           toast.success(res.data.message)
           reset()
           dispatch(resetForm())
+          prev()
           setIsBusy(false);
         }else {
           Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
