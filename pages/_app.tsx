@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Layouts } from '@/shared/components/layouts/Layout';
 import { MyAppProps } from '@/shared/components/layouts/Types';
 import '@/styles/globals.css'
+import { useEffect } from 'react';
+import { requestForToken } from '@/shared/firebase/firebase';
 
 
 

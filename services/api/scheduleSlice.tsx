@@ -90,6 +90,17 @@ export const routineApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
 
+    getWasteSchedule: builder.query<ScheduleHomeResisdenceResult| ErrorResult, string | void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_WASTE_SCHEDULE}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
     submitPersonnel: builder.query<
       BaseResult | ErrorResult,
       FormData
@@ -117,5 +128,6 @@ export const {
   useLazyGetOneScheduleQuery,
   useWasteGetScheduleQuery,
   useLazySubmitPersonnelQuery,
-  useGetPersonnelQuery
+  useGetPersonnelQuery,
+  useGetWasteScheduleQuery
 } = routineApiSlice;

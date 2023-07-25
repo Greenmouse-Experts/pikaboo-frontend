@@ -1,10 +1,11 @@
 "use client";
 
-import {  UsersResult, ErrorResult, BaseResult, CreateZoneInput, ZonesList, ZoneResult, ZoneResidenceResult, UserDetailsResult } from "@/shared/utils/types";
+import {  UsersResult, ErrorResult, BaseResult, CreateZoneInput, ZonesList, ZoneResult, ZoneResidenceResult, UserDetailsResult, SendToken } from "@/shared/utils/types";
 import { apiSlice } from "../apiSlice";
 
 import * as ENDPOINT from "../constants";
 import { requestAuthorization } from "../helpers";
+import { PaymentResult } from "@/shared/utils/types/routine";
 
 export const routineApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -74,6 +75,119 @@ export const routineApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
+
+    sendFcmToken: builder.query<BaseResult | ErrorResult , SendToken>({
+      query: (payload) => ({
+        url: `${ENDPOINT.SEND_TOKEN}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    getNotify: builder.query<any | ErrorResult , void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_NOTIFICATION}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    getUnreadNotify: builder.query<any | ErrorResult , void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_UNREAD_NOTIFICATION}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    readNotify: builder.query<any | ErrorResult , FormData>({
+      query: (payload) => ({
+        url: `${ENDPOINT.READ_NOTIFICATION}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    deleteNotify: builder.query<any | ErrorResult , any>({
+      query: (param) => ({
+        url: `${ENDPOINT.DELETE_NOTIFICATION}?notification_id=${param}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    adminGetNotify: builder.query<any | ErrorResult , void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_ADMIN_NOTIFICATION}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    adminGetUnreadNotify: builder.query<any | ErrorResult , void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_ADMIN_UNREAD_NOTIFICATION}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    adminReadNotify: builder.query<any | ErrorResult , FormData>({
+      query: (payload) => ({
+        url: `${ENDPOINT.READ_ADMIN_NOTIFICATION}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    adminDeleteNotify: builder.query<any | ErrorResult , any>({
+      query: (param) => ({
+        url: `${ENDPOINT.DELETE_ADMIN_NOTIFICATION}?notification_id=${param}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    getTransaction: builder.query<PaymentResult | ErrorResult , void>({
+      query: (param) => ({
+        url: `${ENDPOINT.GET_TRANSACTION}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
   }),
   overrideExisting: true,
 });
@@ -86,4 +200,14 @@ export const {
     useGetZoneResidenceQuery,
     useLazyGetZoneResidenceQuery,
     useLazyGetUserDetailQuery,
+    useLazySendFcmTokenQuery,
+    useGetNotifyQuery,
+    useGetUnreadNotifyQuery,
+    useLazyReadNotifyQuery,
+    useLazyDeleteNotifyQuery,
+    useAdminGetNotifyQuery,
+    useAdminGetUnreadNotifyQuery,
+    useLazyAdminReadNotifyQuery,
+    useLazyAdminDeleteNotifyQuery,
+    useGetTransactionQuery
 } = routineApiSlice;

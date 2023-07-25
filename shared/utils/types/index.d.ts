@@ -239,3 +239,47 @@ export interface UpdateBillResult extends BaseResult {
     created_at: string
   }
 }
+
+export interface SendToken {
+  fcm_token: string | number
+}
+
+export interface NotificationBody {
+  admin: string | null
+  body: string
+  created_at: string
+  from: {
+    id: number;
+    pikaboo_id: string;
+    account_type: string;
+    title: string;
+    first_name: string;
+    middle_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    phone2: string | null;
+    gender: string;
+    dob: string | null;
+    avatar: string | null;
+    email_verified_at: string;
+    current_password: string;
+    role: string | null;
+    wallet: string;
+    fcm_token: string | null;
+    address: string;
+    zone_id: string | null;
+    truck_id: string | null;
+    created_by_who: string | null;
+    isVerified: string | null;
+    status: string;
+    created_at: string;
+    updated_at: string;
+  }
+  id: number
+  image: string
+  link: string | null
+  status: string
+  title: string
+  type: string
+}
