@@ -1,25 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // output: "export",
+  output: 'export',
   images: {
-    // loader: "cloudinary",
-    // path: "",
+    loader: 'cloudinary',
+    path: '/',
+    unoptimized: true,
     remotePatterns: [
       {
-        protocol: "https",
+        protocol: 'https',
         hostname: "res.cloudinary.com",
-        port: "",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "pikaboo.greenmouseproperties.com",
-        port: "",
-        pathname: "/**",
+        port: '',
+        pathname: '/**',
       },
     ],
+    minimumCacheTTL: 1500000,
   },
-};
+}
+
+module.exports = nextConfig
 
 module.exports = nextConfig;
