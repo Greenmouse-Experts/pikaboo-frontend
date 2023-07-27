@@ -75,7 +75,7 @@ const NotificationPage: AppPage = () => {
             alt="image"
             width={80}
             height={80}
-            className="circle w-16 border-2"
+            className="circle w-16 h-16 border-2"
           />
           <div>
             <p>{item.body}</p>

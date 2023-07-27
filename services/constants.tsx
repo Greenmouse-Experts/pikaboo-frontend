@@ -81,3 +81,13 @@ export enum CACHE_LIFETIME {
   // get transaction
   export const GET_TRANSACTION = '/admin/get/all/transaction/histories'
 
+  // shop 
+  export const CREATE_CATEGORY = '/admin/shop/create/category'
+  export const GET_CATEGORY = '/admin/shop/get/categories'
+  export const EDIT_CATEGORY = '/admin/shop/update/category'
+  export const CREATE_PRODUCT = '/admin/shop/create/product'
+  export const GET_PRODUCT = '/admin/shop/get/products'
+  export const UPDATE_PRODUCT = '/admin/shop/update/product'
+  export const UPDATE_PRODUCT_STATUS = '/admin/shop/action/product'
+  export const DESTROY_PRODUCT = '/admin/shop/destroy/product'
+
