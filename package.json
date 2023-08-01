@@ -1,12 +1,13 @@
 {
-  "name": "frontend_user",
+  "name": "https://admin.mypikaboo.com/",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next export"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
@@ -30,6 +31,7 @@
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-dom": "18.2.0",
+    "react-google-places-autocomplete": "^4.0.1",
     "react-headless-accordion": "^1.0.2",
     "react-hook-form": "^7.44.2",
     "react-icons": "^4.9.0",

@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useLazyLogoutQuery } from '@/services/api/authSlice';
 import { FadeSpinner } from '../Ui/Loading';
+import { resetStateAction } from '@/shared/redux/actions/resetState';
 
 interface Props {
     CloseModal: () => void;
@@ -22,7 +23,7 @@ const LogoutModalUsers:FC<Props> = ({CloseModal}) => {
         await logout()
             .then((res:any) => {
                 if(res.data.success){
-                    dispatch(resetUser())
+                    dispatch(resetStateAction())
                     toast.success(res.data.message)
                     router.push('/auth/login')
                 }
