@@ -32,6 +32,18 @@ export const shopApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
+    deactivateCategory: builder.query<BaseResult | ErrorResult, FormData>({
+      query: (payload) => ({
+        url: `${ENDPOINT.DEACTIVATE_CATEGORY}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
     getCategories: builder.query<any, string | void>({
       query: () => ({
         url: `${ENDPOINT.GET_CATEGORY}`,
@@ -67,6 +79,30 @@ export const shopApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
+    addProductImage: builder.query<BaseResult | ErrorResult, FormData>({
+      query: (payload) => ({
+        url: `${ENDPOINT.ADD_PRODUCT_IMAGE}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    deleteProduct: builder.query<BaseResult | ErrorResult, FormData>({
+      query: (payload) => ({
+        url: `${ENDPOINT.DESTROY_PRODUCT}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
     getProduct: builder.query<any, string | void>({
       query: () => ({
         url: `${ENDPOINT.GET_PRODUCT}`,
@@ -84,8 +120,11 @@ export const shopApiSlice = apiSlice.injectEndpoints({
 export const {
   useLazyCreateCategoryQuery,
   useLazyEditCategoryQuery,
+  useLazyDeactivateCategoryQuery,
   useGetCategoriesQuery,
   useLazyCreateProductQuery,
   useLazyEditProductQuery,
-  useGetProductQuery
+  useGetProductQuery,
+  useLazyAddProductImageQuery,
+  useLazyDeleteProductQuery
 } = shopApiSlice;

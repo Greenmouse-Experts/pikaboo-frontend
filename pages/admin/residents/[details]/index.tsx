@@ -17,16 +17,31 @@ import { toast } from "react-toastify";
 import ReusableModal from "@/shared/components/helpers/ReusableModal";
 import SetMonthBillModal from "@/shared/components/admin/residents/SetMonthBill";
 import { CircleLoader } from "@/shared/components/Ui/Loading";
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 const HomeResidentsDetails: AppPage = () => {
   const route = useRouter();
   const id = route.query.sort;
   const [isLoading, setIsLoading] = useState(false)
+  const [ordinate, setOrdinate] = useState({})
   const [user, setUser] = useState<UserDetail>();
   const [getDetail] = useLazyGetUserDetailQuery();
   const dataRows = user?.building_information?.facility_type?.split(",");
   const flatRows = user?.building_information?.flats?.split(",");
   const shopRows = user?.building_information?.shop_store_in?.split(",");
+
+
+
+// geocodeByAddress('Ogba, Lagos')
+//   .then(results => getLatLng(results[0]))
+//   .then(({ lat, lng }) =>{
+//     setOrdinate({lat, lng});
+//     console.log('Successfully got latitude and longitude', { lat, lng })}
+//   );
+
+  // if(ordinate){geocodeByLatLng({ lat: -34.9011, lng: -56.1645 })
+  // .then(results => console.log(results))
+  // .catch(error => console.error(error));}
 
   const fetchDetails = async (id: any) => {
     setIsLoading(true)
