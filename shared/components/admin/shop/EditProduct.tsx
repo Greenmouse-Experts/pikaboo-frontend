@@ -192,7 +192,7 @@ const EditProduct: FC<Props> = ({ close, refetch, item }) => {
               isBusy ? (
                 <PulseSpinner size={13} color="white" />
               ) : (
-                "Create Product"
+                "Edit Product"
               )
             }
             disabled={!isValid}
