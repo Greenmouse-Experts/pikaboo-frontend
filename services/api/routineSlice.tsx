@@ -188,6 +188,40 @@ export const routineApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
+
+    getSpecial: builder.query<any | ErrorResult , void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_SPECIAL_REQUEST}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
+    getFlat: builder.query<any | ErrorResult , void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_FLAT_RATE}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
+    updateFlat: builder.query<BaseResult | ErrorResult , FormData>({
+      query: (payload) => ({
+        url: `${ENDPOINT.GET_FLAT_RATE}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
   }),
   overrideExisting: true,
 });
@@ -209,5 +243,8 @@ export const {
     useAdminGetUnreadNotifyQuery,
     useLazyAdminReadNotifyQuery,
     useLazyAdminDeleteNotifyQuery,
-    useGetTransactionQuery
+    useGetTransactionQuery,
+    useGetFlatQuery,
+    useGetSpecialQuery,
+    useLazyUpdateFlatQuery
 } = routineApiSlice;

@@ -4,16 +4,16 @@ import TextInput, { InputType } from "../../Ui/TextInput";
 import { toast } from "react-toastify";
 import Button from "../../Ui/Button";
 import { PulseSpinner } from "../../Ui/Loading";
-import { useLazyEditCategoryQuery } from "@/services/api/shopSlice";
+import { useLazyUpdateFlatQuery } from "@/services/api/routineSlice";
 
 interface Props {
     close: () => void
     refetch: () => void
     item: any
 }
-const EditCategory:FC<Props> = ({close, refetch, item}) => {
+const EditFlatRate:FC<Props> = ({close, refetch, item}) => {
     const [isBusy, setIsBusy] = useState(false);
-  const [edit] = useLazyEditCategoryQuery();
+  const [edit] = useLazyUpdateFlatQuery();
   
   const {
     control,
@@ -23,8 +23,7 @@ const EditCategory:FC<Props> = ({close, refetch, item}) => {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      name: item.name || "",
-      category_id: item.id
+      charges: item.charges || "",
     },
   });
 
@@ -52,18 +51,18 @@ const EditCategory:FC<Props> = ({close, refetch, item}) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Controller
-              name="name"
+              name="charges"
               control={control}
               rules={{
                 required: {
                   value: true,
-                  message: "Please enter category name",
+                  message: "Please enter charges",
                 },
               }}
               render={({ field }) => (
                 <TextInput
-                  label="Category Name"
-                  error={errors.name?.message}
+                  label="Charge"
+                  error={errors.charges?.message}
                   type={InputType.text}
                   {...field}
                 />
@@ -83,4 +82,4 @@ const EditCategory:FC<Props> = ({close, refetch, item}) => {
   )
 }
 
-export default EditCategory
+export default EditFlatRate

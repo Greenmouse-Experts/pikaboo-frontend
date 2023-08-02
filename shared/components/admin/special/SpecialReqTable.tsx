@@ -1,10 +1,14 @@
+import React, { FC, useMemo } from 'react'
 import Link from 'next/link';
-import React, { useMemo } from 'react'
 import Table, { SelectColumnFilter } from '../../Ui/table';
-import { FormatStatus, formatAsNgnMoney } from '@/shared/utils/format';
+import { FormatStatus, formatAsNgnMoney, formatStatus } from '@/shared/utils/format';
 import { specialData } from '../../Ui/dummyRes';
 
-const SpecialRequestTable = () => {
+interface Props {
+  data: any;
+  refetch: () => void
+}
+const SpecialRequestTable:FC<Props> = ({data, refetch}) => {
     const columns = useMemo(
         () => [
           {
@@ -13,9 +17,13 @@ const SpecialRequestTable = () => {
           },
           {
             Header: "Residence ID",
-            accessor: "residence_id",
-            Cell: (props: any) => (
-              <Link href='/admin/residents/details' className="fw-500 text-primary">{props.value}</Link>
+            accessor: "home_residence.pikaboo_id",
+            Cell: (row: any) => (
+              <Link href={{
+                pathname: `/admin/residents/details`,
+                query: {
+                  sort: row.row.original.home_residence.id,
+                }}} className="fw-500 text-primary">{row.value}</Link>
             ),
           },
           {
@@ -26,7 +34,7 @@ const SpecialRequestTable = () => {
           },
           {
             Header: "Address",
-            accessor: "address",
+            accessor: "home_residence.address",
           },
           {
             Header: "Price",
@@ -35,27 +43,23 @@ const SpecialRequestTable = () => {
           },
           {
             Header: "Phone Number",
-            accessor: "phone[0]",
-          },
-          {
-            Header: "No of Bin",
-            accessor: "no_of_bin",
+            accessor: "home_residence.phone",
           },
           {
             Header: "Date Requested",
-            accessor: "date_required",
+            accessor: "schedule_date",
           },
           {
             Header: "Status",
-            accessor: "request_status",
+            accessor: "status",
             Cell: (props: any) =>
-              FormatStatus[props.value as keyof typeof FormatStatus],
+              formatStatus[props.value as keyof typeof formatStatus],
           },
         ], // eslint-disable-next-line
         []
       );
     
-      const list = useMemo(() => specialData, [specialData]);
+      const list = useMemo(() => data, [data]);
       return (
         <>
           <div className="lg:p-4 w-full">
