@@ -18,7 +18,6 @@ const EditFlatRate:FC<Props> = ({close, refetch, item}) => {
   const {
     control,
     handleSubmit,
-    setError,
     formState: { errors, isValid },
   } = useForm({
     mode: "onChange",

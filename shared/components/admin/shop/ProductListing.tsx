@@ -83,6 +83,7 @@ const [selectedItem, setSeletedItem] = useState('')
                 item.images.map((item: any) => {
                   return (
                     <Image
+                    key={item.name}
                       src={item.name}
                       alt="image"
                       width={100}
