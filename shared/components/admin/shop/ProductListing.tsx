@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useLazyDeleteProductQuery } from "@/services/api/shopSlice";
 import { FaEdit } from "react-icons/fa";
 import EditProduct from "./EditProduct";
+import Paginate from "../../Ui/Paginate";
 
 interface Props {
   data: any;
@@ -120,6 +121,14 @@ const [selectedItem, setSeletedItem] = useState('')
             </div>
           </div>
         ))}
+        <Paginate
+            postsPerPage={postsPerPage}
+            totalPosts={data?.length}
+            paginate={paginate}
+            previousPage={previousPage}
+            nextPage={nextPage}
+            currentPage={currentPage}
+          />
       </div>
       <Modal title="" noHead>
         <ReusableModal
