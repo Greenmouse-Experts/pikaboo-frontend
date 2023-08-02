@@ -1,11 +1,13 @@
 import useModal from "@/hooks/useModal";
 import { formatAsNgnMoney } from "@/shared/utils/format";
 import Image from "next/image";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import ReusableModal from "../../helpers/ReusableModal";
 import { toast } from "react-toastify";
 import { useLazyDeleteProductQuery } from "@/services/api/shopSlice";
+import { FaEdit } from "react-icons/fa";
+import EditProduct from "./EditProduct";
 
 interface Props {
   data: any;
@@ -14,14 +16,14 @@ interface Props {
 const ProductListing: FC<Props> = ({ data, refetch }) => {
     const [deleteProd] = useLazyDeleteProductQuery()
 const {Modal, setShowModal} = useModal()
+const {Modal:Edit, setShowModal:showEdit} = useModal()
 const [isBusy, setIsBusy] = useState(false)
 const [selectedItem, setSeletedItem] = useState('')
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(8);
-  const [product, setProduct] = useState<any>(data);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = product?.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = data?.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -41,6 +43,10 @@ const [selectedItem, setSeletedItem] = useState('')
       setCurrentPage(currentPage + 1);
     }
   };
+  const openEdit = (item:any) => {
+    setSeletedItem(item)
+    showEdit(true)
+  }
   const openDelete = (item:any) => {
     setSeletedItem(item)
     setShowModal(true)
@@ -73,14 +79,14 @@ const [selectedItem, setSeletedItem] = useState('')
           <div className="relative border lg:flex gap-x-3 p-3 rounded mt-4" key={index}>
             <div className="flex w-[100px] overflow-x-auto scroll-pro">
               {!!item.images.length &&
-                item.image.map((item: any) => {
+                item.images.map((item: any) => {
                   return (
                     <Image
-                      src={item.image}
+                      src={item.name}
                       alt="image"
                       width={100}
                       height={100}
-                      className="w-16 circle border-2 shadow-lg"
+                      className="w-16 h-16 circle border-2 shadow-lg"
                     />
                   );
                 })}
@@ -108,8 +114,9 @@ const [selectedItem, setSeletedItem] = useState('')
                 <p className="fw-500"><span className="text-primary fw-500 fs-400 pr-2">Category:</span>{item.category.name}</p>
                 <p className="fw-500 mt-2"><span className="text-primary fw-500 fs-400 pr-2">Weight:</span>{item.weight}kg</p>
             </div>
-            <div className="absolute top-3 right-4">
-                <MdDeleteForever className="text-2xl text-red-600 cursor-pointer" onClick={() => openDelete(item.id)}/>
+            <div className="absolute flex gap-x-2 top-2 right-4">
+              <FaEdit className="text-primary" onClick={() => openEdit(item)}/>
+                <MdDeleteForever className="text-xl text-red-600 cursor-pointer" onClick={() => openDelete(item.id)}/>
             </div>
           </div>
         ))}
@@ -124,6 +131,9 @@ const [selectedItem, setSeletedItem] = useState('')
             isBusy={isBusy}
             />
       </Modal>
+      <Edit title="Edit this product">
+        <EditProduct close={() => showEdit(false)} refetch={refetch} item={selectedItem}/>
+      </Edit>
     </>
   );
 };

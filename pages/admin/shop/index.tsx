@@ -34,7 +34,7 @@ const ShopPage:AppPage = () => {
         <div className='mt-6 p-5 lg:py-12 dash-shade'>
           <div className="flex items-center gap-x-3 border-b pb-1">
           <TfiLayoutListThumb className="text-2xl" />
-            <p className='fw-500'>Product Listing (20)</p>
+            <p className='fw-500'>Product Listing ({data?.data?.length})</p>
           </div>
           <div>
           {isLoading && (
