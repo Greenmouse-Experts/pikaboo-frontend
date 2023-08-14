@@ -1,8 +1,20 @@
 import { store } from "@/shared/redux/store";
 
 
-export const extractCallBackRoute = (path: string) => {
-  if (path === "/auth/login") return "/user";
+export const extractCallBackRoute = (path: string, data:any) => { 
+  console.log(path);
+  console.log(data);
+  if (path === "/auth/login" || path === "/auth/login?sort=1" || path === "/auth/login?sort=2" || path === "/auth/login?sort=3"){
+    if(data.account_type === "Fleet Manager"){
+      return '/fleet'
+    }else if(data.account_type === "Waste Manager"){
+      return '/waste'
+    }else if(data.account_type === "Field Operator"){
+      return '/field'
+    }else{
+      return "/user";
+    }
+  } 
   if (path === "/auth/signup") return "/user";
   const indexOfQ = path.indexOf("?");
   if (indexOfQ) return path.slice(0, indexOfQ);
@@ -44,3 +56,9 @@ export const getLocalToken = (key: string) => {
       }
       return null;
 }
+
+export const deleteFromLocalStorage = (key: string) => {
+  if (typeof window !== "undefined") {
+    window.localStorage.removeItem(key);
+  }
+};

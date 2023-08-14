@@ -211,6 +211,17 @@ export const routineApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
 
+    getLga: builder.query<any | ErrorResult , void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_LGA}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
     updateFlat: builder.query<BaseResult | ErrorResult , FormData>({
       query: (payload) => ({
         url: `${ENDPOINT.GET_FLAT_RATE}`,
@@ -246,5 +257,6 @@ export const {
     useGetTransactionQuery,
     useGetFlatQuery,
     useGetSpecialQuery,
-    useLazyUpdateFlatQuery
+    useLazyUpdateFlatQuery,
+    useGetLgaQuery
 } = routineApiSlice;
