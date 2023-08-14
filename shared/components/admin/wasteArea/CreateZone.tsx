@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import TextInput, { InputType } from "../../Ui/TextInput";
 import { toast } from "react-toastify";
-import { useLazyCreateZoneQuery } from "@/services/api/routineSlice";
+import { useGetLgaQuery, useLazyCreateZoneQuery } from "@/services/api/routineSlice";
 import Button from "../../Ui/Button";
 import { PulseSpinner } from "../../Ui/Loading";
 const NaijaStates = require('naija-state-local-government');
@@ -14,6 +14,7 @@ interface Props {
 const CreateZoneForm:FC<Props> = ({close, refetch}) => {
   const [isBusy, setIsBusy] = useState(false);
   const [create] = useLazyCreateZoneQuery();
+  const {data:lga, isLoading} = useGetLgaQuery()
   
 
   const {
@@ -94,9 +95,9 @@ const CreateZoneForm:FC<Props> = ({close, refetch}) => {
                     Select Option
                   </option>
                   {
-                    NaijaStates.lgas("Edo") && NaijaStates.lgas("Edo").lgas?.map((item:string, index:any) => (
-                      <option value={item} key={index}>
-                        {item}
+                    lga && lga.data.map((item:any, index:number) => (
+                      <option value={item.id} key={index}>
+                        {item.name}
                       </option>
                     ))
                   }
@@ -127,7 +128,7 @@ const CreateZoneForm:FC<Props> = ({close, refetch}) => {
           <div className="mt-10">
             <Button
               title={
-                isBusy ? <PulseSpinner size={13} color="white" /> : "Create"
+                isBusy ? <PulseSpinner size={13} color="white" /> : "Save"
               }
               disabled={!isValid}
             />

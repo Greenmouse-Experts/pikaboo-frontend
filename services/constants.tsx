@@ -97,3 +97,6 @@ export enum CACHE_LIFETIME {
   export const GET_SPECIAL_REQUEST = '/admin/special-requests/get'
   export const GET_FLAT_RATE = '/admin/special/request/flat/rate'
 
+  // get lga
+  export const GET_LGA = '/get/lga'
+

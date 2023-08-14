@@ -16,8 +16,12 @@ const MyResidentTable = () => {
       {
         Header: "Residence ID",
         accessor: "pikaboo_id",
-        Cell: (props: any) => (
-          <Link href='/admin/residents/details' className="fw-500 text-primary">{props.value}</Link>
+        Cell: (row: any) => (
+          <Link href={{
+            pathname: `/field/residents/details`,
+            query: {
+              sort: row.row.original.id,
+            }}} className="fw-500 text-primary">{row.value}</Link>
         ),
       },
       {
