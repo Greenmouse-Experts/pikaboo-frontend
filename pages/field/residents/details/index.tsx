@@ -9,6 +9,9 @@ import { FaSearchLocation } from "react-icons/fa";
 import { MdMyLocation } from "react-icons/md";
 import useModal from "@/hooks/useModal";
 import AddLocation from "@/shared/components/field/residence/AddLocation";
+import {  BsHousesFill } from "react-icons/bs";
+import { BiEdit } from "react-icons/bi";
+import EditFacility from "@/shared/components/field/residence/EditFacility";
 
 const FieldResidenceDetails: AppPage = () => {
   const route = useRouter();
@@ -18,6 +21,7 @@ const FieldResidenceDetails: AppPage = () => {
   const [getDetail] = useLazyGetUserDetailQuery();
 
   const {Modal, setShowModal} = useModal()
+  const {Modal:Facility, setShowModal:ShowFacility} = useModal()
 
   const fetchDetails = async (id: any) => {
     setIsLoading(true);
@@ -41,8 +45,8 @@ const FieldResidenceDetails: AppPage = () => {
             <CircleLoader size="140" />
           </div>
         )}
-        {user  && (
-          <div className="grid lg:grid-cols-2">
+        {user && !isLoading  && (
+          <div className="grid lg:grid-cols-2 gap-6">
             <div className="dash-shade p-6">
               <div className="w-7/12 mx-auto dash-shade">
                 <QRCode
@@ -69,12 +73,24 @@ const FieldResidenceDetails: AppPage = () => {
                 </div>
               </div>
             </div>
+            <div className="dash-shade p-6">
+                <div className="flex items-center justify-between border-b pb-1">
+                  <div className="flex items-center gap-x-2">
+                  <BsHousesFill className="text-primary text-2xl"/>
+                  <p className="fw-600 text-xl">Facility Type</p>
+                  </div>
+                  <BiEdit className="text-2xl text-primary cursor-pointer" onClick={() => ShowFacility(true)}/>
+                </div>
+            </div>
           </div>
         )}
       </div>
       <Modal title="Get Resisdence Coordinates">
           <AddLocation id={user?.id} close={() => setShowModal(false)}/>
       </Modal>
+      <Facility title="Edit Facility Type" wide>
+          <EditFacility/>
+      </Facility>
     </>
   );
 };
