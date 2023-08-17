@@ -4,18 +4,21 @@ import TextInput, { InputType } from "../../Ui/TextInput";
 import { toast } from "react-toastify";
 import Button from "../../Ui/Button";
 import { PulseSpinner } from "../../Ui/Loading";
+import { useLazyUpdateResisdenceInfoQuery } from "@/services/api/residenceSlice";
 
 interface Props {
   id: any;
   close: () => void;
+  refetch: () => void
 }
 interface LocationProps {
   latitude: number;
   longitude: number;
 }
-const AddLocation: FC<Props> = ({ id, close }) => {
+const AddLocation: FC<Props> = ({ id, close, refetch }) => {
   const [location, setLocation] = useState<LocationProps>();
   const [isBusy, setIsBusy] = useState(false);
+  const [update] = useLazyUpdateResisdenceInfoQuery()
   useEffect(() => {
     // Check if the browser supports Geolocation API
     if ("geolocation" in navigator) {
@@ -35,8 +38,9 @@ const AddLocation: FC<Props> = ({ id, close }) => {
   }, []);
   useEffect(() => {
     reset({
-      latitude: location?.latitude,
-      longitude: location?.longitude,
+      user_id: id ,
+      latitude: String(location?.latitude),
+      longtitude: String(location?.longitude),
     });
   }, [location]);
   const {
@@ -48,34 +52,37 @@ const AddLocation: FC<Props> = ({ id, close }) => {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      latitude: 0,
-      longitude: 0,
+      latitude: '',
+      longtitude: '',
+      user_id: id 
     },
   });
 
-  //   const onSubmit = async (data: any) => {
-  //     setIsBusy(true);
-  //     await create(data)
-  //       .then((res: any) => {
-  //         if (res.data.success) {
-  //           toast.success(res.data.message);
-  //           setIsBusy(false);
-  //           refetch()
-  //           close()
-  //         } else {
-  //           toast.error(res.data.message);
-  //           setIsBusy(false);
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         toast.error(err?.error?.data.message);
-  //         setIsBusy(false);
-  //       });
-  //   };
+    const onSubmit = async (data: any) => {
+      setIsBusy(true);
+      await update(data)
+        .then((res: any) => {
+          if (res.data.success) {
+            toast.success(res.data.message);
+            setIsBusy(false);
+            refetch()
+            close()
+          } else {
+            Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+              toast.error(value[0]);
+            });
+            setIsBusy(false);
+          }
+        })
+        .catch((err) => {
+          toast.error(err?.error?.data.message);
+          setIsBusy(false);
+        });
+    };
   return (
     <>
       <div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Controller
               name="latitude"
@@ -98,7 +105,7 @@ const AddLocation: FC<Props> = ({ id, close }) => {
           </div>
           <div>
             <Controller
-              name="longitude"
+              name="longtitude"
               control={control}
               rules={{
                 required: {
@@ -109,7 +116,7 @@ const AddLocation: FC<Props> = ({ id, close }) => {
               render={({ field }) => (
                 <TextInput
                   label="Longitude"
-                  error={errors.longitude?.message}
+                  error={errors.longtitude?.message}
                   type={InputType.number}
                   {...field}
                 />
@@ -120,7 +127,7 @@ const AddLocation: FC<Props> = ({ id, close }) => {
           <div className="mt-10">
             <Button
               title={
-                isBusy ? <PulseSpinner size={13} color="white" /> : "Create"
+                isBusy ? <PulseSpinner size={13} color="white" /> : "Save"
               }
               disabled={!isValid}
             />

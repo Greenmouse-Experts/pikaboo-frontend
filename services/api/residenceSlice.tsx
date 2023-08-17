@@ -38,9 +38,21 @@ export const residenceApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
+
+    updateResisdenceInfo: builder.query<BaseResult | ErrorResult, FormData>({
+      query: (payload) => ({
+        url: `${ENDPOINT.UPDATE_ACCOUNT}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
   }),
   overrideExisting: true,
 });
 
-export const { useLazyFlagResidenceQuery, useLazyUpdateBillQuery } =
+export const { useLazyFlagResidenceQuery, useLazyUpdateBillQuery, useLazyUpdateResisdenceInfoQuery } =
   residenceApiSlice;

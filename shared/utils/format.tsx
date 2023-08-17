@@ -19,6 +19,11 @@ export const formatAsNgnMoney = (value: number | string) => {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 };
 
+export const parseData = (value:string) => {
+  if (!value) return "";
+  return JSON.parse(value)
+}
+
 export const FormatType =  {
   "1": "Fleet Manager",
   "2": "Field Operator",

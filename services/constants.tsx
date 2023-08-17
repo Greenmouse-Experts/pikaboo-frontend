@@ -46,11 +46,13 @@ export enum CACHE_LIFETIME {
   export const GET_ZONE_RESIDENCE = '/zone/get/home-residence'
   export const GET_USER_DETAIL = '/view/single/user'
   export const SEND_TOKEN = '/user/add/fcm/token'
+  export const GET_MY_ZONE_RESIDENCE = '/field-operator/home-residence/get/by/zone'
 
   // residence
   export const ONBOARD_RESISDENCE = '/field-operator/home-residence/create'
   export const FLAG_RESIDENCE = '/admin/flag/user'
   export const UPDATE_BILL = '/admin/bills/user/update'
+  export const UPDATE_ACCOUNT = '/field-operator/home-residence/submit'
 
   //waste manager
   export const GET_TRUCKS = '/waste-manager/truck/get'

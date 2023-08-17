@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { IoSend } from "react-icons/io5";
 import Button from "../../Ui/Button";
 import { MdDelete } from "react-icons/md";
-import { set } from "react-hook-form";
+import { useLazyUpdateResisdenceInfoQuery } from "@/services/api/residenceSlice";
+import { toast } from "react-toastify";
+import { PulseSpinner } from "../../Ui/Loading";
 
-const EditFacility = () => {
+interface Props {
+  id: any;
+  close: () => void;
+  refetch: () => void
+}
+const EditFacility:FC<Props> = ({id, close, refetch}) => {
   const restype = [
     "Tenement House",
     "One Room Self-contained",
-    "A Room and Parlour Sel-contained",
+    "A Room and Parlour Self-contained",
     "1-Bedroom Bungalow",
     "2-Bedroom Bungalow",
     "3-Bedroom Bungalow",
@@ -24,8 +31,7 @@ const EditFacility = () => {
     "Shops/stores within the market",
     "Sheds within the market",
   ];
-//   const mxd = ["Resedential & SME Facility"];
-  const com = ["Market", "Hospital", "Schhol", "Hotel", "Warehouse", "Others"];
+  const com = ["Market", "Hospital", "School", "Hotel", "Warehouse", "Others"];
   const stat = ["Occupied", "Vacant", "Underdeveloped"];
   const includes = ["Public Water Supply", "Private Borehole", "None"];
   const owner = ["Government Building", "Private-Owned Building"];
@@ -77,20 +83,46 @@ const EditFacility = () => {
     const filtered = arr.filter((where: any) => where.name !== item);
     setShopStore(filtered);
   };
-  const handleSubmit = (e:any) => {
+  const [isBusy, setIsBusy] = useState(false)
+  const [update] = useLazyUpdateResisdenceInfoQuery()
+  const handleSubmit = async(e:any) => {
     e.preventDefault()
     const payload = {
-        residence_type: resHouse,
-        shop_stores: shopStore,
-        mxd: mxd,
-        swg: swg,
-        building_purpose: comm,
+        user_id:id,
+        // residential: resHouse,
+        // shop_stores: shopStore,
+        residential_facility: mxd,
+        facility_include: swg,
+        commercial_facility: comm,
         water_supply: include,
-        building_status: status,
-        building_owner: owned
+        completion_status: status,
+        classification: owned
     }
-    console.log(payload);
-    
+    const formData = new FormData();
+    Object.entries(payload).forEach(([key, value]) => {
+      formData.append(key, value as any);
+    })
+    formData.append('residential', JSON.stringify(resHouse))
+    formData.append('shop_stores', JSON.stringify(shopStore))
+    setIsBusy(true);
+      await update(formData)
+        .then((res: any) => {
+          if (res.data.success) {
+            toast.success(res.data.message);
+            setIsBusy(false);
+            refetch()
+            close()
+          } else {
+            Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+              toast.error(value[0]);
+            });
+            setIsBusy(false);
+          }
+        })
+        .catch((err) => {
+          toast.error(err?.error?.data.message);
+          setIsBusy(false);
+        });
   }
   return (
     <>
@@ -278,7 +310,11 @@ const EditFacility = () => {
         </div>
         </div>
         <div className="pt-6">
-            <Button title='Update Resisdence Facility Information'/>
+            <Button
+              title={
+                isBusy ? <PulseSpinner size={13} color="white" /> : "Update Resisdence Facility Information"
+              }
+            />
         </div>
       </form>
     </>
