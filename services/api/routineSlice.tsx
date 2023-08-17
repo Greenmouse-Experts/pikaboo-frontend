@@ -31,6 +31,17 @@ export const routineApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
 
+    getMyZoneUsers: builder.query<UsersResult , string | void>({
+      query: (query) => ({
+        url: `${ENDPOINT.GET_MY_ZONE_RESIDENCE}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
     getUserDetail: builder.query<UserDetailsResult , string | string[]>({
       query: (query) => ({
         url: `${ENDPOINT.GET_USER_DETAIL}?user_id=${query}`,
@@ -258,5 +269,6 @@ export const {
     useGetFlatQuery,
     useGetSpecialQuery,
     useLazyUpdateFlatQuery,
-    useGetLgaQuery
+    useGetLgaQuery,
+    useGetMyZoneUsersQuery
 } = routineApiSlice;

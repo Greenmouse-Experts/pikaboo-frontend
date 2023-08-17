@@ -198,6 +198,15 @@ export interface UserDetail {
       street_name: string
       town: string
       user_id: string
+      latitude: string
+      longtitude: string
+      residential: string
+      shop_stores: string
+      residential_facility: string
+      facility_include: string
+      completion_status: string
+      classification: string
+      water_supply: string
     }
     created_at: string
     created_by_who: string

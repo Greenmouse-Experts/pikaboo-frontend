@@ -16,6 +16,11 @@ const FieldOperatorTable:FC<Props> = ({data}) => {
         accessor: (row:any, index:number) => index + 1, //RDT provides index by default
       },
       {
+        Header: "Pikaboo ID",
+        accessor: "pikaboo_id",
+        Cell: (props:any) => <p className="fw-600 text-primary">{props.value}</p>
+      },
+      {
         Header: "Name",
         accessor: "first_name",
         Cell: (row:any) => ` ${row.value} ${row.row.original.last_name}`,
@@ -32,6 +37,10 @@ const FieldOperatorTable:FC<Props> = ({data}) => {
         Header: "Gender",
         accessor: "gender",
         Cell: (props:any) => <p className="capitalize">{props.value}</p>
+      },
+      {
+        Header: "Zone",
+        accessor: "zone.name",
       },
       {
         Header: "Date Registered",

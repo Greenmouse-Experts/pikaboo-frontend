@@ -2,11 +2,11 @@ import React, { useMemo } from "react";
 import Table, { SelectColumnFilter } from "../../Ui/table";
 import { FormatStatus } from "@/shared/utils/format";
 import Link from "next/link";
-import { useGetMyUsersQuery } from "@/services/api/routineSlice";
+import { useGetMyUsersQuery, useGetMyZoneUsersQuery } from "@/services/api/routineSlice";
 
 const MyResidentTable = () => {
 
-    const {data, isLoading} = useGetMyUsersQuery()
+    const {data, isLoading} = useGetMyZoneUsersQuery()
   const columns = useMemo(
     () => [
       {
@@ -31,7 +31,7 @@ const MyResidentTable = () => {
       {
         Header: "Name",
         accessor: "first_name",
-        Cell: (row: any) =>
+        Cell: (row: any) => row.value !== "ANONYMOUS" &&
           `${row.row.original.title} ${row.value} ${row.row.original.last_name}`,
       },
       {

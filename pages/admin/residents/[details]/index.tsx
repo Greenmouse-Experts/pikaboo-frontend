@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useLazyGetUserDetailQuery } from "@/services/api/routineSlice";
 import { useRouter } from "next/router";
 import { UserDetail } from "@/shared/utils/types";
-import { FormatStatus, formatAsNgnMoney } from "@/shared/utils/format";
+import { FormatStatus, formatAsNgnMoney, parseData } from "@/shared/utils/format";
 import dayjs from "dayjs";
 import { FaExpand, FaRegEdit } from "react-icons/fa";
 import QRCode from "react-qr-code";
@@ -18,6 +18,7 @@ import ReusableModal from "@/shared/components/helpers/ReusableModal";
 import SetMonthBillModal from "@/shared/components/admin/residents/SetMonthBill";
 import { CircleLoader } from "@/shared/components/Ui/Loading";
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+import { BsHousesFill } from "react-icons/bs";
 
 const HomeResidentsDetails: AppPage = () => {
   const route = useRouter();
@@ -222,7 +223,7 @@ const HomeResidentsDetails: AppPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="dash-shade p-8 rounded-xl">
+              {/* <div className="dash-shade p-8 rounded-xl">
                 <p className="fw-600 lg:fs-700">More Information</p>
                 <div className="mt-6">
                   <div className="flex border-b pb-2 lg:pb-3">
@@ -296,7 +297,87 @@ const HomeResidentsDetails: AppPage = () => {
                     </div>
                   </div>
                 </div>
+              </div> */}
+              <div className="dash-shade p-6">
+              <div className="flex items-center justify-between border-b pb-1">
+                <div className="flex items-center gap-x-2">
+                  <BsHousesFill className="text-primary text-2xl" />
+                  <p className="fw-600 text-xl">Facility Type</p>
+                </div>
+                {/* <BiEdit
+                  className="text-2xl text-primary cursor-pointer"
+                  onClick={() => ShowFacility(true)}
+                /> */}
               </div>
+              <div className="mt-4">
+                {user.building_information.residential && (
+                  <div>
+                    <p className="fw-500">Residential:</p>
+                    <div className="grid gap-2 lg:grid-cols-2">
+                      {parseData(user.building_information.residential).map(
+                        (item: any, i: number) => (
+                          <div
+                            className="flex bg-blue-100 p-2  fs-500 rounded-lg gap-x-2 items-center"
+                            key={i}
+                          >
+                            <span className="fw-600 text-lg bg-white w-8 h-8 circle place-center">
+                              {item.no}
+                            </span>
+                            <p className="fs-500 fw-500">{item.name}</p>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
+                <div>
+                {user.building_information.shop_stores && (
+                  <div className="mt-4">
+                    <p className="fw-500">Shop/Stores In:</p>
+                    <div className="grid gap-2 lg:grid-cols-2">
+                      {parseData(user.building_information.shop_stores).map(
+                        (item: any, i: number) => (
+                          <div
+                            className="flex bg-blue-100 p-2  fs-500 rounded-lg gap-x-2 items-center"
+                            key={i}
+                          >
+                            <span className="fw-600 text-lg bg-white w-8 h-8 circle place-center">
+                              {item.no}
+                            </span>
+                            <p className="fs-500 fw-500">{item.name}</p>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
+                </div>
+                <div className="flex gap-x-1 mt-3 items-center">
+                  <p className="fs-500 fw-500">MIXED RESIDENTIAL & PRODUCTION FACILITY:</p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.residential_facility}</p>
+                </div>
+                <div className="flex gap-x-1 mt-3 items-center">
+                  <p className="fs-500 fw-500">PURPOSE BUILT FACILITY:</p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.residential_facility}</p>
+                </div>
+                <div className="flex gap-x-1 mt-3 items-center">
+                  <p className="fs-500 fw-500">COMPLETION STATUS:</p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.completion_status}</p>
+                </div>
+                <div className="flex gap-x-1 mt-3 items-center">
+                  <p className="fs-500 fw-500">FACILITY INCLUDE SEWAGE SYSTEM:</p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.facility_include}</p>
+                </div>
+                <div className="flex gap-x-1 mt-3 items-center">
+                  <p className="fs-500 fw-500">MEANS OF WATER SUPPLY:</p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.water_supply}</p>
+                </div>
+                <div className="flex gap-x-1 mt-3 items-center">
+                  <p className="fs-500 fw-500">BUILDING OWNERSHIP:</p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.classification}</p>
+                </div>
+              </div>
+            </div>
             </div>
           </div>
         )}
