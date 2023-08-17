@@ -39,7 +39,7 @@ const WasteAreaMainTable = () => {
       },
       {
         Header: "LGA",
-        accessor: "lga",
+        accessor: "lga.name",
       },
       {
         Header: "Date Created",
