@@ -13,7 +13,7 @@ const ManageFleetManagers: AppPage = () => {
   const [open, setOpen] = useState<number>(1);
   const {data, refetch, isLoading} = useGetUsersQuery("Fleet Manager")
 
-  const fleet = data?.data?.data.filter((where:any )=> where.account_type === "Fleet Manager")
+  const fleet = data?.data?.filter((where:any )=> where.account_type === "Fleet Manager")
 
   const handleOpen = (value:number) => {
     setOpen(open === value ? value : value);
