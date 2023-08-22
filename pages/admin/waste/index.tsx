@@ -11,7 +11,7 @@ const ManageWasteManagers: AppPage = () => {
   const [open, setOpen] = useState<number>(1);
   const { data, refetch, isLoading } = useGetUsersQuery("Waste Manager");
 
-  const waste = data?.data?.data;
+  const waste = data?.data;
   const handleOpen = (value: number) => {
     setOpen(open === value ? value : value);
   };

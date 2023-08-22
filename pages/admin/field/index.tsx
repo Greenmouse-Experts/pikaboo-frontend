@@ -13,7 +13,7 @@ const ManageWasteManagers: AppPage = () => {
   const [open, setOpen] = useState<number>(1);
   const {data, refetch, isLoading} = useGetUsersQuery("Field Operator")
 
-  const field = data?.data?.data.filter((where:any )=> where.account_type === "Field Operator")
+  const field = data?.data?.filter((where:any )=> where.account_type === "Field Operator")
 
   const handleOpen = (value:number) => {
     setOpen(open === value ? value : value);
