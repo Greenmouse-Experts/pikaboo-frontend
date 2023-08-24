@@ -5,12 +5,15 @@ import Button from "@/shared/components/Ui/Button";
 import { useLazyAdminCreateWasteQuery } from "@/services/api/onboardSlice";
 import { toast } from "react-toastify";
 import { PulseSpinner } from "@/shared/components/Ui/Loading";
+import { useGetZonesQuery } from "@/services/api/routineSlice";
+import { ZonesList } from "@/shared/utils/types";
 
 interface Props {
   refetch: () => void
 }
 const AddWasteManagerForm:FC<Props> = ({refetch}) => {
   const [isBusy, setIsBusy] = useState<boolean>(false)
+  const {data:zone, isLoading} = useGetZonesQuery()
   const [create] = useLazyAdminCreateWasteQuery()
   const {
     control,
@@ -22,6 +25,7 @@ const AddWasteManagerForm:FC<Props> = ({refetch}) => {
   } = useForm({
     mode: "onChange",
     defaultValues: {
+      zone_id: "",
       first_name: "",
       last_name: "",
       email: "",
@@ -54,6 +58,36 @@ const AddWasteManagerForm:FC<Props> = ({refetch}) => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="lg:w-6/12 mb-5 lg:pr-6">
+          <label className="block mt-3 mb-1">Select Zone</label>
+          <Controller
+            name="zone_id"
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: "Please select an option",
+              },
+            }}
+            render={({ field }) => (
+              <select
+              {...field}
+              className="w-full border border-gray-400 rounded h-[42px]"
+            >
+              <option value="" disabled>
+                Select Option
+              </option>
+              {
+                zone && zone.data.map((item:ZonesList) => (
+                  <option value={item.id} key={item.id}>
+                    {item.name}
+                  </option>
+                ))
+              }
+            </select>
+            )}
+          />
+        </div>
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-12">
           <div>
             <Controller

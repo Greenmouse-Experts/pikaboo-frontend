@@ -17,8 +17,12 @@ const WasteAreaResidentTable:FC<Props> = ({data}) => {
       {
         Header: "Residence ID",
         accessor: "user.pikaboo_id",
-        Cell: (props: any) => (
-          <Link href='/admin/residents/details' className="fw-500 text-primary">{props.value}</Link>
+        Cell: (row: any) => (
+          <Link  href={{
+            pathname: `/admin/residents/details`,
+            query: {
+              sort: row.row.original.user.id,
+            }}} className="fw-500 text-primary">{row.value}</Link>
         ),
       },
       {
@@ -29,7 +33,7 @@ const WasteAreaResidentTable:FC<Props> = ({data}) => {
         Header: "Name",
         accessor: "user.first_name",
         Cell: (row: any) =>
-          `${row.row.original.user.title} ${row.value} ${row.row.original.user.last_name}`,
+         row.value && `${row.row.original.user.title} ${row.value} ${row.row.original.user.last_name}`,
       },
       {
         Header: "Phone Number",

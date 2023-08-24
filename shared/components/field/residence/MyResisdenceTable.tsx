@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import Table, { SelectColumnFilter } from "../../Ui/table";
 import { FormatStatus } from "@/shared/utils/format";
 import Link from "next/link";
-import { useGetMyUsersQuery, useGetMyZoneUsersQuery } from "@/services/api/routineSlice";
+import { useGetMyZoneUsersQuery } from "@/services/api/routineSlice";
 
 const MyResidentTable = () => {
 
@@ -31,7 +31,7 @@ const MyResidentTable = () => {
       {
         Header: "Name",
         accessor: "first_name",
-        Cell: (row: any) => row.value !== "ANONYMOUS" &&
+        Cell: (row: any) => row.value &&
           `${row.row.original.title} ${row.value} ${row.row.original.last_name}`,
       },
       {

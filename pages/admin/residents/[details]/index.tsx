@@ -10,39 +10,27 @@ import { UserDetail } from "@/shared/utils/types";
 import { FormatStatus, formatAsNgnMoney, parseData } from "@/shared/utils/format";
 import dayjs from "dayjs";
 import { FaExpand, FaRegEdit } from "react-icons/fa";
-import QRCode from "react-qr-code";
+import QRCode from "qrcode.react";
 import useModal from "@/hooks/useModal";
 import { useLazyFlagResidenceQuery } from "@/services/api/residenceSlice";
 import { toast } from "react-toastify";
 import ReusableModal from "@/shared/components/helpers/ReusableModal";
 import SetMonthBillModal from "@/shared/components/admin/residents/SetMonthBill";
 import { CircleLoader } from "@/shared/components/Ui/Loading";
-import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 import { BsHousesFill } from "react-icons/bs";
+import { BiDownload } from "react-icons/bi";
+import jsPDF from "jspdf";
 
 const HomeResidentsDetails: AppPage = () => {
   const route = useRouter();
   const id = route.query.sort;
   const [isLoading, setIsLoading] = useState(false)
-  const [ordinate, setOrdinate] = useState({})
   const [user, setUser] = useState<UserDetail>();
   const [getDetail] = useLazyGetUserDetailQuery();
   const dataRows = user?.building_information?.facility_type?.split(",");
   const flatRows = user?.building_information?.flats?.split(",");
   const shopRows = user?.building_information?.shop_store_in?.split(",");
 
-
-
-// geocodeByAddress('Ogba, Lagos')
-//   .then(results => getLatLng(results[0]))
-//   .then(({ lat, lng }) =>{
-//     setOrdinate({lat, lng});
-//     console.log('Successfully got latitude and longitude', { lat, lng })}
-//   );
-
-  // if(ordinate){geocodeByLatLng({ lat: -34.9011, lng: -56.1645 })
-  // .then(results => console.log(results))
-  // .catch(error => console.error(error));}
 
   const fetchDetails = async (id: any) => {
     setIsLoading(true)
@@ -87,6 +75,16 @@ const HomeResidentsDetails: AppPage = () => {
 
   // show image
   const { Modal: ImageModal, setShowModal: setShowImageModal } = useModal();
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    const canvas: HTMLCanvasElement | null = document.querySelector("canvas");
+
+    if (canvas) {
+      const qrCodeDataURL = canvas.toDataURL("image/png");
+      doc.addImage(qrCodeDataURL, "PNG", 30, 30, 80, 80); // Add QR code image
+      doc.save("qrcode.pdf");
+    }
+  };
 
   return (
     <>
@@ -104,29 +102,34 @@ const HomeResidentsDetails: AppPage = () => {
         {user && (
           <div>
             <div className="grid lg:grid-cols-2 lg:gap-12">
-              <div className="row-span-2 dash-shade p-8 rounded-xl">
-                <div>
-                  <div className="w-7/12 mx-auto dash-shade">
-                    <QRCode
-                      size={156}
-                      style={{
-                        height: "auto",
-                        maxWidth: "100%",
-                        width: "100%",
-                      }}
-                      value={user.pikaboo_id}
-                    />
-                  </div>
-                  <p className="text-center mt-5 fw-600 text-primary">
-                    {user.pikaboo_id}
-                  </p>
-                </div>
+              <div className="row-span-2 relative dash-shade p-8 rounded-xl">
+              <div className="">
+              <BiDownload
+                className="text-2xl cursor-pointer absolute top-4 right-4 hover:scale-105 duration-100"
+                onClick={generatePDF}
+              />
+              <div className="w-6/12 mx-auto dash-shade">
+                <QRCode
+                  size={136}
+                  style={{
+                    height: "auto",
+                    maxWidth: "100%",
+                    width: "100%",
+                  }}
+                  id="qrcode"
+                  value={`https://pikaboo.netlify.app/field/residents/details?sort=${user.id}`}
+                />
+              </div>
+              <p className="text-center mt-5 fw-600 text-primary">
+                {user.pikaboo_id}
+              </p>
+            </div>
                 <div className="flex gap-x-12 mt-12">
-                  <p className="w-4/12 fw-600">Resident Profile</p>
+                  <p className="w-4/12 fw-600 whitespace-nowrap">Resident Profile</p>
                   <div className="w-8/12">
-                    <p className="fw-500">{`${user.title} ${user.first_name} ${
+                    {user?.first_name && <p className="fw-500">{`${user.title} ${user.first_name} ${
                       user.middle_name ? user.middle_name : ""
-                    } ${user.last_name}`}</p>
+                    } ${user.last_name}`}</p>}
                     <p>{user?.address}</p>
                   </div>
                 </div>
@@ -145,6 +148,36 @@ const HomeResidentsDetails: AppPage = () => {
                     </div>
                   </div>
                   <div className="border-b flex py-2 mt-2">
+                    <p className="w-4/12 fw-500">No of Residents:</p>
+                    <div>
+                      {/* <p>{user.email}</p> */}
+                    </div>
+                  </div>
+                  <div className="border-b flex py-2 mt-2">
+                    <p className="w-4/12 fw-500">House No:</p>
+                    <div>
+                      {/* <p>{user.email}</p> */}
+                    </div>
+                  </div>
+                  <div className="border-b flex py-2 mt-2">
+                    <p className="w-4/12 fw-500">street Name:</p>
+                    <div>
+                      {/* <p>{user.email}</p> */}
+                    </div>
+                  </div>
+                  <div className="border-b flex py-2 mt-2">
+                    <p className="w-4/12 fw-500">Area:</p>
+                    <div>
+                      {/* <p>{user.email}</p> */}
+                    </div>
+                  </div>
+                  <div className="border-b flex py-2 mt-2">
+                    <p className="w-4/12 fw-500">Town:</p>
+                    <div>
+                      {/* <p>{user.email}</p> */}
+                    </div>
+                  </div>
+                  {/* <div className="border-b flex py-2 mt-2">
                     <p className="w-4/12 fw-500">Building Purpose</p>
                     <div>
                       <p>{user.building_information.purpose_built_facility}</p>
@@ -170,7 +203,7 @@ const HomeResidentsDetails: AppPage = () => {
                       {!shopRows && <p>None</p>}
                       <p>{shopRows && shopRows.map((item, index) => <p key={index}>{item}</p>)}</p>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="mt-8 flex justify-center">
                     {user.status === "Flag" && (
                       <Button

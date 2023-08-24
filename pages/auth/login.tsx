@@ -10,6 +10,9 @@ import LoginSwiper from "@/shared/components/auth/LoginSwiper";
 const FleetLogin: AppPage = () => {
   const router = useRouter();
   const type = router.query.sort;
+  const id = router.query.id;
+  console.log(id);
+  
 
   return (
     <>

@@ -33,6 +33,13 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
         accessor: (row: any, index: number) => index + 1, //RDT provides index by default
       },
       {
+        Header: "Residence ID",
+        accessor: "pikaboo_id",
+        Cell: (row: any) => (
+          <p className="fw-500 text-primary">{row.value}</p>
+        ),
+      },
+      {
         Header: "Name",
         accessor: "first_name",
         Cell: (row: any) => ` ${row.value} ${row.row.original.last_name}`,
@@ -56,9 +63,14 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
         Cell: (props) => dayjs(props.value).format("DD-MMM-YYYY"),
       },
       {
-        Header: "Zone Incharage",
+        Header: "Zone",
         accessor: "zone",
         Cell: (props) => (props.value ? props.value.name : "Nill"),
+      },
+      {
+        Header: "Zone Incharge",
+        accessor: "",
+        // Cell: (props) => (props.value ? props.value.name : "Nill"),
       },
       {
         Header: "Status",

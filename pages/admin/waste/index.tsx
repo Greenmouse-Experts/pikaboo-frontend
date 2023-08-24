@@ -11,7 +11,7 @@ const ManageWasteManagers: AppPage = () => {
   const [open, setOpen] = useState<number>(1);
   const { data, refetch, isLoading } = useGetUsersQuery("Waste Manager");
 
-  const waste = data?.data;
+  const waste = data?.data?.data;
   const handleOpen = (value: number) => {
     setOpen(open === value ? value : value);
   };
@@ -28,9 +28,7 @@ const ManageWasteManagers: AppPage = () => {
           <div className="pl-12 text-white">
             <p className="text-2xl fw-600">Waste Managers</p>
             <p className="fs-400 w-8/12 mt-2">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum
-              architecto dolore voluptatum assumenda. Iste aliquam hic fuga
-              perspiciatis voluptates necessitatibus ex volupta.
+            Overseeing the collection, disposal, recycling, and overall management of waste materials to ensure environmental sustainability and compliance with regulatory standards.
             </p>
           </div>
         </div>
