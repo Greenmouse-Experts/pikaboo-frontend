@@ -10,7 +10,7 @@ import { MdMyLocation } from "react-icons/md";
 import useModal from "@/hooks/useModal";
 import AddLocation from "@/shared/components/field/residence/AddLocation";
 import { BsHousesFill } from "react-icons/bs";
-import { BiDownload, BiEdit } from "react-icons/bi";
+import { BiDownload, BiEdit, BiUserCircle } from "react-icons/bi";
 import EditFacility from "@/shared/components/field/residence/EditFacility";
 import jsPDF from "jspdf";
 import { parseData } from "@/shared/utils/format";
@@ -143,50 +143,121 @@ const FieldResidenceDetails: AppPage = () => {
                   </div>
                 )}
                 <div>
-                {user.building_information.shop_stores && (
-                  <div className="mt-4">
-                    <p className="fw-500">Shop/Stores In:</p>
-                    <div className="grid gap-2 lg:grid-cols-2">
-                      {parseData(user.building_information.shop_stores).map(
-                        (item: any, i: number) => (
-                          <div
-                            className="flex bg-blue-100 p-2  fs-500 rounded-lg gap-x-2 items-center"
-                            key={i}
-                          >
-                            <span className="fw-600 text-lg bg-white w-8 h-8 circle place-center">
-                              {item.no}
-                            </span>
-                            <p className="fs-500 fw-500">{item.name}</p>
-                          </div>
-                        )
-                      )}
+                  {user.building_information.shop_stores && (
+                    <div className="mt-4">
+                      <p className="fw-500">Shop/Stores In:</p>
+                      <div className="grid gap-2 lg:grid-cols-2">
+                        {parseData(user.building_information.shop_stores).map(
+                          (item: any, i: number) => (
+                            <div
+                              className="flex bg-blue-100 p-2  fs-500 rounded-lg gap-x-2 items-center"
+                              key={i}
+                            >
+                              <span className="fw-600 text-lg bg-white w-8 h-8 circle place-center">
+                                {item.no}
+                              </span>
+                              <p className="fs-500 fw-500">{item.name}</p>
+                            </div>
+                          )
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
                 </div>
                 <div className="flex gap-x-1 mt-3 items-center">
-                  <p className="fs-500 fw-500">MIXED RESIDENTIAL & PRODUCTION FACILITY:</p>
-                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.residential_facility}</p>
+                  <p className="fs-500 fw-500">
+                    MIXED RESIDENTIAL & PRODUCTION FACILITY:
+                  </p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
+                    {user.building_information.residential_facility}
+                  </p>
                 </div>
                 <div className="flex gap-x-1 mt-3 items-center">
                   <p className="fs-500 fw-500">PURPOSE BUILT FACILITY:</p>
-                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.residential_facility}</p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
+                    {user.building_information.residential_facility}
+                  </p>
                 </div>
                 <div className="flex gap-x-1 mt-3 items-center">
                   <p className="fs-500 fw-500">COMPLETION STATUS:</p>
-                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.completion_status}</p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
+                    {user.building_information.completion_status}
+                  </p>
                 </div>
                 <div className="flex gap-x-1 mt-3 items-center">
-                  <p className="fs-500 fw-500">FACILITY INCLUDE SEWAGE SYSTEM:</p>
-                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.facility_include}</p>
+                  <p className="fs-500 fw-500">
+                    FACILITY INCLUDE SEWAGE SYSTEM:
+                  </p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
+                    {user.building_information.facility_include}
+                  </p>
                 </div>
                 <div className="flex gap-x-1 mt-3 items-center">
                   <p className="fs-500 fw-500">MEANS OF WATER SUPPLY:</p>
-                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.water_supply}</p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
+                    {user.building_information.water_supply}
+                  </p>
                 </div>
                 <div className="flex gap-x-1 mt-3 items-center">
                   <p className="fs-500 fw-500">BUILDING OWNERSHIP:</p>
-                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">{user.building_information.classification}</p>
+                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
+                    {user.building_information.classification}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="dash-shade p-6 col-span-2">
+              <div className="flex justify-between items-center border-b pb-1">
+                <div className="flex gap-x-2 items-center">
+                <BiUserCircle className="text-3xl text-primary" />
+                <p className="fw-600 text-xl text-primary">
+                  Personal Information
+                </p>
+                </div>
+                <BiEdit
+                  className="text-2xl text-primary cursor-pointer"
+                  onClick={() =>false}
+                />
+              </div>
+              <div className="grid lg:grid-cols-2 gap-6 mt-6">
+                <div className="">
+                  <p className="fw-500">Name:</p>
+                  <p>{user?.first_name ? user.first_name : ""}</p>
+                </div>
+                <div>
+                  <p className="fw-500">Phone:</p>
+                  <p>
+                    {user?.phone ? user.phone : ""}{" "}
+                    {user?.phone2 ? user.phone2 : ""}
+                  </p>
+                </div>
+                <div className="">
+                  <p className="fw-500">Email:</p>
+                  <p>{user.email ? user.email : ""}</p>
+                </div>
+                <div>
+                  <p className="fw-500">No of Residents:</p>
+                  <p></p>
+                </div>
+                <div className="">
+                  <p className="fw-500">House No:</p>
+                  <p></p>
+                </div>
+                <div className="">
+                  <p className="fw-500">street Name:</p>
+                  <p></p>
+                </div>
+                <div>
+                  <p className="fw-500">Area:</p>
+                  <p></p>
+                </div>
+                <div>
+                  <p className="fw-500">Town:</p>
+                  <p></p>
+                </div>
+                <div>
+                  <p className="fw-500">Building Images:</p>
+                  <p></p>
                 </div>
               </div>
             </div>

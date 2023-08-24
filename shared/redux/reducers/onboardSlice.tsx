@@ -15,6 +15,7 @@ const initialState = {
     address: "",
     gender: "",
   } as FormInput1,
+  userid: '',
 };
 
 export const formSlice = createSlice({
@@ -24,12 +25,15 @@ export const formSlice = createSlice({
     saveForm: (state, action: PayloadAction<FormInput1>) => {
       state.form = action.payload;
     },
+    saveUserId: (state, action: PayloadAction<any>) => {
+      state.userid = action.payload;
+    },
     resetForm: (state) => {
       state = initialState;
     },
   },
 });
 
-export const { saveForm, resetForm } = formSlice.actions;
+export const { saveForm, resetForm, saveUserId } = formSlice.actions;
 
 export default formSlice.reducer;

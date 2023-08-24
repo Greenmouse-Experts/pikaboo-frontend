@@ -33,7 +33,7 @@ const AllResidentTable = () => {
         Header: "Name",
         accessor: "first_name",
         Cell: (row: any) =>
-          `${row.row.original.title} ${row.value} ${row.row.original.last_name}`,
+        row.value && `${row.row.original.title} ${row.value} ${row.row.original.last_name}`,
       },
       {
         Header: "Phone Number",
