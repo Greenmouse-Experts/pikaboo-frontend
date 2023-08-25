@@ -20,7 +20,7 @@ const WasteSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
   const {Modal, setShowModal} = useModal()
 
   return (
-    <div className="left-0 bottom-0 fixed index-30 lg:h-[90vh]">
+    <div className="left-0 bottom-0 fixed index-30 bg-white h-[90vh] lg:h-[90vh]">
       <Sidebar
         customBreakPoint="960px"
         className="lg:h-[90vh] dash-side-shade rounded-lg lg:ml-3 w-64 fs-500 fw-500 pt-12"

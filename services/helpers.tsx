@@ -2,8 +2,6 @@ import { store } from "@/shared/redux/store";
 
 
 export const extractCallBackRoute = (path: string, data:any) => { 
-  console.log(path);
-  console.log(data);
   if (path === "/auth/login" || path === "/auth/login?sort=1" || path === "/auth/login?sort=2" || path === "/auth/login?sort=3"){
     if(data.account_type === "Fleet Manager"){
       return '/fleet'

@@ -48,14 +48,14 @@ const Header:FC<Props> = ({setToggled, toggled}) => {
                 height={100}
                 className="w-32"
               />
-              <HiOutlineMenu className="text-2xl cursor-pointer" />
+              <HiOutlineMenu className="text-2xl cursor-pointer" 
+                  onClick={() => setToggled(!toggled)} />
             </div>
             <div className="flex w-4/12 md:w-full justify-end lg:justify-between items-center">
               <div className="hidden lg:flex gap-x-2 items-center">
                 <p className="fs-500 fw-600">{user.user_type} Dashboard</p>
                 <FaRegThumbsUp
                   className="text-[#ffcc33]"
-                  onClick={() => setToggled(!toggled)}
                 />
               </div>
               <div className="flex gap-x-4 items-center">
@@ -92,7 +92,7 @@ const Header:FC<Props> = ({setToggled, toggled}) => {
                       </p></MenuItem>
                 </MenuList>
               </Menu>
-              <Link href='/admin/settings' className="flex justify-between gap-x-4 items-center">
+              <Link href={user.user_type === "Administrator"? '/admin/settings' : 'settings'} className="flex justify-between gap-x-4 items-center">
                 {/* <BsBellFill className="text-2xl text-primary" /> */}
                 <div className="flex items-center gap-x-1">
                   {
