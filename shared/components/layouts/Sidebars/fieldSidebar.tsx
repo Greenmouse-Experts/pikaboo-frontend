@@ -19,8 +19,6 @@ interface Props {
 const FieldSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
 
   const {Modal, setShowModal} = useModal()
-  console.log(toggled);
-  
   return (
     <div className="left-0 bottom-0 fixed index-30 bg-white  lg:h-[90vh]">
       <Sidebar
