@@ -93,7 +93,7 @@ const UsersSettingsPage:AppPage = () => {
                   <p className="fw-600 mt-1 text-center">{`${user.firstname} ${user.lastname}`}</p>
                 </div>
               </div>
-              <div className="col-span-3 mt-9 pl-6">
+              <div className="col-span-3 mt-9 lg:pl-6">
                 <div className="grid gap-6">
                   <div className="flex items-center gap-x-2">
                     <div className="w-16 h-16 grid place-content-center shadow-lg">

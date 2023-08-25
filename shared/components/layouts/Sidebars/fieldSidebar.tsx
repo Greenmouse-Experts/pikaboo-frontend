@@ -9,6 +9,7 @@ import { IoHomeOutline } from 'react-icons/io5'
 import useModal from "@/hooks/useModal";
 import { FaHouseUser } from "react-icons/fa";
 import LogoutModalUsers from "../../settings/LogoutUsers";
+import Image from "next/image";
 
 interface Props {
     setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -18,16 +19,26 @@ interface Props {
 const FieldSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
 
   const {Modal, setShowModal} = useModal()
-
   return (
-    <div className="left-0 bottom-0 fixed index-30 lg:h-[90vh]">
+    <div className="left-0 bottom-0 fixed index-30 bg-white  lg:h-[90vh]">
       <Sidebar
         customBreakPoint="960px"
-        className="lg:h-[90vh] dash-side-shade rounded-lg lg:ml-3 w-64 fs-500 fw-500 pt-12"
-        onBackdropClick={() => setToggled(false)} 
+        className="lg:h-[90vh] lg:dash-side-shade rounded-lg lg:ml-3 w-64 fs-500 fw-500 pt-12"
+        onClick={() => setToggled(false)} 
         toggled={toggled}
         backgroundColor="linear-gradient(90deg, #6B5AED 0%, #8D7EFF 100%)"
       >
+        <div className="mb-6 lg:hidden">
+          <Link href="/">
+            <Image
+              src='https://res.cloudinary.com/greenmouse-tech/image/upload/v1687429795/pikaboo/Group_48061_m4vob9.png'
+              alt="logo"
+              width={300}
+              height={100}
+              className="w-36 pl-8"
+            />
+          </Link>
+        </div>
         <Menu
           transitionDuration={600}
           menuItemStyles={{

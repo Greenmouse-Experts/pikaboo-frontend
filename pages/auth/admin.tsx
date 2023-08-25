@@ -53,7 +53,7 @@ const AdminLogin:AppPage = () => {
           }))
           storeLocalToken("token", res.data.token) 
           toast.success(res.data.message)
-          router.push(extractAdminCallBackRoute(router.asPath) as Url);
+          router.push('/admin');
         }else {
           toast.error(res.data.message);
           setIsBusy(false);

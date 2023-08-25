@@ -206,7 +206,7 @@ const FieldResidenceDetails: AppPage = () => {
                 </div>
               </div>
             </div>
-            <div className="dash-shade p-6 col-span-2">
+            <div className="dash-shade p-6 lg:col-span-2">
               <div className="flex justify-between items-center border-b pb-1">
                 <div className="flex gap-x-2 items-center">
                 <BiUserCircle className="text-3xl text-primary" />
