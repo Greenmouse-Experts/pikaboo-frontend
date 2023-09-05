@@ -37,6 +37,7 @@ export const FormatStatus=  {
   "Inactive": <p className="w-28 text-center py-1 fw-500 text-orange-800 bg-orange-100 border border-orange-800 rounded">Inactive</p>,
   "Flag": <p className="w-28 text-center py-1 text-red-800 bg-red-100 border border-red-800 rounded">Flagged</p>,
   "pending": <p className="w-28 text-center py-1 text-orange-800 bg-orange-100 border border-orange-800 rounded">Pending</p>,
+  "Awaiting": <p className="w-28 text-center py-1 text-pink-800 bg-pink-100 border border-pink-800 rounded">Awaiting</p>,
   "accepted": <p className="w-28 text-center py-1 text-green-800 bg-green-100 border border-green-800 rounded">Accepted</p>,
   "cleared": <p className="w-28 text-center py-1 text-blue-800 bg-blue-100 border border-blue-800 rounded">Cleared</p>,
   "paid": <p className="fw-600 text-primary">Paid</p>,

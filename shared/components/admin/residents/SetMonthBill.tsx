@@ -27,7 +27,7 @@ const SetMonthBillModal:FC<Props> = ({bill, bin, id, close, refetch}) => {
     mode: "onChange",
     defaultValues: {
       bill: bill,
-      bill_monthly: "",
+      bill_monthly: bill || "",
       waste_bin_monthly: bin,
       user_id: id
     },

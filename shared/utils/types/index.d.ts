@@ -181,6 +181,7 @@ export interface UserDetail {
       bin_amount_paid: string
     }
     building_information: {
+      no_of_residents: string | number
       area1: string
       area2: string
       building_image: string
@@ -231,6 +232,14 @@ export interface UserDetail {
     truck_id:  string | null
     wallet: string
     zone_id:  string | null
+    recent_bill: {
+      created_at: string
+      current_bill: string
+      current_monthly_bill: string
+      id: number
+      updated_at: string
+      user_id: number
+    }
 }
 
 export interface UpdateBillInput {

@@ -53,6 +53,8 @@ export enum CACHE_LIFETIME {
   export const FLAG_RESIDENCE = '/admin/flag/user'
   export const UPDATE_BILL = '/admin/bills/user/update'
   export const UPDATE_ACCOUNT = '/field-operator/home-residence/submit'
+  export const UPDATE_PERSONAL = 'user/profile/update'
+  export const SEND_LOGIN_DETAILS = '/user/notify/login/details'
 
   //waste manager
   export const GET_TRUCKS = '/waste-manager/truck/get'

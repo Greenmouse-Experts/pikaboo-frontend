@@ -567,7 +567,7 @@ const BuildingInfoForm:FC<Props> = ({prev}) => {
             />
           </div>
           <div>
-            <label className="mt-3 block">Building building_Image</label>
+            <label className="mt-3 block">Building Image</label>
           <input type="file" multiple className="mt-[2px] border-gray-400 w-full border p-2 rounded" onChange={(e:any) => handleFileUpload(e)}/>
           </div>
         </div>

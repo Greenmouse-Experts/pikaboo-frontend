@@ -50,9 +50,37 @@ export const residenceApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
+
+    sendLogin: builder.query<BaseResult | ErrorResult, number>({
+      query: (param) => ({
+        url: `${ENDPOINT.SEND_LOGIN_DETAILS}?id=${param}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    updatePersonalProfile: builder.query<BaseResult | ErrorResult, any>({
+      query: (payload) => ({
+        url: `${ENDPOINT.UPDATE_PERSONAL}?user_id=${payload.id}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload.data,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
   }),
   overrideExisting: true,
 });
 
-export const { useLazyFlagResidenceQuery, useLazyUpdateBillQuery, useLazyUpdateResisdenceInfoQuery } =
-  residenceApiSlice;
+export const {
+  useLazyFlagResidenceQuery,
+  useLazyUpdateBillQuery,
+  useLazyUpdateResisdenceInfoQuery,
+  useLazySendLoginQuery,
+  useLazyUpdatePersonalProfileQuery
+} = residenceApiSlice;

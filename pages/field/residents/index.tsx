@@ -1,10 +1,45 @@
-import React from "react";
+import React, {useState} from "react";
 import { AppPage } from "@/shared/components/layouts/Types";
 import MyResidentTable from "@/shared/components/field/residence/MyResisdenceTable";
 import { MdFormatListBulletedAdd } from "react-icons/md";
+import { useLazyCreateResidenceQuery } from "@/services/api/onboardSlice";
+import { toast } from "react-toastify";
+import { PulseSpinner } from "@/shared/components/Ui/Loading";
+import useModal from "@/hooks/useModal";
+import ReusableModal from "@/shared/components/helpers/ReusableModal";
+import { useRouter } from "next/router";
 
 const ResidentsPage: AppPage = () => {
-  
+  const [isBusy, setIsBusy] = useState(false)
+  const route = useRouter()
+  const {Modal, setShowModal} = useModal()
+  const [profile, setProfile] = useState<any>()
+  const [create] = useLazyCreateResidenceQuery()
+  const createOneResidence = async() => {
+    setIsBusy(true)
+    const formData = new FormData();
+    await create(formData)
+    .then((res:any) => {
+      if (res.data.success) {
+        toast.success(res.data.message)
+        setProfile(res.data.data)
+        setShowModal(true)
+        setIsBusy(false);
+      }else {
+        Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+          toast.error(value[0]);
+        });
+        setIsBusy(false);
+      }
+    })
+    .catch((err) => {
+      toast.error(err?.error?.data.message);
+      setIsBusy(false);
+    });
+  }
+  const gotoProfile = () => {
+    route.push(`/field/residents/details?sort=${profile.id}`)
+  }
   return (
     <>
       <div>
@@ -17,15 +52,31 @@ const ResidentsPage: AppPage = () => {
           </div>
         </div>
         <div className="mt-5 lg:mt-12 dash-shade p-4 lg:p-8 rounded-xl">
-          <div className="flex kitems-center gap-x-2">
+         <div className="flex items-center borber-b-2 justify-between">
+         <div className="flex  gap-x-2">
             <MdFormatListBulletedAdd className="text-2xl text-primary" />
             <p className="fw-500">Home Residents</p>
           </div>
+          <div>
+            {isBusy && <PulseSpinner size={13} color="#009a06" />}
+            {!isBusy && <p className="fw-600 text-primary underline" onClick={createOneResidence}>Add New Home Residence</p>}
+          </div>
+         </div>
           <div className="mt-5">
             <MyResidentTable/>
           </div>
         </div>
       </div>
+      <Modal title="" noHead>
+      <ReusableModal
+          title="A home residence account has been created succesfully, do you want to edit this account"
+          cancelTitle="No, cancel"
+          actionTitle="Yes, Continue"
+          closeModal={() => setShowModal(false)}
+          action={gotoProfile}
+          isBusy={isBusy}
+        />
+      </Modal>
     </>
   );
 };

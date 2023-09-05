@@ -31,9 +31,7 @@ const ManageWasteManagers: AppPage = () => {
           <div className="pl-12 text-white">
             <p className="text-2xl fw-600">Field Operators</p>
             <p className="fs-400 w-8/12 mt-2">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum
-              architecto dolore voluptatum assumenda. Iste aliquam hic fuga
-              perspiciatis voluptates necessitatibus ex volupta.
+              PikaBoo field operators incharge of effctive onboarding and registering resisdence from different zones into the the app. 
             </p>
           </div>
         </div>
