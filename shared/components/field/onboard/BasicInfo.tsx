@@ -213,7 +213,7 @@ const BasicInfoForm: FC<Props> = ({ next }) => {
             )}
           />
           <div className="">
-            <label className="mb-2 mt-2 block ">Phone Number</label>
+            <label className="mb-2 mt-2 block ">Phone Number (WhatsApp)</label>
             <PhoneInputWithCountry
               international
               defaultCountry="NG"

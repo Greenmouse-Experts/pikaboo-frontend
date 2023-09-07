@@ -14,7 +14,7 @@ const MyResidentTable = () => {
         accessor: (row: any, index: number) => index + 1, //RDT provides index by default
       },
       {
-        Header: "Residence ID",
+        Header: "Resident's ID",
         accessor: "pikaboo_id",
         Cell: (row: any) => (
           <Link href={{

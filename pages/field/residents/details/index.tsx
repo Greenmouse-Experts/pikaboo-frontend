@@ -265,7 +265,7 @@ const FieldResidenceDetails: AppPage = () => {
                   <p>{user?.building_information?.house_number}</p>
                 </div>
                 <div className="">
-                  <p className="fw-500">street Name:</p>
+                  <p className="fw-500">Street Name:</p>
                   <p>{user?.building_information?.street_name}</p>
                 </div>
                 <div>

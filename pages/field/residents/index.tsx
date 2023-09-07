@@ -45,7 +45,7 @@ const ResidentsPage: AppPage = () => {
       <div>
         <div className="h-40 bg-waste bg-center flex items-center dash-shade rounded-xl">
           <div className="pl-12 text-white">
-            <p className="text-2xl fw-600">Home Residence</p>
+            <p className="text-2xl fw-600">Home Residents</p>
             <p className="fs-400 lg:w-10/12 mt-2">
               Here are the list of home residence you have onboarded on the app.
             </p>

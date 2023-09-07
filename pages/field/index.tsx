@@ -28,7 +28,7 @@ const FieldManagerDashboard: AppPage = () => {
               />
             </div>
             <div className="text-center">
-              <p className="lg:text-lg fw-500">Registered Residence</p>
+              <p className="lg:text-lg fw-500">Registered Residents</p>
               <p className="text-center text-4xl mt-8 fw-600">{register?.data?.length}</p>
               <div className="mt-6">
               <Link href='/field/onboard' className="btn-like">Register</Link>
@@ -46,7 +46,7 @@ const FieldManagerDashboard: AppPage = () => {
               />
             </div>
             <div className="text-center">
-              <p className="lg:text-lg fw-500">Pikaboo Zones</p>
+              <p className="lg:text-lg fw-500">PikaBoo Zones</p>
               <p className="text-center text-4xl mt-8 fw-600">{zones?.data?.length}</p>
             </div>
           </div>
@@ -54,7 +54,7 @@ const FieldManagerDashboard: AppPage = () => {
         <div className="mt-6 lg:mt-12 dash-shade p-4 lg:p-6">
           <div className="p-2 flex gap-x-3">
             <BsFillPinMapFill className="text-2xl text-primary"/>
-            <p className="fw-500 lg:text-lg text-primary">Zone Informations</p>
+            <p className="fw-500 lg:text-lg text-primary">Zone Information</p>
           </div>
           <div>
             <ZoneInfoTable zones={zones?.data}/>
