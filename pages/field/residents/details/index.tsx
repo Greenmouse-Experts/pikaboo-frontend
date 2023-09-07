@@ -92,7 +92,7 @@ const FieldResidenceDetails: AppPage = () => {
                     maxWidth: "100%",
                     width: "100%",
                   }}
-                  value={`https://pikaboo.netlify.app/field/residents/details?sort=${user.id}`}
+                  value={`https://admin.mypikaboo.com/field/residents/details?sort=${user.id}`}
                 />
                 <p className="text-center mt-5 fw-600 text-primary">
                   {user.pikaboo_id}

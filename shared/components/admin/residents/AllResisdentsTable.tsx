@@ -54,6 +54,8 @@ const AllResidentTable = () => {
         accessor: "status",
         Cell: (props: any) =>
           FormatStatus[props.value as keyof typeof FormatStatus],
+          Filter: SelectColumnFilter,
+          filter: "includes",
       },
     ], // eslint-disable-next-line
     []

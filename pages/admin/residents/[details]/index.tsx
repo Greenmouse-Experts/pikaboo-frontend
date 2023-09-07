@@ -76,12 +76,14 @@ const HomeResidentsDetails: AppPage = () => {
   // show image
   const { Modal: ImageModal, setShowModal: setShowImageModal } = useModal();
   const generatePDF = () => {
+    const pid = user?.pikaboo_id? user.pikaboo_id : ""
     const doc = new jsPDF();
     const canvas: HTMLCanvasElement | null = document.querySelector("canvas");
 
     if (canvas) {
       const qrCodeDataURL = canvas.toDataURL("image/png");
       doc.addImage(qrCodeDataURL, "PNG", 30, 30, 80, 80); // Add QR code image
+      doc.text(pid, 40, 120)
       doc.save("qrcode.pdf");
     }
   };
@@ -108,7 +110,7 @@ const HomeResidentsDetails: AppPage = () => {
                 className="text-2xl cursor-pointer absolute top-4 right-4 hover:scale-105 duration-100"
                 onClick={generatePDF}
               />
-              <div className="w-6/12 mx-auto dash-shade">
+              <div className="w-6/12 mx-auto" id="qrcode">
                 <QRCode
                   size={136}
                   style={{
@@ -116,13 +118,12 @@ const HomeResidentsDetails: AppPage = () => {
                     maxWidth: "100%",
                     width: "100%",
                   }}
-                  id="qrcode"
-                  value={`https://pikaboo.netlify.app/field/residents/details?sort=${user.id}`}
+                  value={`https://admin.mypikaboo.com/field/residents/details?sort=${user.id}`}
                 />
+                <p className="text-center mt-5 fw-600 text-primary">
+                  {user.pikaboo_id}
+                </p>
               </div>
-              <p className="text-center mt-5 fw-600 text-primary">
-                {user.pikaboo_id}
-              </p>
             </div>
                 <div className="flex gap-x-12 mt-12">
                   <p className="w-4/12 fw-600 whitespace-nowrap">Resident Profile</p>

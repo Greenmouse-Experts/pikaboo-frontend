@@ -9,11 +9,9 @@ const HomeResidents: AppPage = () => {
       <div>
         <div className="h-40 bg-waste bg-cover bg-center flex items-center dash-shade rounded-xl">
           <div className="pl-12 text-white">
-            <p className="text-2xl fw-600">Pikaboo Home Resisdents</p>
+            <p className="text-2xl fw-600">PikaBoo Home Resisdents</p>
             <p className="fs-400 w-8/12 mt-2">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum
-              architecto dolore voluptatum assumenda. Iste aliquam hic fuga
-              perspiciatis voluptates necessitatibus ex volupta.
+            Presented here is a comprehensive list of all home residents who have been successfully onboarded onto the PikaBoo application, encompassing individuals hailing from diverse zones.
             </p>
           </div>
         </div>
