@@ -11,7 +11,7 @@ const ComplaintsPage: AppPage = () => {
           alt="complaint"
           width={500}
           height={500}
-          className="w-6/12 mx-auto"
+          className="w-6/12 lg:w-4/12 mx-auto"
         />
         <p className="text-2xl fw-700 text-gray-600 text-center mt-6">No complaint yet</p>
       </div>

@@ -2,7 +2,7 @@ import { store } from "@/shared/redux/store";
 
 
 export const extractCallBackRoute = (path: string, data:any) => { 
-  if (path === "/auth/login" || path === "/auth/login?sort=1" || path === "/auth/login?sort=2" || path === "/auth/login?sort=3"){
+  if (path === "/auth/login/" || path === "/auth/login/?sort=1" || path === "/auth/login/?sort=2" || path === "/auth/login/?sort=3"){
     if(data.account_type === "Fleet Manager"){
       return '/fleet'
     }else if(data.account_type === "Waste Manager"){
@@ -20,14 +20,14 @@ export const extractCallBackRoute = (path: string, data:any) => {
 };
 
 export const extractFieldCallBackRoute = (path: string) => {
-  if (path === "/auth/login") return "/field";
+  if (path === "/auth/login/") return "/field";
   const indexOfQ = path.indexOf("?");
   if (indexOfQ) return path.slice(0, indexOfQ);
   return "/";
 };
 
 export const extractAdminCallBackRoute = (path: string) => {
-    if (path === "/auth/admin") return "/admin";
+    if (path === "/auth/admin/") return "/admin";
     const indexOfQ = path.indexOf("?");
     if (indexOfQ) return path.slice(0, indexOfQ);
     return "/auth";
