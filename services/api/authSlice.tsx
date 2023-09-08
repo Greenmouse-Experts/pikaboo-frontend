@@ -104,6 +104,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
         }),
       }),
 
+      updateUserStatus: builder.query({
+        query: (param) => ({
+          url: `${ENDPOINT.DEACTIVATE_ADMIN}?user_id=${param}`,
+          method: ENDPOINT.HTTP_METHODS.POST,
+          headers: {
+            Authorization: requestAuthorization(),
+          },
+        }),
+      }),
+
       updateUserPhoto: builder.query({
         query: (payload) => ({
           url: ENDPOINT.USER_UPDATE_PHOTO,
@@ -139,5 +149,6 @@ export const {
   useLazyUpdateUserProfileQuery,
   useLazyUserChangePasswordQuery,
   useLazyForgetPasswordQuery,
-  useLazyResetPasswordQuery
+  useLazyResetPasswordQuery,
+  useLazyUpdateUserStatusQuery
 } = authApiSlice;

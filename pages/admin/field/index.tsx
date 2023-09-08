@@ -69,7 +69,7 @@ const ManageWasteManagers: AppPage = () => {
                 />
                 }
                 {
-                  field && !!field.length && <FieldOperatorTable data={field}/>
+                  field && !!field.length && <FieldOperatorTable data={field} refetch={refetch}/>
                 }
               </div> : ""
             }

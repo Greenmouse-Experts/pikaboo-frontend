@@ -193,7 +193,7 @@ const FieldResidenceDetails: AppPage = () => {
                 <div className="flex gap-x-1 mt-3 items-center">
                   <p className="fs-500 fw-500">PURPOSE BUILT FACILITY:</p>
                   <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
-                    {user.building_information.residential_facility}
+                    {user.building_information.commercial_facility}
                   </p>
                 </div>
                 <div className="flex gap-x-1 mt-3 items-center">

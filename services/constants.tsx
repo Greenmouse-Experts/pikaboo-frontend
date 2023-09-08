@@ -37,6 +37,7 @@ export enum CACHE_LIFETIME {
   export const FLEET_CREATE_WASTE = '/fleet-manager/waste-manager/create'
   export const FLEET_ASSIGN_ZONE = '/fleet-manager/waste-manager/assign/zone'
   export const CREATE_DRIVER = '/waste-manager/service-personnel/create'
+  export const DEACTIVATE_ADMIN = '/admin/user/action'
 
   // routine
   export const GET_USERS = '/admin/get/all/user?keyword='

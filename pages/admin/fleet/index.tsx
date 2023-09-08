@@ -31,9 +31,7 @@ const ManageFleetManagers: AppPage = () => {
           <div className="pl-12 text-white">
             <p className="text-2xl fw-600">Fleet Managers</p>
             <p className="fs-400 w-8/12 mt-2">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum
-              architecto dolore voluptatum assumenda. Iste aliquam hic fuga
-              perspiciatis voluptates necessitatibus ex volupta.
+            Our dedicated team of field managers holds the critical responsibility of efficiently and strategically assigning scheduled waste pickups to our fleet of waste truck drivers, ensuring seamless coordination and optimization of our waste collection operations
             </p>
           </div>
         </div>
@@ -66,7 +64,7 @@ const ManageFleetManagers: AppPage = () => {
                   fleet && !fleet.length && <EmptyState imageClass="w-24 mx-auto" message="No Fleet Manager Yet"/>
                 }
                 {
-                  fleet && !!fleet.length && <FleetManagerTable data={fleet}/>
+                  fleet && !!fleet.length && <FleetManagerTable data={fleet} refetch={refetch}/>
                 }
               </div> : ""
             }

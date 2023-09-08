@@ -13,6 +13,9 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import useModal from "@/hooks/useModal";
 import AddWasteManagerZoneForm from "./AddWasteManagerZone";
+import ReusableModal from "@/shared/components/helpers/ReusableModal";
+import { useLazyUpdateUserStatusQuery } from "@/services/api/authSlice";
+import { toast } from "react-toastify";
 
 interface Props {
   data: UserData[];
@@ -20,11 +23,40 @@ interface Props {
 }
 const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
   const { Modal, setShowModal } = useModal();
+  const { Modal:Suspend, setShowModal:showSuspend } = useModal();
+  const { Modal:Unsuspend, setShowModal:showUnsuspend } = useModal();
+  const [suspend] = useLazyUpdateUserStatusQuery()
+  const [isBusy, setIsBusy] = useState(false)
   const [selectedItem, setSelectedItem] = useState<any>();
   const openModal = (item: any) => {
     setShowModal(true);
     setSelectedItem(item);
   };
+  const suspendUser = (id:any) => {
+    setSelectedItem(id)
+    showSuspend(true)
+  }
+  const unSuspendUser = (id:any) => {
+    setSelectedItem(id)
+    showUnsuspend(true)
+  }
+  const ChangeStatus = async(id:any) => {
+    setIsBusy(true)
+    await suspend(id)
+    .then((res) => {
+      if (res.data.success) {
+        toast.success(res.data.message);
+        refetch()
+        showSuspend(false)
+        showUnsuspend(false)
+        setIsBusy(false);
+      }
+      Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+        toast.error(value[0]);
+      });
+    })
+    .catch(() => {});
+  }
 
   const columns = useMemo(
     () => [
@@ -92,7 +124,14 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
                 <MenuItem onClick={() => openModal(row.row.original)}>
                   Assign Zone
                 </MenuItem>
-                <MenuItem className="bg-red-600 text-white">Suspend</MenuItem>
+                {
+                  row.row.original.status === "Active" &&
+                    <MenuItem className="bg-red-600 text-white pt-1 fw-500" onClick={() => suspendUser(row.value)}>Suspend Admin</MenuItem>
+                }
+                {
+                  row.row.original.status !== "Active" &&
+                    <MenuItem className="bg-green-600 text-white pt-1 fw-500" onClick={() => unSuspendUser(row.value)}>Activate Admin</MenuItem>
+                }
               </MenuList>
             </Menu>
           </div>
@@ -115,6 +154,26 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
           close={() => setShowModal(false)}
         />
       </Modal>
+      <Suspend title="" noHead>
+        <ReusableModal
+          title="Are you sure you want to suspend this Waste Manager"
+          cancelTitle="No, cancel"
+          actionTitle="Yes, Susupend"
+          closeModal={() => showSuspend(false)}
+          action={() => ChangeStatus(selectedItem)}
+          isBusy={isBusy}
+        />
+        </Suspend>
+        <Unsuspend title="" noHead>
+        <ReusableModal
+          title="Are you sure you want to activate this Waste Manager"
+          cancelTitle="No, cancel"
+          actionTitle="Yes, Activate"
+          closeModal={() => showUnsuspend(false)}
+          action={() => ChangeStatus(selectedItem)}
+          isBusy={isBusy}
+        />
+        </Unsuspend>
     </>
   );
 };
