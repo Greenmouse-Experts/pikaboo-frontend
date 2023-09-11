@@ -65,12 +65,12 @@ const FieldSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
           >
             Dashboard
           </MenuItem>
-          <MenuItem
+          {/* <MenuItem
             component={<Link href="/field/onboard" />}
             icon={<FaHouseUser className="text-lg" />}
           >
             Register Home
-          </MenuItem>
+          </MenuItem> */}
           <MenuItem
             component={<Link href="/field/residents" />}
             icon={<IoHomeOutline className="text-lg" />}

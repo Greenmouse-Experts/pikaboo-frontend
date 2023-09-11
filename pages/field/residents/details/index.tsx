@@ -293,7 +293,7 @@ const FieldResidenceDetails: AppPage = () => {
           </div>
         )}
       </div>
-      <Modal title="Get Resisdence Coordinates">
+      <Modal title="Get Residence Coordinates">
         <AddLocation
           id={user?.id}
           close={() => setShowModal(false)}

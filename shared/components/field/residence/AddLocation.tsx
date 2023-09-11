@@ -19,6 +19,7 @@ const AddLocation: FC<Props> = ({ id, close, refetch }) => {
   const [location, setLocation] = useState<LocationProps>();
   const [isBusy, setIsBusy] = useState(false);
   const [update] = useLazyUpdateResisdenceInfoQuery()
+  
   useEffect(() => {
     // Check if the browser supports Geolocation API
     if ("geolocation" in navigator) {
