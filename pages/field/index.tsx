@@ -31,7 +31,7 @@ const FieldManagerDashboard: AppPage = () => {
               <p className="lg:text-lg fw-500">Registered Residents</p>
               <p className="text-center text-4xl mt-8 fw-600">{register?.data?.length}</p>
               <div className="mt-6">
-              <Link href='/field/onboard' className="btn-like">Register</Link>
+              <Link href='/field/residents' className="btn-like">Register</Link>
               </div>
             </div>
           </div>
