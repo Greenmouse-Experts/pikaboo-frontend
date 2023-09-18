@@ -13,11 +13,14 @@ import { BsHousesFill } from "react-icons/bs";
 import { BiDownload, BiEdit, BiUserCircle } from "react-icons/bi";
 import EditFacility from "@/shared/components/field/residence/EditFacility";
 import jsPDF from "jspdf";
-import { formatAsNgnMoney, parseData } from "@/shared/utils/format";
+import { formatAsNgnMoney, formatPhoneNum, parseData } from "@/shared/utils/format";
 import EditProfile from "@/shared/components/field/residence/EditProfile";
 import Button from "@/shared/components/Ui/Button";
 import { useLazySendLoginQuery } from "@/services/api/residenceSlice";
 import { toast } from "react-toastify";
+import AddBuildingImages from "@/shared/components/field/residence/AddBuildingImages";
+import { AiOutlineCamera } from "react-icons/ai";
+import Image from "next/image";
 
 const FieldResidenceDetails: AppPage = () => {
   const route = useRouter();
@@ -31,6 +34,7 @@ const FieldResidenceDetails: AppPage = () => {
   const { Modal, setShowModal } = useModal();
   const { Modal: Facility, setShowModal: ShowFacility } = useModal();
   const { Modal: Edit, setShowModal: showEdit } = useModal();
+  const { Modal: ImageUpload, setShowModal: showImage } = useModal();
 
   const fetchDetails = async (id: any) => {
     setIsLoading(true);
@@ -84,7 +88,7 @@ const FieldResidenceDetails: AppPage = () => {
                 className="text-2xl cursor-pointer absolute top-4 right-4 hover:scale-105 duration-100"
                 onClick={generatePDF}
               />
-              <div className="w-6/12 mx-auto" id="qrcode">
+              <div className="w-10/12 lg:w-6/12 mx-auto" id="qrcode">
                 <QRCode
                   size={136}
                   style={{
@@ -182,62 +186,75 @@ const FieldResidenceDetails: AppPage = () => {
                     </div>
                   )}
                 </div>
-                <div className="flex gap-x-1 mt-3 items-center">
+                <div className="lg:flex gap-x-1 mt-3 items-center">
                   <p className="fs-500 fw-500">
                     MIXED RESIDENTIAL & PRODUCTION FACILITY:
                   </p>
-                  <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
+                 <div className="flex">
+                 <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
                     {user.building_information.residential_facility}
                   </p>
+                 </div>
                 </div>
-                <div className="flex gap-x-1 mt-3 items-center">
+                <div className="lg:flex gap-x-1 mt-3 items-center">
                   <p className="fs-500 fw-500">PURPOSE BUILT FACILITY:</p>
+                  <div className="flex">
                   <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
                     {user.building_information.commercial_facility}
                   </p>
+                  </div>
                 </div>
-                <div className="flex gap-x-1 mt-3 items-center">
+                <div className="lg:flex gap-x-1 mt-3 items-center">
                   <p className="fs-500 fw-500">COMPLETION STATUS:</p>
+                  <div className="flex">
                   <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
                     {user.building_information.completion_status}
                   </p>
+                  </div>
                 </div>
-                <div className="flex gap-x-1 mt-3 items-center">
+                <div className="lg:flex gap-x-1 mt-3 items-center">
                   <p className="fs-500 fw-500">
                     FACILITY INCLUDE SEWAGE SYSTEM:
                   </p>
+                  <div className="flex">
                   <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
                     {user.building_information.facility_include}
                   </p>
+                  </div>
                 </div>
-                <div className="flex gap-x-1 mt-3 items-center">
+                <div className="lg:flex gap-x-1 mt-3 items-center">
                   <p className="fs-500 fw-500">MEANS OF WATER SUPPLY:</p>
+                  <div className="flex">
                   <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
                     {user.building_information.water_supply}
                   </p>
+                  </div>
                 </div>
-                <div className="flex gap-x-1 mt-3 items-center">
+                <div className="lg:flex gap-x-1 mt-3 items-center">
                   <p className="fs-500 fw-500">BUILDING OWNERSHIP:</p>
+                  <div className="flex">
                   <p className="capitalize fw-500 bg-blue-100 px-2 py-1 rounded-xl">
                     {user.building_information.classification}
                   </p>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="dash-shade p-6 lg:col-span-2">
-              <div className="flex justify-between items-center border-b pb-1">
+              <div className="lg:flex justify-between items-center border-b pb-1">
                 <div className="flex gap-x-2 items-center">
                   <BiUserCircle className="text-3xl text-primary" />
                   <p className="fw-600 text-xl text-primary">
                     Personal Information
                   </p>
                 </div>
-                <div className="flex items-center gap-x-3">
+                <div className="flex mt-3 lg:mt-0 items-center gap-x-3">
                   <Button altClassName="btn-like" title={isBusy ? <PulseSpinner size={13} color="white" />: "Send Login Details"} onClick={() => sendLogin(user.id)}/>
                   <BiEdit
                   className="text-2xl text-primary cursor-pointer"
                   onClick={() => showEdit(true)}
                 />
+                <AiOutlineCamera className="text-2xl text-primary cursor-pointer" onClick={() => showImage(true)} />
                 </div>
               </div>
               <div className="grid lg:grid-cols-2 gap-6 mt-6">
@@ -248,8 +265,8 @@ const FieldResidenceDetails: AppPage = () => {
                 <div>
                   <p className="fw-500">Phone:</p>
                   <p>
-                    {user?.phone ? user.phone : ""}{" "}
-                    {user?.phone2 ? user.phone2 : ""}
+                    {user?.phone ? formatPhoneNum(user.phone) : ""},{" "}
+                    {user?.phone2 ? formatPhoneNum(user.phone2) : ""}
                   </p>
                 </div>
                 <div className="">
@@ -274,19 +291,21 @@ const FieldResidenceDetails: AppPage = () => {
                 </div>
                 <div>
                   <p className="fw-500">Town:</p>
-                  <p>{user?.building_information?.town}</p>
+                  <p>{user?.building_information?.town_city}</p>
                 </div>
                 <div>
                   <p className="fw-500">Total Current Bill:</p>
                   <p>{user?.recent_bill?.current_bill && formatAsNgnMoney(user?.recent_bill?.current_bill)}</p>
                 </div>
-                <div>
+                <div className="">
                   <p className="fw-500">Current Monthly Bill:</p>
                   <p>{user?.recent_bill?.current_monthly_bill && formatAsNgnMoney(user?.recent_bill?.current_monthly_bill)}</p>
                 </div>
-                <div>
+                <div className="pb-12">
                   <p className="fw-500">Building Images:</p>
-                  <p></p>
+                  <div>
+                    <Image src={user?.building_information?.building_image} alt='building' width={300} height={300} className=""/>
+                  </div>
                 </div>
               </div>
             </div>
@@ -314,6 +333,10 @@ const FieldResidenceDetails: AppPage = () => {
           refetch={() => fetchDetails(id)}
         />
       </Edit>
+      <ImageUpload title="Add Building Image" wide>
+          <AddBuildingImages id={user?.id} close={() => showImage(false)}
+          refetch={() => fetchDetails(id)}/>
+      </ImageUpload>
     </>
   );
 };

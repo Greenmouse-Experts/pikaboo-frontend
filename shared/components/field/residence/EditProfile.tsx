@@ -7,6 +7,7 @@ import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
 import "react-phone-number-input/style.css";
 import { toast } from "react-toastify";
 import { useLazyUpdatePersonalProfileQuery } from "@/services/api/residenceSlice";
+import { formatPhoneNum } from "@/shared/utils/format";
 
 interface Props {
   close: () => void;
@@ -35,16 +36,16 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
       last_name: user.last_name || "",
       middle_name: user.middle_name || "",
       email: user.email || "",
-      phone: user.phone || "",
-      phone2: user.phone2 || "",
+      phone: formatPhoneNum(user.phone) || "",
+      phone2: formatPhoneNum(user.phone2) || "",
       no_of_residents: user.building_information.no_of_residents || "",
-      house_nunber: user.building_information.house_number || "",
+      house_number: user.building_information.house_number || "",
       street_name: user.building_information.street_name || "",
       area1: user.building_information.area1 || "",
       area2: user.building_information.area2 || "",
       town: user.building_information.town_city || "",
       current_bill: "",
-      current_montly_bill: "",
+      current_monthly_bill: "",
     },
   });
   const onSubmit = async(data: any) => {
@@ -66,9 +67,11 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
             refetch()
             close()
           } else {
-            Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
-              toast.error(value[0]);
-            });
+            if(res?.data?.errors){
+              Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+                toast.error(value[0]);
+              });
+            }else toast.error(res?.data.message)
             setIsBusy(false);
           }
         })
@@ -89,10 +92,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   name="title"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please location latitude",
-                    },
+                    required: false,
                   }}
                   render={({ field }) => (
                     <select
@@ -120,10 +120,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   name="gender"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please select a gender",
-                    },
+                    required: false
                   }}
                   render={({ field }) => (
                     <select
@@ -147,10 +144,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   name="first_name"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please enter first name",
-                    },
+                    required: false
                   }}
                   render={({ field }) => (
                     <TextInput
@@ -184,10 +178,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   name="last_name"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please enter last name",
-                    },
+                    required: false,
                   }}
                   render={({ field }) => (
                     <TextInput
@@ -206,10 +197,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   name="email"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please enter email",
-                    },
+                    required: false,
                   }}
                   render={({ field }) => (
                     <TextInput
@@ -229,7 +217,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   name="phone"
                   control={control}
                   rules={{
-                    required: true,
+                    required: false,
                     pattern: {
                       value: /^(\+?234|0)?[789]\d{9}$/,
                       message: "Please Enter A Valid Number",
@@ -270,10 +258,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   name="no_of_residents"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please enter a value",
-                    },
+                    required: false,
                   }}
                   render={({ field }) => (
                     <TextInput
@@ -287,19 +272,16 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
               </div>
               <div>
                 <Controller
-                  name="house_nunber"
+                  name="house_number"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please enter house number",
-                    },
+                    required: false,
                   }}
                   render={({ field }) => (
                     <TextInput
                       label="House Number"
-                      error={errors.house_nunber?.message}
-                      type={InputType.number}
+                      error={errors.house_number?.message}
+                      type={InputType.text}
                       {...field}
                     />
                   )}
@@ -310,10 +292,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   name="street_name"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please enter street name",
-                    },
+                    required: false,
                   }}
                   render={({ field }) => (
                     <TextInput
@@ -332,10 +311,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   name="area1"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please enter area name",
-                    },
+                    required: false,
                   }}
                   render={({ field }) => (
                     <TextInput
@@ -369,10 +345,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   name="town"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please enter town name",
-                    },
+                    required: false,
                   }}
                   render={({ field }) => (
                     <TextInput
@@ -391,10 +364,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   name="current_bill"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please enter current bill",
-                    },
+                    required: false,
                   }}
                   render={({ field }) => (
                     <TextInput
@@ -408,25 +378,22 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
               </div>
               <div>
                 <Controller
-                  name="current_montly_bill"
+                  name="current_monthly_bill"
                   control={control}
                   rules={{
-                    required: {
-                      value: true,
-                      message: "Please enter a value",
-                    },
+                    required: false,
                   }}
                   render={({ field }) => (
                     <TextInput
                       label="Current Monthly Bill"
-                      error={errors.current_montly_bill?.message}
+                      error={errors.current_monthly_bill?.message}
                       type={InputType.number}
                       {...field}
                     />
                   )}
                 />
               </div>
-              <div>
+              {/* <div>
                 <label className="mt-3 block">Building Image</label>
                 <input
                   type="file"
@@ -434,7 +401,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   className="mt-[2px] border-gray-400 w-full border p-2 rounded"
                   onChange={(e: any) => handleFileUpload(e)}
                 />
-              </div>
+              </div> */}
             </div>
           </div>
           <div>

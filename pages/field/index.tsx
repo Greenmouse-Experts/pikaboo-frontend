@@ -5,17 +5,25 @@ import { useGetMyUsersQuery, useGetZonesQuery } from "@/services/api/routineSlic
 import ZoneInfoTable from "@/shared/components/field/dashboard/ZoneInfoTable";
 import { AppPage } from "@/shared/components/layouts/Types";
 import { saveZone } from "@/shared/redux/reducers/zoneSlice";
-import { useAppDispatch } from "@/shared/redux/store";
+import { useAppDispatch, useAppSelector } from "@/shared/redux/store";
 import { BsFillPinMapFill } from "react-icons/bs";
+import { FaMapPin } from "react-icons/fa";
 
 const FieldManagerDashboard: AppPage = () => {
   const {data: register, isLoading: loading} = useGetMyUsersQuery()
   const {data:zones, isLoading, refetch} = useGetZonesQuery()
   const dispatch = useAppDispatch()
   if(zones){dispatch(saveZone(zones.data))}
+  const zoneName = useAppSelector((state) => state.user.user.zone)
   return (
     <>
       <div>
+        {
+          zoneName && <div className="text-2xl mb-2 fw-500 flex items-center gap-x-2">
+            <FaMapPin className="text-2xl text-orange-600"/>
+            {zoneName.name}
+          </div>
+        }
         <div className="grid lg:grid-cols-2 lg:gap-x-24">
           <div className="dash-shade p-5 rounded-br-[20px] grid grid-cols-2 items-center">
             <div className="bg-light rounded-xl">

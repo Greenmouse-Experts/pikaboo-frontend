@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import useModal from "@/hooks/useModal";
 import CreateZoneForm from "./CreateZone";
@@ -8,10 +8,21 @@ import { FormatStatus } from "@/shared/utils/format";
 import dayjs from "dayjs";
 import { CircleLoader } from "../../Ui/Loading";
 import EmptyState from "../../Ui/EmptyState";
+import {
+  Menu,
+  MenuHandler,
+  MenuItem,
+  MenuList,
+  Button,
+} from "../../Ui/dropdown";
+import { BsGear } from "react-icons/bs";
+import EditZoneForm from "./EditZone";
 
 const WasteAreaMainTable = () => {
   const {Modal:CreateZone, setShowModal:ShowCreateZone} = useModal()
+  const {Modal:EditZone, setShowModal: ShowEdit} = useModal()
   const {data:zones, isLoading, refetch} = useGetZonesQuery()
+  const [selectedItem, setSelectedItem] = useState()
 
   const columns = useMemo(
     () => [
@@ -51,9 +62,31 @@ const WasteAreaMainTable = () => {
         accessor: "status",
         Cell: (props:any) => FormatStatus[props.value as keyof typeof FormatStatus],
       },
+      {
+        Header: "Action",
+        accessor: "id",
+        Cell: (row) => (
+          <div className="pl-5">
+            <Menu placement="bottom-end">
+              <MenuHandler>
+                <Button className="bg-transparent px-0 mx-0 hover:shadow-none text-md flex items-center font-normal shadow-none text-black capitalize">
+                  <BsGear className="text-xl" />
+                </Button>
+              </MenuHandler>
+              <MenuList>
+              <MenuItem  onClick={() => OpenEdit(row.row.original)}>Edit Zone</MenuItem>
+              </MenuList>
+            </Menu>
+          </div>
+        )
+      }
     ], // eslint-disable-next-line
     []
   );
+  const OpenEdit = (item:any) => {
+    setSelectedItem(item)
+    ShowEdit(true)
+  }
 
   const list = useMemo(() => zones?.data, [zones]);
   
@@ -86,6 +119,9 @@ const WasteAreaMainTable = () => {
       <CreateZone title="Create Zone">
         <CreateZoneForm close={() => ShowCreateZone(false)} refetch={refetch}/>
       </CreateZone>
+      <EditZone title='Edit Created Zone'>
+            <EditZoneForm data={selectedItem} close={() => ShowEdit(false)} refetch={refetch}/>
+      </EditZone>
     </>
   );
 };

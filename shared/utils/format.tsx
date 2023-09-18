@@ -19,6 +19,13 @@ export const formatAsNgnMoney = (value: number | string) => {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
 };
 
+export const formatPhoneNum = (value: number | string) => {
+  if (!value) return "";
+  const val = String(value)
+  const fmVal = val.replace(/^./, "+234");
+  return fmVal
+}
+
 export const parseData = (value:string) => {
   if (!value) return "";
   return JSON.parse(value)

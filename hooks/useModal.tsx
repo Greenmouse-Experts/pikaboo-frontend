@@ -7,6 +7,7 @@ interface Props {
   children: any;
   noHead?: boolean;
   wide?: boolean
+  capture?: boolean
 }
 
 const useModal = () => {
@@ -16,7 +17,7 @@ const useModal = () => {
 
   const setShowModal: boolean | any = (state: boolean) => setModal(state);
 
-  const Modal:React.FC<Props> = ({ title, children, noHead, wide }) => {
+  const Modal:React.FC<Props> = ({ title, children, noHead, wide, capture }) => {
     return (
       <>
         {showModal && (

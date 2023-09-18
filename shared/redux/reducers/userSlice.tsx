@@ -15,7 +15,8 @@ const initialState = {
     id: "",
     user_type: "",
     admin_type: "",
-    avatar: ""
+    avatar: "",
+    zone: {}
   } as authUser,
   fcm_token: "",
 };

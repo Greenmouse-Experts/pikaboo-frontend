@@ -46,7 +46,8 @@ const LoginForm = () => {
                 phone: res.data.data.phone,
                 user_type: res.data.data.account_type,
                 admin_type: res.data.data.role,
-                avatar: res.data.data.avatar
+                avatar: res.data.data.avatar,
+                zone: res.data.data.zone
           }))
           storeLocalToken("token", res.data.token) 
           toast.success(res.data.message)

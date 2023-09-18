@@ -59,7 +59,7 @@ const ResidentsPage: AppPage = () => {
           </div>
           <div>
             {isBusy && <PulseSpinner size={13} color="#009a06" />}
-            {!isBusy && <p className="fw-600 text-primary underline" onClick={createOneResidence}>Add New Home Residence</p>}
+            {!isBusy && <p className="fw-600 text-primary underline cursor-pointer" onClick={createOneResidence}>Add New Home Residence</p>}
           </div>
          </div>
           <div className="mt-5">

@@ -44,6 +44,7 @@ export enum CACHE_LIFETIME {
   export const GET_MY_USERS = 'user/get/all/users'
   export const GET_ZONE = '/zone/get'
   export const ADD_ZONE = '/admin/zone/create'
+  export const EDIT_ZONE = '/admin/zone/update'
   export const GET_ZONE_RESIDENCE = '/zone/get/home-residence'
   export const GET_USER_DETAIL = '/view/single/user'
   export const SEND_TOKEN = '/user/add/fcm/token'

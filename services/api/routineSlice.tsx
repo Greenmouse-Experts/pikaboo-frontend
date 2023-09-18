@@ -87,6 +87,18 @@ export const routineApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
+    editZone: builder.query<BaseResult | ErrorResult , CreateZoneInput>({
+      query: (payload) => ({
+        url: `${ENDPOINT.EDIT_ZONE}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
     sendFcmToken: builder.query<BaseResult | ErrorResult , SendToken>({
       query: (payload) => ({
         url: `${ENDPOINT.SEND_TOKEN}`,
@@ -251,6 +263,7 @@ export const routineApiSlice = apiSlice.injectEndpoints({
 export const {
     useGetUsersQuery,
     useLazyCreateZoneQuery,
+    useLazyEditZoneQuery,
     useGetZonesQuery,
     useGetMyUsersQuery,
     useGetZoneResidenceQuery,
