@@ -55,7 +55,7 @@ export interface authUser {
     user_type: string
     admin_type: string
     avatar: string
-    zone: any
+    zone?: any
 }
 
 export interface UpdateProfileInput {
