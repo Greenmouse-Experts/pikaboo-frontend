@@ -304,7 +304,7 @@ const FieldResidenceDetails: AppPage = () => {
                 <div className="pb-12">
                   <p className="fw-500">Building Images:</p>
                   <div>
-                    <Image src={user?.building_information?.building_image} alt='building' width={300} height={300} className=""/>
+                    {user?.building_information?.building_image && <Image src={user?.building_information?.building_image} alt='building' width={300} height={300} className=""/>}
                   </div>
                 </div>
               </div>
