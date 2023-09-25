@@ -9,9 +9,9 @@ const UsersFeeds: FC<Props> = ({ data }) => {
   return (
     <>
       <div className="bg-white shadow p-5">
-        {!data.length && <EmptyState imageClass="w-24 mx-auto" message="No Feedback Yet"/>}
+        {!data?.length && <EmptyState imageClass="w-24 mx-auto" message="No Feedback Yet"/>}
       {data &&
-        !!data.length &&
+        !!data?.length &&
         data.map((item: any, i: number) => (
           <div className="flex iitems-stretch gap-x-5 bg-gray-50 mb-5 shadow rounded">
             <div className="bg-white p-2 w-[160px]">

@@ -9,19 +9,19 @@ const ComplaintsPage:AppPage = () => {
   const tab = [
     {
       title: <p>Home Residence</p>,
-      content: <UsersFeeds data={data.data.filter((where:any) => where.user.account_type === "Home Residence")}/>
+      content: data && <UsersFeeds data={data?.data.filter((where:any) => where.user.account_type === "Home Residence")}/>
     },
     {
       title: <p>Service Personnel</p>,
-      content: <UsersFeeds data={data.data.filter((where:any) => where.user.account_type === "Service Personnel")}/>
+      content: data && <UsersFeeds data={data?.data.filter((where:any) => where.user.account_type === "Service Personnel")}/>
     },
     {
       title: <p>Waste Manager</p>,
-      content: <UsersFeeds data={data.data.filter((where:any) => where.user.account_type === "Waste Manager")}/>
+      content: data && <UsersFeeds data={data?.data.filter((where:any) => where.user.account_type === "Waste Manager")}/>
     },
     {
       title: <p>Field Operator</p>,
-      content: <UsersFeeds data={data.data.filter((where:any) => where.user.account_type === "Field Operator")}/>
+      content: data && <UsersFeeds data={data?.data.filter((where:any) => where.user.account_type === "Field Operator")}/>
     }
   ]
   return (
