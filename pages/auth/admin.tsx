@@ -9,7 +9,7 @@ import { MdLockOutline } from 'react-icons/md'
 import Button from '@/shared/components/Ui/Button'
 import { useLazyAdminLoginQuery } from '@/services/api/authSlice'
 import { useAppDispatch } from '@/shared/redux/store'
-import { saveUser } from '@/shared/redux/reducers/userSlice'
+import { saveDashInfo, saveUser } from '@/shared/redux/reducers/userSlice'
 import { extractAdminCallBackRoute,  storeLocalToken } from '@/services/helpers'
 import { toast } from 'react-toastify'
 import { Url } from "next/dist/shared/lib/router/router";
@@ -39,6 +39,7 @@ const AdminLogin:AppPage = () => {
     await login(data)
       .then((res:any) => {
         if (res.data.success) {
+          dispatch(saveDashInfo(res.data.data))
           dispatch(
             saveUser({
                 token: res.data.token,

@@ -15,6 +15,7 @@ import useModal from "@/hooks/useModal";
 import ReusableModal from "@/shared/components/helpers/ReusableModal";
 import { useLazyUpdateUserStatusQuery } from "@/services/api/authSlice";
 import { toast } from "react-toastify";
+import AddWasteManagerZoneForm from "../waste/AddWasteManagerZone";
 
 interface Props {
     data: UserData[]
@@ -77,6 +78,7 @@ const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
                 </Button>
               </MenuHandler>
               <MenuList>
+              <MenuItem className="my-1 fw-500" onClick={() => assignUser(row.row.original)}>Assign Zone</MenuItem>
                 {
                   row.row.original.status === "Active" &&
                     <MenuItem className="bg-red-600 text-white pt-1 fw-500" onClick={() => suspendUser(row.value)}>Suspend Admin</MenuItem>
@@ -96,8 +98,13 @@ const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
   const [isBusy, setIsBusy] = useState(false)
   const {Modal, setShowModal} = useModal()
   const {Modal:Unsuspend, setShowModal:showUnsuspend} = useModal()
+  const {Modal:Assign, setShowModal:showAssign} = useModal()
   const [suspend] = useLazyUpdateUserStatusQuery()
   const [selectedItem, setSelectedItem] = useState('')
+  const assignUser = (val:any) => {
+    setSelectedItem(val)
+    showAssign(true)
+  }
   const suspendUser = (id:any) => {
     setSelectedItem(id)
     setShowModal(true)
@@ -150,6 +157,9 @@ const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
           isBusy={isBusy}
         />
         </Unsuspend>
+        <Assign title="Assign Field Operator Zone">
+        <AddWasteManagerZoneForm item={selectedItem} close={() => showAssign(false)} refetch={refetch}/>
+        </Assign>
     </>
   );
 };

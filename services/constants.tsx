@@ -33,7 +33,7 @@ export enum CACHE_LIFETIME {
   export const CREATE_FIELD = '/admin/field-operator/create'
   export const CREATE_FLEET = '/admin/fleet-manager/create'
   export const CREATE_WASTE = '/admin/waste-manager/create'
-  export const ASSIGN_ZONE = '/admin/waste-manager/assign/zone'
+  export const ASSIGN_ZONE = '/admin/reassign/zone'
   export const FLEET_CREATE_WASTE = '/fleet-manager/waste-manager/create'
   export const FLEET_ASSIGN_ZONE = '/fleet-manager/waste-manager/assign/zone'
   export const CREATE_DRIVER = '/waste-manager/service-personnel/create'
@@ -105,4 +105,7 @@ export enum CACHE_LIFETIME {
 
   // get lga
   export const GET_LGA = '/get/lga'
+
+  // get feeds
+  export const GET_FEEDBACKS = '/admin/get/all/application/rating'
 

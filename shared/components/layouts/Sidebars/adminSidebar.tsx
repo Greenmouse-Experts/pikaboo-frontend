@@ -119,7 +119,7 @@ const AdminSidebarLayout: FC<Props> = ({ setToggled, toggled }) => {
             component={<Link href="/admin/complaints" />}
             icon={<FiCreditCard className="text-xl" />}
           >
-            Complaints
+            Feedback
           </MenuItem>
           <MenuItem
             component={<Link href="/admin/settings" />}

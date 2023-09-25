@@ -8,7 +8,7 @@ import { PulseSpinner } from "../Ui/Loading";
 import { useRouter } from "next/router";
 import {  useLazyUserLoginQuery } from "@/services/api/authSlice";
 import { useAppDispatch } from "@/shared/redux/store";
-import { saveUser } from "@/shared/redux/reducers/userSlice";
+import { saveDashInfo, saveUser } from "@/shared/redux/reducers/userSlice";
 import {  extractCallBackRoute, storeLocalToken } from "@/services/helpers";
 import { toast } from "react-toastify";
 
@@ -36,6 +36,7 @@ const LoginForm = () => {
     await login(data)
       .then((res:any) => {
         if (res.data.success) {
+          dispatch(saveDashInfo(res.data.data))
           dispatch(
             saveUser({
                 token: res.data.token,

@@ -44,8 +44,9 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
       area1: user.building_information.area1 || "",
       area2: user.building_information.area2 || "",
       town: user.building_information.town_city || "",
-      current_bill: "",
-      current_monthly_bill: "",
+      current_bill: user.recent_bill.current_bill || "",
+      current_monthly_bill: user.recent_bill.current_monthly_bill || "",
+      waste_bin: user.building_information.waste_bill || ""
     },
   });
   const onSubmit = async(data: any) => {
@@ -191,7 +192,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-3 mt-4 gap-4">
+            <div className="grid lg:grid-cols-3 mt-4 gap-4">
               <div>
                 <Controller
                   name="email"
@@ -216,13 +217,13 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                   defaultCountry="NG"
                   name="phone"
                   control={control}
-                  rules={{
-                    required: false,
-                    pattern: {
-                      value: /^(\+?234|0)?[789]\d{9}$/,
-                      message: "Please Enter A Valid Number",
-                    },
-                  }}
+                  // rules={{
+                  //   required: false,
+                  //   pattern: {
+                  //     value: /^(\+?234|0)?[789]\d{9}$/,
+                  //     message: "Please Enter A Valid Number",
+                  //   },
+                  // }}
                   className="border lg:p-2 p-2 border-gray-400 rounded outline-none"
                 />
                 {errors.phone && (
@@ -358,7 +359,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                 />
               </div>
             </div>
-            <div className="grid lg:grid-cols-2 mt-4 gap-4">
+            <div className="grid lg:grid-cols-3 mt-4 gap-4">
               <div>
                 <Controller
                   name="current_bill"
@@ -387,6 +388,23 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
                     <TextInput
                       label="Current Monthly Bill"
                       error={errors.current_monthly_bill?.message}
+                      type={InputType.number}
+                      {...field}
+                    />
+                  )}
+                />
+              </div>
+              <div>
+                <Controller
+                  name="waste_bin"
+                  control={control}
+                  rules={{
+                    required: false,
+                  }}
+                  render={({ field }) => (
+                    <TextInput
+                      label="Waste Bin Needed"
+                      error={errors.waste_bin?.message}
                       type={InputType.number}
                       {...field}
                     />

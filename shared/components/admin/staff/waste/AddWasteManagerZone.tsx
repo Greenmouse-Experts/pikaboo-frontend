@@ -29,7 +29,7 @@ const AddWasteManagerZoneForm: FC<Props> = ({ refetch, item, close }) => {
     mode: "onChange",
     defaultValues: {
       name: `${item.first_name} ${item.last_name}`,
-      zone_id: "",
+      zone_id: item.zone.id || "",
       user_id: `${item.id}`,
     },
   });

@@ -210,6 +210,7 @@ export interface UserDetail {
     classification: string;
     water_supply: string;
     town_city: string | null;
+    waste_bin?: number
   };
   created_at: string;
   created_by_who: string;

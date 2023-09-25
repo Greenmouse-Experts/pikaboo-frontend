@@ -301,7 +301,11 @@ const FieldResidenceDetails: AppPage = () => {
                   <p className="fw-500">Current Monthly Bill:</p>
                   <p>{user?.recent_bill?.current_monthly_bill && formatAsNgnMoney(user?.recent_bill?.current_monthly_bill)}</p>
                 </div>
-                <div className="pb-12">
+                <div className="">
+                  <p className="fw-500">No of Waste Bin Needed:</p>
+                  <p>{user?.building_information?.waste_bin? user?.building_information?.waste_bin : 0}</p>
+                </div>
+                <div className="pb-12 col-span-2">
                   <p className="fw-500">Building Images:</p>
                   <div>
                     {user?.building_information?.building_image && <Image src={user?.building_information?.building_image} alt='building' width={300} height={300} className=""/>}

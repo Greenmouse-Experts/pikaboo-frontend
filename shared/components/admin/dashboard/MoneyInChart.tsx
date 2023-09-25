@@ -45,7 +45,7 @@ const MoneyInChart = () => {
     <div>
     <p className="fw-600 lg:fs-700 border-b pb-2">Money In</p>
     </div>
-      <div className="mt-8">
+      <div className="mt-8 w-full overflow-x-auto">
         {typeof window !== "undefined" && (
           <Chart
             options={options}

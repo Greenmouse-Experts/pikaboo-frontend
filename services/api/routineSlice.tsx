@@ -256,6 +256,17 @@ export const routineApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
+
+    getFeeds: builder.query<any | ErrorResult , void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_FEEDBACKS}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
   }),
   overrideExisting: true,
 });
@@ -283,5 +294,6 @@ export const {
     useGetSpecialQuery,
     useLazyUpdateFlatQuery,
     useGetLgaQuery,
-    useGetMyZoneUsersQuery
+    useGetMyZoneUsersQuery,
+  useGetFeedsQuery
 } = routineApiSlice;

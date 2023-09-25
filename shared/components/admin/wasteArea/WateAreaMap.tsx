@@ -11,7 +11,7 @@ const WasteAreaMap = () => {
   };
   return (
     <>
-      <div>
+      <div className="">
         <p className="fw-600 lg:fs-700 border-b pb-2">Waste Areas</p>
         <div className="lg:h-[400px] mt-12">
         <div style={{ height: "100%", width: "100%" }}>

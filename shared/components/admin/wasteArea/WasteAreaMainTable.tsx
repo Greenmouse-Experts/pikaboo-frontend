@@ -95,7 +95,7 @@ const WasteAreaMainTable = () => {
       <div>
         <div className="flex justify-between border-b pb-2">
         <p className="fw-600 lg:fs-700">Waste Areas (Zones)</p>
-        <p className="px-4 btn-like py-1" onClick={() => ShowCreateZone(true)}>Create Zone</p>
+        <p className="px-4 btn-like py-1 cursor-pointer" onClick={() => ShowCreateZone(true)}>Create Zone</p>
         </div>
         <div className="mt-8">
         {isLoading && (

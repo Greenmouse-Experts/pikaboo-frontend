@@ -19,6 +19,7 @@ const initialState = {
     zone: {}
   } as authUser,
   fcm_token: "",
+  dashInfo: {} as any,
 };
 
 export const userSlice = createSlice({
@@ -31,13 +32,16 @@ export const userSlice = createSlice({
     saveToken: (state, action: PayloadAction<any>) => {
       state.fcm_token = action.payload;
     },
+    saveDashInfo: (state, action: PayloadAction<any>) => {
+      state.dashInfo = action.payload;
+    },
     resetUser: (state) => {
       state.user = initialState.user;
     },
   },
 });
 
-export const { saveUser, resetUser, saveToken } = userSlice.actions;
+export const { saveUser, resetUser, saveToken, saveDashInfo } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
 
