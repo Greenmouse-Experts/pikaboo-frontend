@@ -16,13 +16,24 @@ import ReusableModal from "@/shared/components/helpers/ReusableModal";
 import { useLazyUpdateUserStatusQuery } from "@/services/api/authSlice";
 import { toast } from "react-toastify";
 import AddWasteManagerZoneForm from "../waste/AddWasteManagerZone";
+import { useLazySendLoginQuery } from "@/services/api/residenceSlice";
 
 interface Props {
     data: UserData[]
     refetch: () => void
 }
 const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
-    
+  const [send] = useLazySendLoginQuery()
+  const sendLogin = async(id:number) => {
+    setIsBusy(true)
+    await send(id).then((res:any) => {
+      if (res?.data?.success) {
+        toast.success(res.data.message);
+        setIsBusy(false);
+      } else setIsBusy(false);
+    })
+    .catch((err:any)=>{})
+  }
   const columns = useMemo(
     () => [
       {
@@ -87,6 +98,9 @@ const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
                   row.row.original.status !== "Active" &&
                     <MenuItem className="bg-green-600 text-white pt-1 fw-500" onClick={() => unSuspendUser(row.value)}>Activate Admin</MenuItem>
                 }
+                <MenuItem className="mt-1 bg-blue-100 pt-1" onClick={() => sendLogin(row.value)}>
+                  Resend Details
+                </MenuItem>
               </MenuList>
             </Menu>
           </div>

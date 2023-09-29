@@ -16,6 +16,7 @@ import AddWasteManagerZoneForm from "./AddWasteManagerZone";
 import ReusableModal from "@/shared/components/helpers/ReusableModal";
 import { useLazyUpdateUserStatusQuery } from "@/services/api/authSlice";
 import { toast } from "react-toastify";
+import { useLazySendLoginQuery } from "@/services/api/residenceSlice";
 
 interface Props {
   data: UserData[];
@@ -26,6 +27,7 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
   const { Modal:Suspend, setShowModal:showSuspend } = useModal();
   const { Modal:Unsuspend, setShowModal:showUnsuspend } = useModal();
   const [suspend] = useLazyUpdateUserStatusQuery()
+  const [send] = useLazySendLoginQuery()
   const [isBusy, setIsBusy] = useState(false)
   const [selectedItem, setSelectedItem] = useState<any>();
   const openModal = (item: any) => {
@@ -56,6 +58,16 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
       });
     })
     .catch(() => {});
+  }
+  const sendLogin = async(id:number) => {
+    setIsBusy(true)
+    await send(id).then((res:any) => {
+      if (res?.data?.success) {
+        toast.success(res.data.message);
+        setIsBusy(false);
+      } else setIsBusy(false);
+    })
+    .catch((err:any)=>{})
   }
 
   const columns = useMemo(
@@ -132,6 +144,9 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
                   row.row.original.status !== "Active" &&
                     <MenuItem className="bg-green-600 text-white pt-1 fw-500" onClick={() => unSuspendUser(row.value)}>Activate Admin</MenuItem>
                 }
+                <MenuItem className="mt-1 bg-blue-100 pt-1" onClick={() => sendLogin(row.value)}>
+                  Resend Details
+                </MenuItem>
               </MenuList>
             </Menu>
           </div>
