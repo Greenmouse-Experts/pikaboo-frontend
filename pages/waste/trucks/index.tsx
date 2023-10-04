@@ -26,11 +26,9 @@ const ManageWasteTrucks: AppPage = () => {
       <div>
         <div className="h-40 bg-waste1 flex items-center dash-shade rounded-xl">
           <div className="pl-12 text-white">
-            <p className="text-2xl fw-600">Waste Managers</p>
+            <p className="text-2xl fw-600">Waste Trucks</p>
             <p className="fs-400 w-8/12 mt-2">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum
-              architecto dolore voluptatum assumenda. Iste aliquam hic fuga
-              perspiciatis voluptates necessitatibus ex volupta.
+            Ensure the meticulous registration and systematic storage of vital information for every truck that is being assigned to a service personnel.
             </p>
           </div>
         </div>

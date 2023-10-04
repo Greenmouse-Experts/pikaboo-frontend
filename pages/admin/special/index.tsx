@@ -48,15 +48,15 @@ const SpecialRequestPage: AppPage = () => {
                 <CircleLoader size="100" />
               </div>
             )}
-            {data && !data.data.length && (
+            {data && !data?.data?.length && (
               <div className="py-12">
                 <EmptyState
                   imageClass="w-24 mx-auto"
-                  message="No Product is created Yet"
+                  message="No Special Requests from residence"
                 />
               </div>
             )}
-            {data && !!data.data.length && (
+            {data && !!data?.data?.length && (
               <SpecialRequestTable refetch={refetch} data={data?.data} />
             )}
           </div>

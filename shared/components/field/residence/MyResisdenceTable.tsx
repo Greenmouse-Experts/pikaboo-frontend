@@ -1,12 +1,15 @@
-import React, { useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import Table, { SelectColumnFilter } from "../../Ui/table";
 import { FormatStatus } from "@/shared/utils/format";
 import Link from "next/link";
 import { useGetMyZoneUsersQuery } from "@/services/api/routineSlice";
 
-const MyResidentTable = () => {
+interface Props {
+  data: any
+}
+const MyResidentTable:FC<Props> = ({data}) => {
 
-    const {data, isLoading} = useGetMyZoneUsersQuery()
+    // const {data, isLoading} = useGetMyZoneUsersQuery()
   const columns = useMemo(
     () => [
       {

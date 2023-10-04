@@ -8,9 +8,11 @@ import { PulseSpinner } from "@/shared/components/Ui/Loading";
 import useModal from "@/hooks/useModal";
 import ReusableModal from "@/shared/components/helpers/ReusableModal";
 import { useRouter } from "next/router";
+import { useGetMyZoneUsersQuery } from "@/services/api/routineSlice";
 
 const ResidentsPage: AppPage = () => {
   const [isBusy, setIsBusy] = useState(false)
+  const {data, isLoading} = useGetMyZoneUsersQuery()
   const route = useRouter()
   const {Modal, setShowModal} = useModal()
   const [profile, setProfile] = useState<any>()
@@ -63,7 +65,7 @@ const ResidentsPage: AppPage = () => {
           </div>
          </div>
           <div className="mt-5">
-            <MyResidentTable/>
+            {data && <MyResidentTable data={data}/>}
           </div>
         </div>
       </div>

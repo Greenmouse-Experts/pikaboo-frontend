@@ -1,7 +1,7 @@
 import React, {FC} from "react";
 import Link from "next/link";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
-import { BsGear, BsPinMap } from "react-icons/bs";
+import { BsGear, BsHouseDash, BsPinMap } from "react-icons/bs";
 import { MdOutlineDashboard } from "react-icons/md";
 import { TfiShiftLeft } from "react-icons/tfi";
 import { RiDeleteBinLine} from "react-icons/ri";
@@ -9,6 +9,8 @@ import { BsTruck } from 'react-icons/bs'
 import useModal from "@/hooks/useModal";
 import LogoutModalUsers from "../../settings/LogoutUsers";
 import { IoNotificationsOutline } from "react-icons/io5";
+import { FiUserPlus } from "react-icons/fi";
+import { FaRoute } from "react-icons/fa";
 
 interface Props {
     setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -62,15 +64,27 @@ const WasteSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
           </MenuItem>
           <MenuItem
             component={<Link href="/waste/service" />}
-            icon={<BsTruck className="text-lg" />}
+            icon={<FiUserPlus className="text-lg" />}
           >
             Service Personnel
+          </MenuItem>
+          <MenuItem
+            component={<Link href="/waste/residents" />}
+            icon={<BsHouseDash className="text-lg" />}
+          >
+            Zone Residents
           </MenuItem>
           <MenuItem
             component={<Link href="/waste/cleanups" />}
             icon={<RiDeleteBinLine className="text-lg" />}
           >
             Cleanups
+          </MenuItem>
+          <MenuItem
+            component={<Link href="/waste/special" />}
+            icon={<FaRoute className="text-lg" />}
+          >
+            Special Requests
           </MenuItem>
           <MenuItem
             component={<Link href="/notification" />}

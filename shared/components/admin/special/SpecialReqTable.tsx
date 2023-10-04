@@ -28,18 +28,14 @@ const SpecialRequestTable:FC<Props> = ({data, refetch}) => {
           },
           {
             Header: "Zone",
-            accessor: "zone",
+            accessor: "home_residence.zone.name",
             Filter: SelectColumnFilter,
             filter: "includes",
           },
           {
             Header: "Address",
-            accessor: "home_residence.address",
-          },
-          {
-            Header: "Price",
-            accessor: "amount",
-            Cell: (props: any) => `${formatAsNgnMoney(props.value)}`,
+            accessor: "alt_address",
+            Cell: (row) => row?.value? row.value : row.row.original.home_residence.address
           },
           {
             Header: "Phone Number",

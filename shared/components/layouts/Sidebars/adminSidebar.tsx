@@ -67,6 +67,9 @@ const AdminSidebarLayout: FC<Props> = ({ setToggled, toggled }) => {
             <MenuItem component={<Link href="/admin/field" />}>
               Field Operators
             </MenuItem>
+            <MenuItem component={<Link href="/admin/personnel" />}>
+              Service Personnel
+            </MenuItem>
           </SubMenu>
           <MenuItem
             component={<Link href="/admin/waste-area" />}

@@ -59,7 +59,8 @@ const FieldResidenceDetails: AppPage = () => {
     if (canvas) {
       const qrCodeDataURL = canvas.toDataURL("image/png");
       doc.addImage(qrCodeDataURL, "PNG", 30, 30, 80, 80); // Add QR code image
-      doc.text(pid, 40, 120)
+      doc.setFontSize(25);
+      doc.text(pid, 28, 122);
       doc.save("qrcode.pdf");
     }
   };

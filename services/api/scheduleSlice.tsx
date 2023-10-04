@@ -6,15 +6,13 @@ import { apiSlice } from "../apiSlice";
 import * as ENDPOINT from "../constants";
 import { requestAuthorization } from "../helpers";
 import {
-  AssignServicePersonnelInput,
   CreateScheduleInput,
   PersonelRequestResult,
   ScheduleHomeResisdenceResult,
   ScheduleRequestResult,
-  SubmitServicePersonnelInput,
 } from "@/shared/utils/types/schedule";
 
-export const routineApiSlice = apiSlice.injectEndpoints({
+export const scheduleApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createSchedule: builder.query<
       BaseResult | ErrorResult,
@@ -130,4 +128,4 @@ export const {
   useLazySubmitPersonnelQuery,
   useGetPersonnelQuery,
   useGetWasteScheduleQuery
-} = routineApiSlice;
+} = scheduleApiSlice;

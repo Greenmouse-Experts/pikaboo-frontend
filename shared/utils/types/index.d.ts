@@ -213,7 +213,14 @@ export interface UserDetail {
     waste_bin?: number
   };
   created_at: string;
-  created_by_who: string;
+  created_by_who: {
+    email: string,
+    first_name: string | null
+    id: number
+    last_name: string | null
+    middle_name: string | null
+    pikaboo_id: string | null
+  };
   current_password: string;
   dob: string | null;
   email: string;
@@ -235,6 +242,10 @@ export interface UserDetail {
   truck_id: string | null;
   wallet: string;
   zone_id: string | null;
+  zone: {
+    zone_id: string
+    name: string
+  }
   recent_bill: {
     created_at: string;
     current_bill: string;

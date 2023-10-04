@@ -22,7 +22,14 @@ export interface UserItem {
   address: string;
   zone_id: string | null;
   truck_id: string | null;
-  created_by_who: string | null;
+  created_by_who: {
+    email: string
+    first_name: string
+    id: number
+    last_name: string
+    middle_name: string | null
+    pikaboo_id: string
+  };
   isVerified: string | null;
   status: string;
   created_at: string;
@@ -44,4 +51,26 @@ export interface PaymentItem {
   type: string;
   user: UserItem;
   user_id: string;
+}
+export interface CreateTructInput {
+  color: string
+  condition: string
+  created_at: string
+  date_purchase: string
+  fuel_type: string
+  make: string
+  model: string
+  vin: string
+  year: string
+}
+export interface TruckItem extends CreateTructInput{
+  id: number
+  pikaboo_tag_id: string
+  service_personnel?: UserItem
+}
+export interface TruckResult extends BaseResult{
+  data: TruckItem[]
+}
+export interface DeleteTruckInput{
+  truck_id: number
 }

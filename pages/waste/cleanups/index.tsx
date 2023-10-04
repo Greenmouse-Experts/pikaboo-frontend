@@ -11,6 +11,7 @@ import { CircleLoader } from "@/shared/components/Ui/Loading";
 // import { BiExpand } from "react-icons/bi";
 import useModal from "@/hooks/useModal";
 import MySchedule from "@/shared/components/waste/cleanups/mySchedule";
+import { MdCleaningServices } from "react-icons/md";
 
 const WasteCleanup: AppPage = () => {
   const { data, isLoading } = useWasteGetScheduleQuery();
@@ -57,7 +58,7 @@ const WasteCleanup: AppPage = () => {
        </div>
         )} */}
         <div className="mt-5">
-          <p className="fw-500 lg:text-xl">Pikaboo Scheduled Cleanups</p>
+          <p className="fw-500 lg:text-xl flex gap-x-2 items-center pb-2"><MdCleaningServices className="text-2xl text-primary"/>Pikaboo Scheduled Cleanups</p>
           <div className="dash-shade py-6 px-2">
             {isLoading && (
               <div className="flex justify-center py-12">

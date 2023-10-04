@@ -12,18 +12,23 @@ import {
 } from "../../../components/Ui/dropdown";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import useModal from "@/hooks/useModal";
+import ReusableModal from "../../helpers/ReusableModal";
 
 interface Props {
   data: UserData[];
   refetch: () => void;
 }
 const ServicePersonnelTable: FC<Props> = ({ data, refetch }) => {
+  const [isBusy, setIsBusy] = useState(false)
   const { Modal, setShowModal } = useModal();
   const [selectedItem, setSelectedItem] = useState<any>();
   const openModal = (item: any) => {
     setShowModal(true);
     setSelectedItem(item);
   };
+  const suspendPersonnel = () => {
+
+  }
 
   const columns = useMemo(
     () => [
@@ -75,11 +80,11 @@ const ServicePersonnelTable: FC<Props> = ({ data, refetch }) => {
                   <BsThreeDotsVertical className="text-xl" />
                 </Button>
               </MenuHandler>
-              <MenuList>
-                <MenuItem onClick={() => openModal(row.row.original)}>
+              <MenuList className="lg:w-48">
+                {/* <MenuItem onClick={() => openModal(row.row.original)}>
                   View Details
-                </MenuItem>
-                <MenuItem className="bg-red-600 text-white">Suspend</MenuItem>
+                </MenuItem> */}
+                <MenuItem className="bg-red-600 pt-1 fw-500 text-white" onClick={() => openModal(row.row.original)}>Suspend</MenuItem>
               </MenuList>
             </Menu>
           </div>
@@ -95,12 +100,20 @@ const ServicePersonnelTable: FC<Props> = ({ data, refetch }) => {
       <div className="lg:p-8 lg:pt-12 dash-shade">
         <Table columns={columns} data={list} />
       </div>
-      <Modal title="Assign a Zone">
+      <Modal title="" noHead>
         {/* <FleetAssignWasteManager
           refetch={refetch}
           item={selectedItem}
           close={() => setShowModal(false)}
         /> */}
+        <ReusableModal
+          title="Are you sure you want to suspend this Personnel"
+          cancelTitle="No, cancel"
+          actionTitle="Yes, Suspend"
+          closeModal={() => setShowModal(false)}
+          action={suspendPersonnel}
+          isBusy={isBusy}
+        />
       </Modal>
     </>
   );

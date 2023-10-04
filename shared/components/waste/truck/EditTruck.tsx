@@ -1,17 +1,21 @@
-import React, {FC, useState} from "react";
-import TextInput, { InputType } from "@/shared/components/Ui/TextInput";
-import { Controller, useForm } from "react-hook-form";
-import Button from "@/shared/components/Ui/Button";
-import { toast } from "react-toastify";
-import { PulseSpinner } from "../../Ui/Loading";
-import { useLazyCreateTruckQuery } from "@/services/api/wasteSlice";
+import React, { FC, useState } from 'react'
+import { useLazyEditTruckQuery } from '@/services/api/wasteSlice';
 
-interface Props {
-  refetch: () => void
+import { toast } from 'react-toastify';
+import { Controller, useForm } from 'react-hook-form';
+import { TruckItem } from '@/shared/utils/types/routine';
+import TextInput, { InputType } from '../../Ui/TextInput';
+import Button from '../../Ui/Button';
+import { PulseSpinner } from '../../Ui/Loading';
+
+interface Props{
+    data: TruckItem
+    refetch: () => void
+    close: () => void
 }
-const AddWasteTruckForm:FC<Props> = ({refetch}) => {
-  const [isBusy, setIsBusy] = useState<boolean>(false)
-  const [create] = useLazyCreateTruckQuery()
+const EditTruck:FC<Props> = ({refetch, data, close}) => {
+    const [isBusy, setIsBusy] = useState<boolean>(false)
+  const [create] = useLazyEditTruckQuery()
   const {
     control,
     handleSubmit,
@@ -22,14 +26,15 @@ const AddWasteTruckForm:FC<Props> = ({refetch}) => {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      make: "",
-      year: "",
-      vin: "",
-      model: "",
-      color: "",
-      fuel_type: "",
-      date_purchase: "",
-      condition: "",
+      make: data.make || "",
+      year: data.year || "",
+      vin: data.vin || "",
+      model: data.model || "",
+      color: data.color || "",
+      fuel_type: data.fuel_type || "",
+      date_purchase: data.date_purchase || "",
+      condition: data.condition || "",
+      truck_id: data.id
     },
   });
   const onSubmit = async (data:any) => {
@@ -39,12 +44,10 @@ const AddWasteTruckForm:FC<Props> = ({refetch}) => {
         if (res.data.success) {
           toast.success(res.data.message)
           refetch()
-          reset()
+          close()
           setIsBusy(false);
         }else {
-          Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
-            toast.error(value[0]);
-          });
+          toast.error(res.data.message);
           setIsBusy(false);
         }
       })
@@ -55,7 +58,8 @@ const AddWasteTruckForm:FC<Props> = ({refetch}) => {
   };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+        <div>
+        <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-12">
           <div>
             <Controller
@@ -229,14 +233,15 @@ const AddWasteTruckForm:FC<Props> = ({refetch}) => {
             />
           </div>
         </div>
-        <div className="flex justify-end">
-          <div className="mt-8 lg:mt-16 lg:w-5/12">
-          <Button title={isBusy ? <PulseSpinner size={13} color="white" />: "Add New Truck"} disabled={!isValid} />
+        <div className="">
+          <div className="mt-8 lg:mt-16">
+          <Button title={isBusy ? <PulseSpinner size={13} color="white" />: "Edit Truck Details"} disabled={!isValid} />
           </div>
         </div>
       </form>
+        </div>
     </>
-  );
-};
+  )
+}
 
-export default AddWasteTruckForm;
+export default EditTruck

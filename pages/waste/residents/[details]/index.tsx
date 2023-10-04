@@ -307,12 +307,12 @@ const HomeResidentsDetails: AppPage = () => {
               </div>
               <div>
                 <div className="dash-shade relative p-8 rounded-xl">
-                  <div className="absolute top-4 right-4">
+                  {/* <div className="absolute top-4 right-4">
                     <FaRegEdit
                       className="text-xl text-primary"
                       onClick={() => setShowBill(true)}
                     />
-                  </div>
+                  </div> */}
                   <div className="grid lg:grid-cols-2">
                     <div className="border-r p-4">
                       <div className="flex items-center gap-x-2">
