@@ -242,7 +242,7 @@ const HomeResidentsDetails: AppPage = () => {
                     <div>
                       <p>
                         {user?.recent_bill?.current_bill
-                          ? user?.recent_bill?.current_bill
+                          ? formatAsNgnMoney(user?.recent_bill?.current_bill)
                           : ""}
                       </p>
                     </div>
@@ -252,7 +252,7 @@ const HomeResidentsDetails: AppPage = () => {
                     <div>
                       <p>
                         {user?.recent_bill?.current_monthly_bill
-                          ? user?.recent_bill?.current_monthly_bill
+                          ? formatAsNgnMoney(user?.recent_bill?.current_monthly_bill)
                           : ""}
                       </p>
                     </div>

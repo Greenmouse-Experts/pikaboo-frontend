@@ -4,11 +4,12 @@ import MyResidentTable from "@/shared/components/field/residence/MyResisdenceTab
 import { MdFormatListBulletedAdd } from "react-icons/md";
 import { useLazyCreateResidenceQuery } from "@/services/api/onboardSlice";
 import { toast } from "react-toastify";
-import { PulseSpinner } from "@/shared/components/Ui/Loading";
+import { CircleLoader, PulseSpinner } from "@/shared/components/Ui/Loading";
 import useModal from "@/hooks/useModal";
 import ReusableModal from "@/shared/components/helpers/ReusableModal";
 import { useRouter } from "next/router";
 import { useGetMyZoneUsersQuery } from "@/services/api/routineSlice";
+import EmptyState from "@/shared/components/Ui/EmptyState";
 
 const ResidentsPage: AppPage = () => {
   const [isBusy, setIsBusy] = useState(false)
@@ -65,6 +66,17 @@ const ResidentsPage: AppPage = () => {
           </div>
          </div>
           <div className="mt-5">
+          {isLoading && (
+              <div className="flex justify-center py-12">
+                <CircleLoader size="100" />
+              </div>
+            )}
+            {
+              data && !data?.data?.length && <EmptyState
+              imageClass="w-24 mx-auto"
+              message="No Created Resisdence Yet"
+            />
+            }
             {data && <MyResidentTable data={data}/>}
           </div>
         </div>

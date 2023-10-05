@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { AppPage } from "@/shared/components/layouts/Types";
 import { TbArrowBackUp } from "react-icons/tb";
 import Image from "next/image";
-import Button from "@/shared/components/Ui/Button";
 import Link from "next/link";
 import { useLazyGetUserDetailQuery } from "@/services/api/routineSlice";
 import { useRouter } from "next/router";
@@ -12,14 +11,9 @@ import {
   formatAsNgnMoney,
   parseData,
 } from "@/shared/utils/format";
-import dayjs from "dayjs";
 import { FaExpand, FaRegEdit } from "react-icons/fa";
 import QRCode from "qrcode.react";
 import useModal from "@/hooks/useModal";
-import { useLazyFlagResidenceQuery } from "@/services/api/residenceSlice";
-import { toast } from "react-toastify";
-import ReusableModal from "@/shared/components/helpers/ReusableModal";
-import SetMonthBillModal from "@/shared/components/admin/residents/SetMonthBill";
 import { CircleLoader } from "@/shared/components/Ui/Loading";
 import { BsHousesFill } from "react-icons/bs";
 import { BiDownload } from "react-icons/bi";
@@ -49,32 +43,10 @@ const HomeResidentsDetails: AppPage = () => {
     } //eslint-disable-next-line
   }, [id]);
 
-  // bill updates
-  const { Modal: Bill, setShowModal: setShowBill } = useModal();
-
   // flag resident
   const [isBusy, setIsBusy] = useState<boolean>(false);
-  const { Modal: Flag, setShowModal: setShowFlag } = useModal();
-  const { Modal: Unflag, setShowModal: setShowUnflag } = useModal();
   const { Modal: Wallet, setShowModal: setShowWallet } = useModal();
-  const [flag] = useLazyFlagResidenceQuery();
-  const flagResidence = async (id: any) => {
-    setIsBusy(true);
-    await flag(id)
-      .then((res) => {
-        if (res.data.success) {
-          toast.success(res.data.message);
-          fetchDetails(id);
-          setShowFlag(false);
-          setShowUnflag(false);
-          setIsBusy(false);
-        }
-        Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
-          toast.error(value[0]);
-        });
-      })
-      .catch(() => {});
-  };
+
 
   // show image
   const { Modal: ImageModal, setShowModal: setShowImageModal } = useModal();
@@ -97,7 +69,7 @@ const HomeResidentsDetails: AppPage = () => {
       <div>
         <div className="mb-2">
           <Link
-            href="/admin/residents/"
+            href="/waste/residents/"
             className="flex items-center gap-x-1 fw-500 text-gray-500"
           >
             <TbArrowBackUp />
@@ -242,7 +214,7 @@ const HomeResidentsDetails: AppPage = () => {
                     <div>
                       <p>
                         {user?.recent_bill?.current_bill
-                          ? user?.recent_bill?.current_bill
+                          ? `${formatAsNgnMoney(user?.recent_bill?.current_bill)}`
                           : ""}
                       </p>
                     </div>
@@ -252,7 +224,7 @@ const HomeResidentsDetails: AppPage = () => {
                     <div>
                       <p>
                         {user?.recent_bill?.current_monthly_bill
-                          ? user?.recent_bill?.current_monthly_bill
+                          ? `${formatAsNgnMoney(user?.recent_bill?.current_monthly_bill)}`
                           : ""}
                       </p>
                     </div>
@@ -287,7 +259,7 @@ const HomeResidentsDetails: AppPage = () => {
                       </p>
                     </div>
                   </div>
-                  <div className="mt-8 flex justify-center">
+                  {/* <div className="mt-8 flex justify-center">
                     {user.status === "Flag" && (
                       <Button
                         title="Unflag Resident"
@@ -302,7 +274,7 @@ const HomeResidentsDetails: AppPage = () => {
                         onClick={() => setShowFlag(true)}
                       />
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div>
@@ -476,39 +448,10 @@ const HomeResidentsDetails: AppPage = () => {
           </div>
         )}
       </div>
-      <Flag title="" noHead>
-        <ReusableModal
-          title="Are you sure you want to flag this residence"
-          cancelTitle="No, cancel"
-          actionTitle="Yes, Flag"
-          closeModal={() => setShowFlag(false)}
-          action={() => flagResidence(user?.id)}
-          isBusy={isBusy}
-        />
-      </Flag>
-      <Unflag title="" noHead>
-        <ReusableModal
-          title="Are you sure you want to unflag this residence"
-          cancelTitle="No, cancel"
-          actionTitle="Yes, Unflag"
-          closeModal={() => setShowUnflag(false)}
-          action={() => flagResidence(user?.id)}
-          isBusy={isBusy}
-        />
-      </Unflag>
-      <Bill title="Update Monthly Billing">
-        <SetMonthBillModal
-          bill={user?.bill?.bill_monthly}
-          bin={user?.bill?.waste_bin_monthly}
-          id={user?.id}
-          close={() => setShowBill(false)}
-          refetch={() => fetchDetails(id)}
-        />
-      </Bill>
       <Wallet title="Update Wallet Amount">
           <UpdateWallet bill={user?.wallet} id={user?.id}
           close={() => setShowWallet(false)}
-          refetch={() => fetchDetails(id)}/>
+          refetch={() => fetchDetails(id)} type="waste"/>
       </Wallet>
       <ImageModal title="Residence Image">
         <a

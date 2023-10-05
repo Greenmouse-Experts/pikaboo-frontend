@@ -3,18 +3,21 @@ import { Controller, useForm } from "react-hook-form";
 import TextInput, { InputType } from "../../Ui/TextInput";
 import Button from "../../Ui/Button";
 import { PulseSpinner } from "../../Ui/Loading";
-import { useLazyUpdateBillQuery } from "@/services/api/residenceSlice";
+import { useLazyUpdateBillQuery, useLazyUpdateWalletQuery, useLazyWasteUpdateWalletQuery } from "@/services/api/residenceSlice";
 import { toast } from "react-toastify";
+import { async } from "regenerator-runtime";
 
 interface Props{
     bill: string | undefined
     close: () => void
     refetch: () => void
     id: number | undefined
+    type?: string
 }
-const UpdateWallet:FC<Props> = ({id, bill, refetch, close}) => {
+const UpdateWallet:FC<Props> = ({id, bill, refetch, close, type}) => {
     const [isBusy, setIsBusy] = useState<boolean>(false)
-    const [update] = useLazyUpdateBillQuery()
+    const [update] = useLazyUpdateWalletQuery()
+    const [waste] = useLazyWasteUpdateWalletQuery()
   const {
     control,
     handleSubmit,
@@ -30,23 +33,44 @@ const UpdateWallet:FC<Props> = ({id, bill, refetch, close}) => {
 
   const onSubmit = async (data:any) => {
     setIsBusy(true);
-    await update(data)
-      .then((res:any) => {
-        if (res.data.success) {
-          toast.success(res.data.message)
-          refetch()
-          close()
-        }else {
-            Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
-                toast.error(value[0]);})
-          setIsBusy(false);
-        }
-      })
-      .catch((err) => {
-        toast.error(err?.error?.data.message);
-        setIsBusy(false);
-      });
+    type === "waste"? wasteAction(data) : adminAction(data)
   };
+  const adminAction = async(data:any) => {
+    await update(data)
+    .then((res:any) => {
+      if (res.data.success) {
+        toast.success(res.data.message)
+        refetch()
+        close()
+      }else {
+          Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+              toast.error(value[0]);})
+        setIsBusy(false);
+      }
+    })
+    .catch((err) => {
+      toast.error(err?.error?.data.message);
+      setIsBusy(false);
+    });
+  }
+  const wasteAction = async(data:any) => {
+    await waste(data)
+    .then((res:any) => {
+      if (res.data.success) {
+        toast.success(res.data.message)
+        refetch()
+        close()
+      }else {
+          Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+              toast.error(value[0]);})
+        setIsBusy(false);
+      }
+    })
+    .catch((err) => {
+      toast.error(err?.error?.data.message);
+      setIsBusy(false);
+    });
+  }
   return (
     <>
          <form onSubmit={handleSubmit(onSubmit)}>

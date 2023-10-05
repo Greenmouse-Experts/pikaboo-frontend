@@ -81,7 +81,19 @@ export const residenceApiSlice = apiSlice.injectEndpoints({
         headers: {
           Authorization: requestAuthorization(),
         },
-        body: payload.data,
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
+    wasteUpdateWallet: builder.query<BaseResult | ErrorResult, any>({
+      query: (payload) => ({
+        url: `${ENDPOINT.WASTE_FUND_RESIDENCE}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
@@ -94,5 +106,7 @@ export const {
   useLazyUpdateBillQuery,
   useLazyUpdateResisdenceInfoQuery,
   useLazySendLoginQuery,
-  useLazyUpdatePersonalProfileQuery
+  useLazyUpdatePersonalProfileQuery,
+  useLazyUpdateWalletQuery,
+  useLazyWasteUpdateWalletQuery
 } = residenceApiSlice;

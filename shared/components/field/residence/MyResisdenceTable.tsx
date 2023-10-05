@@ -6,10 +6,9 @@ import { useGetMyZoneUsersQuery } from "@/services/api/routineSlice";
 
 interface Props {
   data: any
+  type?:string
 }
-const MyResidentTable:FC<Props> = ({data}) => {
-
-    // const {data, isLoading} = useGetMyZoneUsersQuery()
+const MyResidentTable:FC<Props> = ({data, type}) => {
   const columns = useMemo(
     () => [
       {
@@ -21,7 +20,7 @@ const MyResidentTable:FC<Props> = ({data}) => {
         accessor: "pikaboo_id",
         Cell: (row: any) => (
           <Link href={{
-            pathname: `/field/residents/details`,
+            pathname: type === "waste"? `/waste/residents/details` : `/field/residents/details`,
             query: {
               sort: row.row.original.id,
             }}} className="fw-500 text-primary">{row.value}</Link>
@@ -46,10 +45,11 @@ const MyResidentTable:FC<Props> = ({data}) => {
         accessor: "email",
       },
       {
-        Header: "Zone",
-        accessor: "zone.name",
-        Filter: SelectColumnFilter,
-        filter: "includes",
+        Header: "FO Incharge",
+        accessor: "created_by_who",
+        Cell: (row:any) => row.value.first_name? `${row.value.first_name} ${row.value.last_name}` : `${row.value.pikaboo_id}`,
+        // Filter: SelectColumnFilter,
+        // filter: "includes",
       },
       {
         Header: "Status",

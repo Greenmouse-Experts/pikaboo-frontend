@@ -13,22 +13,49 @@ import {
 import { BsThreeDotsVertical } from "react-icons/bs";
 import useModal from "@/hooks/useModal";
 import ReusableModal from "../../helpers/ReusableModal";
+import { useLazySubmitPersonnelQuery } from "@/services/api/scheduleSlice";
+import { toast } from "react-toastify";
+import { useLazySuspendPersonnelQuery } from "@/services/api/wasteSlice";
 
 interface Props {
   data: UserData[];
   refetch: () => void;
 }
 const ServicePersonnelTable: FC<Props> = ({ data, refetch }) => {
-  const [isBusy, setIsBusy] = useState(false)
+  const [isBusy, setIsBusy] = useState(false);
   const { Modal, setShowModal } = useModal();
+  const {Modal:Unsuspend, setShowModal:showUnsuspend} = useModal()
+  const [suspend] = useLazySuspendPersonnelQuery();
   const [selectedItem, setSelectedItem] = useState<any>();
   const openModal = (item: any) => {
     setShowModal(true);
     setSelectedItem(item);
   };
-  const suspendPersonnel = () => {
-
+  const unSuspendUser = (id:any) => {
+    setSelectedItem(id)
+    showUnsuspend(true)
   }
+  const suspendPersonnel = async () => {
+    setIsBusy(true);
+    const fd = new FormData();
+    fd.append("user_id", selectedItem);
+    await suspend(fd)
+      .then((res: any) => {
+        if (res.data.success) {
+          toast.success(res.data.message);
+          setIsBusy(false);
+          refetch();
+          setShowModal(false)
+        } else {
+          toast.error(res.data.message);
+          setIsBusy(false);
+        }
+      })
+      .catch((err) => {
+        toast.error(err?.error?.data.message);
+        setIsBusy(false);
+      });
+  };
 
   const columns = useMemo(
     () => [
@@ -39,7 +66,9 @@ const ServicePersonnelTable: FC<Props> = ({ data, refetch }) => {
       {
         Header: "Pikaboo ID",
         accessor: "pikaboo_id",
-        Cell: (props:any) => <p className="fw-600 text-primary">{props.value}</p>
+        Cell: (props: any) => (
+          <p className="fw-600 text-primary">{props.value}</p>
+        ),
       },
       {
         Header: "Name",
@@ -81,10 +110,16 @@ const ServicePersonnelTable: FC<Props> = ({ data, refetch }) => {
                 </Button>
               </MenuHandler>
               <MenuList className="lg:w-48">
-                {/* <MenuItem onClick={() => openModal(row.row.original)}>
-                  View Details
-                </MenuItem> */}
-                <MenuItem className="bg-red-600 pt-1 fw-500 text-white" onClick={() => openModal(row.row.original)}>Suspend</MenuItem>
+              {
+                  row.row.original.status !== "Active" &&
+                    <MenuItem className="bg-green-600 text-white pt-1 fw-500" onClick={() => unSuspendUser(row.value)}>Activate Admin</MenuItem>
+                }
+                { row.row.original.status === "Active" && <MenuItem
+                  className="bg-red-600 pt-1 fw-500 text-white"
+                  onClick={() => openModal(row.value)}
+                >
+                  Suspend
+                </MenuItem>}
               </MenuList>
             </Menu>
           </div>
@@ -101,11 +136,6 @@ const ServicePersonnelTable: FC<Props> = ({ data, refetch }) => {
         <Table columns={columns} data={list} />
       </div>
       <Modal title="" noHead>
-        {/* <FleetAssignWasteManager
-          refetch={refetch}
-          item={selectedItem}
-          close={() => setShowModal(false)}
-        /> */}
         <ReusableModal
           title="Are you sure you want to suspend this Personnel"
           cancelTitle="No, cancel"
@@ -115,6 +145,16 @@ const ServicePersonnelTable: FC<Props> = ({ data, refetch }) => {
           isBusy={isBusy}
         />
       </Modal>
+      <Unsuspend title="" noHead>
+        <ReusableModal
+          title="Are you sure you want to activate this Field operator"
+          cancelTitle="No, cancel"
+          actionTitle="Yes, Activate"
+          closeModal={() => showUnsuspend(false)}
+          action={suspendPersonnel}
+          isBusy={isBusy}
+        />
+        </Unsuspend>
     </>
   );
 };

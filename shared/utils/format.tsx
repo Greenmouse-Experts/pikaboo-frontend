@@ -57,3 +57,8 @@ export const formatStatus=  {
     "ONGOING": <p className="w-28 text-center py-1 text-purple-800 bg-purple-100 border border-purple-800 rounded">Ongoing</p>,
     "PENDING": <p className="w-28 text-center py-1 text-orange-800 bg-orange-100 border border-orange-800 rounded">Pending</p>,
 }
+export const statusBall = {
+  "COMPLETED": <p className="w-7 h-7 circle mx-auto bg-green-600 hover:scale-110 duration-100"></p>,
+  "ONGOING": <p className="w-7 h-7 circle mx-auto  bg-purple-600 hover:scale-110 duration-100"></p>,
+  "PENDING": <p className="w-7 h-7 circle mx-auto  bg-orange-600 hover:scale-110 duration-100"></p>,
+}

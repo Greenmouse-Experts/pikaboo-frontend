@@ -1,6 +1,6 @@
 "use client";
 
-import { BaseResult, ErrorResult } from "@/shared/utils/types";
+import { BaseResult, ErrorResult, UsersResult } from "@/shared/utils/types";
 import { apiSlice } from "../apiSlice";
 
 import * as ENDPOINT from "../constants";
@@ -84,6 +84,29 @@ export const wasteApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
+
+    getWasteResidence: builder.query<UsersResult | ErrorResult , string | void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_WASTE_REESIDENCE}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
+    suspendPersonnel: builder.query<BaseResult, string | FormData>({
+      query: (payload) => ({
+        url: `${ENDPOINT.SUSPEND_PERSONNEL}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
   }),
   overrideExisting: true,
 });
@@ -94,5 +117,7 @@ export const {
   useGetTrucksQuery,
   useLazyDeleteTrucksQuery,
   useGetSpecialQuery,
-  useLazyAssignSpecialQuery
+  useLazyAssignSpecialQuery,
+  useGetWasteResidenceQuery,
+  useLazySuspendPersonnelQuery
 } = wasteApiSlice;
