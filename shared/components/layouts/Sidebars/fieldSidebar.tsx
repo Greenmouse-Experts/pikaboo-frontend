@@ -14,14 +14,16 @@ import Image from "next/image";
 interface Props {
     setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
     toggled:boolean,
+    collapsed: boolean;
   }
 
-const FieldSidebarLayout:FC<Props>  = ({setToggled, toggled}) => {
+const FieldSidebarLayout:FC<Props>  = ({setToggled,collapsed, toggled}) => {
 
   const {Modal, setShowModal} = useModal()
   return (
     <div className="left-0 bottom-0 fixed index-30 bg-white  lg:h-[90vh]">
       <Sidebar
+      collapsed={collapsed}
         customBreakPoint="960px"
         className="lg:h-[90vh] lg:dash-side-shade rounded-lg lg:ml-3 w-64 fs-500 fw-500 pt-12"
         onClick={() => setToggled(false)} 

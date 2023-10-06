@@ -26,7 +26,7 @@ const UpdateWallet:FC<Props> = ({id, bill, refetch, close, type}) => {
   } = useForm({
     mode: "onChange",
     defaultValues: {
-      bill: bill,
+      amount: bill,
       user_id: id
     },
   });
@@ -76,7 +76,7 @@ const UpdateWallet:FC<Props> = ({id, bill, refetch, close, type}) => {
          <form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <Controller
-              name="bill"
+              name="amount"
               control={control}
               rules={{
                 required: {
@@ -88,7 +88,7 @@ const UpdateWallet:FC<Props> = ({id, bill, refetch, close, type}) => {
                 <TextInput
                   label="Wallet Amount"
                   labelClassName="fw-500"
-                  error={errors.bill?.message}
+                  error={errors.amount?.message}
                   type={InputType.text}
                   {...field}
                 />

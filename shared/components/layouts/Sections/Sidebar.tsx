@@ -7,19 +7,20 @@ import WasteSidebarLayout from '../Sidebars/wasteSidebar';
 interface Props {
   setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
   toggled:boolean,
+  collapsed: boolean;
 }
 
-const SidebarLayout:FC<Props>  = ({setToggled, toggled})  => {
+const SidebarLayout:FC<Props>  = ({setToggled, toggled, collapsed})  => {
   const user = useAppSelector((state) => state.user.user.user_type )
 
   if(user == "Administrator"){
-    return <AdminSidebarLayout  setToggled={setToggled} toggled={toggled}/>
+    return <AdminSidebarLayout collapsed={collapsed} setToggled={setToggled} toggled={toggled}/>
   }else if(user === "Field Operator"){
-    return <FieldSidebarLayout  setToggled={setToggled} toggled={toggled}/>
+    return <FieldSidebarLayout  collapsed={collapsed} setToggled={setToggled} toggled={toggled}/>
   }else if(user === "Fleet Manager"){
-    return <FleetSidebarLayout  setToggled={setToggled} toggled={toggled}/>
+    return <FleetSidebarLayout  collapsed={collapsed} setToggled={setToggled} toggled={toggled}/>
   }else if(user === "Waste Manager"){
-    return <WasteSidebarLayout  setToggled={setToggled} toggled={toggled}/>
+    return <WasteSidebarLayout  collapsed={collapsed} setToggled={setToggled} toggled={toggled}/>
   }
   return (<></>
   )

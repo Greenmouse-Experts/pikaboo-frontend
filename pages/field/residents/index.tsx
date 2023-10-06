@@ -47,7 +47,7 @@ const ResidentsPage: AppPage = () => {
     <>
       <div>
         <div className="h-40 bg-waste bg-center flex items-center dash-shade rounded-xl">
-          <div className="pl-12 text-white">
+          <div className="pl-3 lg:pl-12 text-white">
             <p className="text-2xl fw-600">Home Residents</p>
             <p className="fs-400 lg:w-10/12 mt-2">
               Here are the list of home residence you have onboarded on the app.
@@ -55,12 +55,12 @@ const ResidentsPage: AppPage = () => {
           </div>
         </div>
         <div className="mt-5 lg:mt-12 dash-shade p-4 lg:p-8 rounded-xl">
-         <div className="flex items-center borber-b-2 justify-between">
+         <div className="lg:flex items-center borber-b-2 justify-between">
          <div className="flex  gap-x-2">
             <MdFormatListBulletedAdd className="text-2xl text-primary" />
             <p className="fw-500">Home Residents</p>
           </div>
-          <div>
+          <div className="mt-3 lg:mt-0">
             {isBusy && <PulseSpinner size={13} color="#009a06" />}
             {!isBusy && <p className="fw-600 text-primary underline cursor-pointer" onClick={createOneResidence}>Add New Home Residence</p>}
           </div>

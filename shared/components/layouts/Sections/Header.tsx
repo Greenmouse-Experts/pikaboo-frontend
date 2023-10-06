@@ -11,12 +11,15 @@ import { Menu, MenuHandler, MenuItem, MenuList, Button } from "../../Ui/dropdown
 import { useAdminGetUnreadNotifyQuery, useGetUnreadNotifyQuery } from "@/services/api/routineSlice";
 import { formatName } from "@/shared/utils/format";
 import { useRouter } from "next/router";
+import { collapse } from "@material-tailwind/react";
 
 interface Props {
   setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
   toggled:boolean,
+  setCollapse: (value: boolean | ((prevVar: boolean) => boolean)) => void;
+  collapse:boolean,
 }
-const Header:FC<Props> = ({setToggled, toggled}) => {
+const Header:FC<Props> = ({setToggled, toggled, collapse, setCollapse}) => {
   const user = useAppSelector((state) => state.user.user )
   const [notify, setNotify] = useState<any>()
   const {data, isLoading} = useAdminGetUnreadNotifyQuery()
@@ -48,7 +51,9 @@ const Header:FC<Props> = ({setToggled, toggled}) => {
                 height={100}
                 className="w-32"
               />
-              <HiOutlineMenu className="text-2xl cursor-pointer" 
+              <HiOutlineMenu className="text-2xl cursor-pointer hidden lg:block" 
+                  onClick={() => setCollapse(!collapse)} />
+              <HiOutlineMenu className="text-2xl cursor-pointer lg:hidden" 
                   onClick={() => setToggled(!toggled)} />
             </div>
             <div className="flex w-4/12 md:w-full justify-end lg:justify-between items-center">

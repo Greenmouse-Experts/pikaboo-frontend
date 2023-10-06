@@ -278,7 +278,7 @@ const HomeResidentsDetails: AppPage = () => {
                 </div>
               </div>
               <div>
-                <div className="dash-shade relative p-8 rounded-xl">
+                <div className="dash-shade relative p-3 lg:p-8 rounded-xl">
                   {/* <div className="absolute top-4 right-4">
                     <FaRegEdit
                       className="text-xl text-primary"
@@ -291,7 +291,7 @@ const HomeResidentsDetails: AppPage = () => {
                       <p className="fw-600 border-b">Wallet Amount</p>
                       <RiFundsBoxLine className="text-lg cursor-pointer" onClick={() => setShowWallet(true)}/>
                       </div>
-                      <p className="fw-600 text-3xl mt-2 text-green-600">
+                      <p className={`fw-600 text-3xl mt-2 ${user.wallet.includes("-")? 'text-red-600' : 'text-green-600'}`}>
                         {formatAsNgnMoney(user.wallet)}
                       </p>
                     </div>

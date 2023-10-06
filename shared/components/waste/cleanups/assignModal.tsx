@@ -1,4 +1,4 @@
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import { useGetMyUsersQuery } from "@/services/api/routineSlice";
 import { ScheduleRequest } from "@/shared/utils/types/schedule";
 import Initials from "@/shared/utils/initials";
@@ -6,15 +6,20 @@ import { UserData } from "@/shared/utils/types/auth";
 import Button from "../../Ui/Button";
 import { useLazySubmitPersonnelQuery } from "@/services/api/scheduleSlice";
 import { toast } from "react-toastify";
-import { PulseSpinner } from "../../Ui/Loading";
+import { CircleLoader, PulseSpinner } from "../../Ui/Loading";
 import EmptyState from "../../Ui/EmptyState";
 
 interface Props {
   item: any
   close: () => void
+  refetch: () => void
 }
-const WasteAssignModal:FC<Props> = ({item, close}) => {
-  const { data, refetch, isLoading } = useGetMyUsersQuery();
+const WasteAssignModal:FC<Props> = ({item, close, refetch}) => {
+  useEffect(() => {
+    const prev = item.all_service_personnels.map((item:any) => String(item.service_personnel.id))
+    setValues(prev)
+  }, [])
+  const { data, refetch:refetchPersonnel, isLoading } = useGetMyUsersQuery();
   const [isBusy, setIsBusy] = useState(false);
   const [submit] = useLazySubmitPersonnelQuery()
   const [values, setValues] = useState<string[]>([]);
@@ -39,6 +44,7 @@ const WasteAssignModal:FC<Props> = ({item, close}) => {
     .then((res:any) => {
       if(res.isSuccess){
         toast.success(res.data.message)
+        refetch()
         close()
       }else {
         toast.error(res.error.data.message)
@@ -54,6 +60,11 @@ const WasteAssignModal:FC<Props> = ({item, close}) => {
     {
           data && !data?.data?.length && <div className="py-6"><EmptyState imageClass="w-20 mx-auto" message="You do not have any service personnel"/></div>
         }
+        {isLoading && (
+          <div className="flex justify-center my-12 lg:mt-24">
+            <CircleLoader size="100" />
+          </div>
+        )}
       <div className="grid lg:grid-cols-2 gap-6 max-h-[300px]">
         {data &&
           !!data?.data?.length &&
@@ -79,6 +90,7 @@ const WasteAssignModal:FC<Props> = ({item, close}) => {
                 <input
                   type="checkbox"
                   value={item.id}
+                  checked={values.includes(String(item.id))}
                   className="w-6 h-6 absolute top-5 right-3"
                   onChange={handleCheckboxChange}
                 />

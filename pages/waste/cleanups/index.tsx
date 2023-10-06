@@ -14,7 +14,7 @@ import MySchedule from "@/shared/components/waste/cleanups/mySchedule";
 import { MdCleaningServices } from "react-icons/md";
 
 const WasteCleanup: AppPage = () => {
-  const { data, isLoading } = useWasteGetScheduleQuery();
+  const { data, refetch, isLoading } = useWasteGetScheduleQuery();
   const { data: myZone, isLoading: myLoading } = useGetWasteScheduleQuery();
   const {Modal, setShowModal} = useModal()
   const [selectedItem, setSelectedItem] = useState<any>()
@@ -72,7 +72,7 @@ const WasteCleanup: AppPage = () => {
               />
             )}
             {data && !!data?.data?.length && (
-              <WasteScheduleTable data={data?.data} />
+              <WasteScheduleTable data={data?.data} refetch={refetch} />
             )}
           </div>
         </div>

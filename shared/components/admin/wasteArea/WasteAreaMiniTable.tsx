@@ -1,6 +1,4 @@
 import React, { FC } from "react";
-import { useGetZonesQuery } from "@/services/api/routineSlice";
-import { ZoneResidenceResult } from "@/shared/utils/types";
 import Link from "next/link";
 
 interface Props {
@@ -46,7 +44,7 @@ const WasteAreaMiniTable: FC<Props> = ({ data }) => {
                             {item.zone.name}
                           </td>
                           <td className="border-b border-gray-200 align-middle fs-500 whitespace-nowrap px-2 pl-4  py-4 text-left">
-                            47
+                            {item.home_residence_count}
                           </td>
                           <td className="border-b border-gray-200 align-middle fs-500 whitespace-nowrap px-2 pl-4  py-4 text-left">
                             {item.schedule_date}

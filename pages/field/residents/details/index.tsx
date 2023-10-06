@@ -21,6 +21,7 @@ import { toast } from "react-toastify";
 import AddBuildingImages from "@/shared/components/field/residence/AddBuildingImages";
 import { AiOutlineCamera } from "react-icons/ai";
 import Image from "next/image";
+import WarningModal from "@/shared/utils/warningModal";
 
 const FieldResidenceDetails: AppPage = () => {
   const route = useRouter();
@@ -28,6 +29,7 @@ const FieldResidenceDetails: AppPage = () => {
   const [isBusy, setIsBusy] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<UserDetail>();
+  const [current, setCurrent] = useState('')
   const [getDetail] = useLazyGetUserDetailQuery();
   const [send] = useLazySendLoginQuery()
 
@@ -35,6 +37,7 @@ const FieldResidenceDetails: AppPage = () => {
   const { Modal: Facility, setShowModal: ShowFacility } = useModal();
   const { Modal: Edit, setShowModal: showEdit } = useModal();
   const { Modal: ImageUpload, setShowModal: showImage } = useModal();
+  const {Modal:Warning, setShowModal:showWarning} = useModal()
 
   const fetchDetails = async (id: any) => {
     setIsLoading(true);
@@ -50,6 +53,40 @@ const FieldResidenceDetails: AppPage = () => {
       fetchDetails(id);
     } //eslint-disable-next-line
   }, [id]);
+  const monitorDataUpdate = (name:string) => {
+    if(name === "Location"){
+      if(user?.building_information?.latitude){
+        showWarning(true)
+        setCurrent('Location')
+      }else{
+        setShowModal(true)
+      }
+    }else if(name === "Profile"){
+      if(user?.first_name || user?.building_information?.street_name || user?.recent_bill.current_monthly_bill){
+        showWarning(true)
+        setCurrent('Profile')
+      }else{
+        showEdit(true)
+      }
+    }else if(name === "Housing"){
+      if(user?.building_information.completion_status || user?.building_information?.no_of_residents || user?.building_information.classification){
+        showWarning(true)
+        setCurrent('Housing')
+      }else{
+        ShowFacility(true)
+      }
+    }else{}
+  }
+  const manageNext = () => {
+    showWarning(false)
+    if(current === "Location"){
+      setShowModal(true)
+    }else if(current === "Profile"){
+      showEdit(true)
+    }else if(current === "Housing"){
+      ShowFacility(true)
+    }else{}
+  }
   
   const generatePDF = () => {
     const pid = user?.pikaboo_id? user.pikaboo_id : ""
@@ -125,8 +162,8 @@ const FieldResidenceDetails: AppPage = () => {
                   </div>
                 )}
                 <div
-                  className="flex underline fw-600 items-center gap-x-1 my-6"
-                  onClick={() => setShowModal(true)}
+                  className="flex underline fw-600  cursor-pointer items-center gap-x-1 my-6"
+                  onClick={() => monitorDataUpdate('Location')}
                 >
                   <p className="text-primary">Get location</p>
                   <FaSearchLocation className="text-primary" />
@@ -141,7 +178,7 @@ const FieldResidenceDetails: AppPage = () => {
                 </div>
                 <BiEdit
                   className="text-2xl text-primary cursor-pointer"
-                  onClick={() => ShowFacility(true)}
+                  onClick={() => monitorDataUpdate('Housing')}
                 />
               </div>
               <div className="mt-4">
@@ -250,63 +287,66 @@ const FieldResidenceDetails: AppPage = () => {
                   </p>
                 </div>
                 <div className="flex mt-3 lg:mt-0 items-center gap-x-3">
-                  <Button altClassName="btn-like" title={isBusy ? <PulseSpinner size={13} color="white" />: "Send Login Details"} onClick={() => sendLogin(user.id)}/>
+                  {
+                    user.phone.length < 13 &&
+                    <Button altClassName="btn-like" title={isBusy ? <PulseSpinner size={13} color="white" />: "Send Login Details"} onClick={() => sendLogin(user.id)}/>
+                  }
                   <BiEdit
                   className="text-2xl text-primary cursor-pointer"
-                  onClick={() => showEdit(true)}
+                  onClick={() => monitorDataUpdate('Profile')}
                 />
                 <AiOutlineCamera className="text-2xl text-primary cursor-pointer" onClick={() => showImage(true)} />
                 </div>
               </div>
-              <div className="grid lg:grid-cols-2 gap-6 mt-6">
+              <div className="lg:grid lg:grid-cols-2 gap-6 mt-6">
                 <div className="">
                   <p className="fw-500">Name:</p>
                   <p>{user?.first_name ? `${user.title} ${user.first_name} ${user.last_name}` : ""}</p>
                 </div>
-                <div>
+                <div className="mt-4 lg:mt-0">
                   <p className="fw-500">Phone:</p>
                   <p>
                     {user?.phone ? formatPhoneNum(user.phone) : ""},{" "}
                     {user?.phone2 ? formatPhoneNum(user.phone2) : ""}
                   </p>
                 </div>
-                <div className="">
+                <div className="mt-4 lg:mt-0">
                   <p className="fw-500">Email:</p>
                   <p>{user.email ? user.email : ""}</p>
                 </div>
-                <div>
+                <div className="mt-4 lg:mt-0">
                   <p className="fw-500">No of Residents:</p>
                   <p>{user?.building_information? `${user.building_information.no_of_residents} residents` : ""}</p>
                 </div>
-                <div className="">
+                <div className="mt-4 lg:mt-0">
                   <p className="fw-500">House No:</p>
                   <p>{user?.building_information?.house_number}</p>
                 </div>
-                <div className="">
+                <div className="mt-4 lg:mt-0">
                   <p className="fw-500">Street Name:</p>
                   <p>{user?.building_information?.street_name}</p>
                 </div>
-                <div>
+                <div className="mt-4 lg:mt-0">
                   <p className="fw-500">Area:</p>
                   <p>{user?.building_information?.area1}</p>
                 </div>
-                <div>
+                <div className="mt-4 lg:mt-0">
                   <p className="fw-500">Town:</p>
                   <p>{user?.building_information?.town_city}</p>
                 </div>
-                <div>
+                <div className="mt-4 lg:mt-0">
                   <p className="fw-500">Total Current Bill:</p>
                   <p>{user?.recent_bill?.current_bill && formatAsNgnMoney(user?.recent_bill?.current_bill)}</p>
                 </div>
-                <div className="">
+                <div className="mt-4 lg:mt-0">
                   <p className="fw-500">Current Monthly Bill:</p>
                   <p>{user?.recent_bill?.current_monthly_bill && formatAsNgnMoney(user?.recent_bill?.current_monthly_bill)}</p>
                 </div>
-                <div className="">
+                <div className="mt-4 lg:mt-0">
                   <p className="fw-500">No of Waste Bin Needed:</p>
                   <p>{user?.building_information?.waste_bin? user?.building_information?.waste_bin : 0}</p>
                 </div>
-                <div className="pb-12 col-span-2">
+                <div className="pb-12 col-span-2 mt-4 lg:mt-0">
                   <p className="fw-500">Building Images:</p>
                   <div>
                     {user?.building_information?.building_image && <Image src={user?.building_information?.building_image} alt='building' width={300} height={300} className=""/>}
@@ -342,6 +382,13 @@ const FieldResidenceDetails: AppPage = () => {
           <AddBuildingImages id={user?.id} close={() => showImage(false)}
           refetch={() => fetchDetails(id)}/>
       </ImageUpload>
+      <Warning title="" noHead>
+          <WarningModal
+            message="This information has been previously entered. Are you certain you wish to make edits to this data"
+            close={() => showWarning(false)}
+            next={manageNext}
+            />
+      </Warning>
     </>
   );
 };

@@ -319,7 +319,7 @@ const HomeResidentsDetails: AppPage = () => {
                       <p className="fw-600 border-b">Wallet Amount</p>
                       <RiFundsBoxLine className="text-lg cursor-pointer" onClick={() => setShowWallet(true)}/>
                       </div>
-                      <p className="fw-600 text-3xl mt-2 text-green-600">
+                      <p className={`fw-600 text-3xl mt-2 ${user.wallet.includes("-")? 'text-red-600' : 'text-green-600'}`}>
                         {formatAsNgnMoney(user.wallet)}
                       </p>
                     </div>

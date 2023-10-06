@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useState } from "react";
-import Table from "../../../components/Ui/table";
+import Table, { SelectColumnFilter } from "../../../components/Ui/table";
 import { FormatStatus, formatStatus } from "@/shared/utils/format";
 import { UserData } from "@/shared/utils/types/auth";
 import dayjs from "dayjs";
@@ -16,8 +16,9 @@ import WasteAssignModal from "./assignModal";
 
 interface Props {
   data: any[];
+  refetch: () => void
 }
-const WasteScheduleTable: FC<Props> = ({ data }) => {
+const WasteScheduleTable: FC<Props> = ({ data, refetch }) => {
   const { Modal, setShowModal } = useModal();
   const [selectedItem, setSelectedItem] = useState<any>();
   const openModal = (item: any) => {
@@ -47,6 +48,11 @@ const WasteScheduleTable: FC<Props> = ({ data }) => {
       {
         Header: "Residence Count",
         accessor: "zone.no_of_residence",
+      },
+      {
+        Header: "Request Status",
+        accessor: "all_service_personnels",
+        Cell: (props:any) => !!props.value.length? <p className="text-green-600 fw-600">Submitted</p> : <p  className="text-gray-400 fw-600">Awaiting</p>,
       },
       {
         Header: "Status",
@@ -84,7 +90,7 @@ const WasteScheduleTable: FC<Props> = ({ data }) => {
         <Table columns={columns} data={list} />
       </div>
       <Modal title="Assign my Personnel" wide>
-        <WasteAssignModal item={selectedItem} close={() => setShowModal(false)}/>
+        <WasteAssignModal item={selectedItem} close={() => setShowModal(false)} refetch={refetch}/>
       </Modal>
     </>
   );
