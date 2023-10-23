@@ -74,3 +74,6 @@ export interface TruckResult extends BaseResult{
 export interface DeleteTruckInput{
   truck_id: number
 }
+export interface GetFleetDashboardInput {
+  year: number
+}

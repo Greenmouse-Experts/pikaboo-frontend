@@ -58,7 +58,6 @@ export enum CACHE_LIFETIME {
   export const UPDATE_PERSONAL = '/user/profile/update'
   export const SEND_LOGIN_DETAILS = '/user/notify/login/details'
   export const FUND_RESIDENCE = '/admin/fund/user/account'
-  export const WASTE_FUND_RESIDENCE = '/waste-manager/fund/user/account'
 
   //waste manager
   export const GET_TRUCKS = '/waste-manager/truck/get'
@@ -69,6 +68,11 @@ export enum CACHE_LIFETIME {
   export const ASSIGN_SPECIAL = '/waste-manager/special-requests/assign'
   export const GET_WASTE_REESIDENCE = '/waste-manager/get/all/home-residence'
   export const SUSPEND_PERSONNEL = '/waste-manager/user/action'
+  export const GET_DASHBOARD = '/waste-manager/dashboard'
+  export const WASTE_FUND_RESIDENCE = '/waste-manager/fund/user/account'
+
+  // fleet manager
+  export const GET_FLEET_DASHBOARD = '/fleet-manager/dashboard'
 
   // schedule request
   export const CREATE_REQUEST = '/fleet-manager/schedule-request/create'

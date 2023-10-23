@@ -56,7 +56,7 @@ const FleetWasteManagerTable: FC<Props> = ({ data, refetch }) => {
         Cell: (props) => dayjs(props.value).format("DD-MMM-YYYY"),
       },
       {
-        Header: "Zone Incharage",
+        Header: "Zone",
         accessor: "zone",
         Cell: (props) => (props.value ? props.value.name : "Nill"),
       },

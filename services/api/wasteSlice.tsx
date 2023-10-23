@@ -73,6 +73,17 @@ export const wasteApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
 
+    getDashboard: builder.query<any, ErrorResult | void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_DASHBOARD}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
     assignSpecial: builder.query<BaseResult, string | any>({
       query: (payload) => ({
         url: `${ENDPOINT.ASSIGN_SPECIAL}`,
@@ -119,5 +130,6 @@ export const {
   useGetSpecialQuery,
   useLazyAssignSpecialQuery,
   useGetWasteResidenceQuery,
-  useLazySuspendPersonnelQuery
+  useLazySuspendPersonnelQuery,
+  useGetDashboardQuery
 } = wasteApiSlice;

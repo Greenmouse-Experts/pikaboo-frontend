@@ -33,13 +33,7 @@ const WasteSpecialRequestTable:FC<Props> = ({data, refetch}) => {
           {
             Header: "Residence ID",
             accessor: "home_residence.pikaboo_id",
-            Cell: (row: any) => (
-              <Link href={{
-                pathname: `/admin/residents/details`,
-                query: {
-                  sort: row.row.original.home_residence.id,
-                }}} className="fw-500 text-primary">{row.value}</Link>
-            ),
+            Cell: (row: any) => <p className="fw-500 text-primary">{row.value}</p>
           },
           {
             Header: "Zone",

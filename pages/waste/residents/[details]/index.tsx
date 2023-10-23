@@ -20,6 +20,7 @@ import { BiDownload } from "react-icons/bi";
 import jsPDF from "jspdf";
 import { RiFundsBoxLine } from "react-icons/ri";
 import UpdateWallet from "@/shared/components/admin/residents/UpdateWallet";
+import SetMonthBillModal from "@/shared/components/admin/residents/SetMonthBill";
 
 const HomeResidentsDetails: AppPage = () => {
   const route = useRouter();
@@ -46,6 +47,7 @@ const HomeResidentsDetails: AppPage = () => {
   // flag resident
   const [isBusy, setIsBusy] = useState<boolean>(false);
   const { Modal: Wallet, setShowModal: setShowWallet } = useModal();
+  const { Modal: Bill, setShowModal: setShowBill } = useModal();
 
 
   // show image
@@ -279,12 +281,12 @@ const HomeResidentsDetails: AppPage = () => {
               </div>
               <div>
                 <div className="dash-shade relative p-3 lg:p-8 rounded-xl">
-                  {/* <div className="absolute top-4 right-4">
+                  <div className="absolute top-4 right-4">
                     <FaRegEdit
                       className="text-xl text-primary"
                       onClick={() => setShowBill(true)}
                     />
-                  </div> */}
+                  </div>
                   <div className="grid lg:grid-cols-2">
                     <div className="border-r p-4">
                       <div className="flex items-center gap-x-2">
@@ -471,6 +473,16 @@ const HomeResidentsDetails: AppPage = () => {
           />
         )}
       </ImageModal>
+      <Bill title="Update Monthly Billing">
+        <SetMonthBillModal
+          bill={user?.bill?.bill_monthly}
+          bin={user?.bill?.waste_bin_monthly}
+          id={user?.id}
+          close={() => setShowBill(false)}
+          refetch={() => fetchDetails(id)}
+          waste
+        />
+      </Bill>
     </>
   );
 };

@@ -51,10 +51,16 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
   });
   const onSubmit = async(data: any) => {
     setIsBusy(true)
+    const fname = data.first_name && data.first_name.toUpperCase()
+    const lname = data.last_name && data.last_name.toUpperCase()
+    const mname = data.middle_name && data.middle_name.toUpperCase()
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value as any);
     });
+    formData.append("first_name", fname)
+    formData.append("last_name", lname)
+    formData.append("middle_name", mname)
     formData.append("building_image", image);
     const payload = {
         id: user.id,

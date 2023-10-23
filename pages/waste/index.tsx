@@ -5,9 +5,11 @@ import Link from 'next/link'
 import { MdOutlineShareLocation } from 'react-icons/md'
 import MiniSchedule from '@/shared/components/waste/dashboard/MiniSchedule'
 import MiniSpecial from '@/shared/components/waste/dashboard/MiniSpecial'
+import { useGetDashboardQuery } from '@/services/api/wasteSlice'
 
 
 const WasteTruckDashboard:AppPage = () => {
+  const {data, isLoading} = useGetDashboardQuery()
   return (
     <>
         <div>
@@ -27,7 +29,7 @@ const WasteTruckDashboard:AppPage = () => {
               className="circle w-[86px]"
             />
             <div>
-              <p className="text-lg fw-600">32</p>
+              <p className="text-lg fw-600">{data? data.data.home_residence : 0}</p>
               <p className="fs-400 fw-500 text-primary">Home Residence</p>
             </div>
           </div>
@@ -40,7 +42,7 @@ const WasteTruckDashboard:AppPage = () => {
               className="circle w-[86px]"
             />
             <div>
-              <p className="text-lg fw-600">23</p>
+              <p className="text-lg fw-600">{data? data.data.registered_home : 0}</p>
               <p className="fs-400 fw-500 text-primary">Registered Home</p>
             </div>
           </div>
@@ -53,7 +55,7 @@ const WasteTruckDashboard:AppPage = () => {
               className="circle w-[86px]"
             />
             <div>
-              <p className="text-lg fw-600">3</p>
+              <p className="text-lg fw-600">{data? data.data.active_residence : 0}</p>
               <p className="fs-400 fw-500 text-primary">Active Residence</p>
             </div>
           </div>
@@ -66,7 +68,7 @@ const WasteTruckDashboard:AppPage = () => {
               className="circle w-[86px] sepia"
             />
             <div>
-              <p className="text-lg fw-600">4</p>
+              <p className="text-lg fw-600">{data? data.data.inactive_residence : 0}</p>
               <p className="fs-400 fw-500 text-primary">Inactive Residence</p>
             </div>
           </div>
@@ -85,7 +87,7 @@ const WasteTruckDashboard:AppPage = () => {
             <div className="text-center relative h-full place-center">
               <div>
               <p className="lg:text-lg fw-500">My Waste Trucks</p>
-              <p className="text-center text-4xl mt-8 fw-600">5</p>
+              <p className="text-center text-4xl mt-8 fw-600">{data? data.data.my_waste_trucks : 0}</p>
               </div>
               <Link href='/waste/trucks' className='text-end fw-600 text-primary absolute bottom-4 right-4 underline'>View All</Link>
             </div>
@@ -103,7 +105,7 @@ const WasteTruckDashboard:AppPage = () => {
             <div className="text-center relative h-full place-center">
               <div>
               <p className="lg:text-lg fw-500">My Service Personnel</p>
-              <p className="text-center text-4xl mt-8 fw-600">3</p>
+              <p className="text-center text-4xl mt-8 fw-600">{data? data.data.my_service_personnel: 0}</p>
               </div>
               <Link href='/waste/service' className='text-end fw-600 text-primary absolute bottom-4 right-4 underline'>View All</Link>
             </div>

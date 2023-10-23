@@ -176,7 +176,7 @@ const CleanupPage: AppPage = () => {
             currentPage={currentPage}
           />
         </div>
-        <div className="mt-12 dash-shade p-5">
+        {/* <div className="mt-12 dash-shade p-5">
             <div className="flex gap-x-2">
             <MdFormatListBulletedAdd className="text-2xl" />
                 <p className="fw-600">Due Zones for Disposal</p>
@@ -184,7 +184,7 @@ const CleanupPage: AppPage = () => {
             <div className="mt-3">
                 <DueZoneDisposalTable/>
             </div>
-        </div>
+        </div> */}
       </div>
       <Modal title="Create a Schedule Cleanup">
         <CreateCleanupModal refetch={refetch} close={() => setShowModal(false)}/>
