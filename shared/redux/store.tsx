@@ -19,6 +19,7 @@ import { apiSlice } from "@/services/apiSlice";
 import userReducer from "./reducers/userSlice";
 import zoneReducer from "./reducers/zoneSlice";
 import formReducer from "./reducers/onboardSlice";
+import { unauthenticatedMiddleware } from "./middleware/unauthenticated";
 
 const reducers = {
     [apiSlice.reducerPath]: apiSlice.reducer,
@@ -53,6 +54,7 @@ const persistConfig = {
       }).concat([
         // add middlewares here
         apiSlice.middleware,
+        unauthenticatedMiddleware
       ]),
   });
   

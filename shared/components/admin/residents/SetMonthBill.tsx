@@ -5,6 +5,7 @@ import Button from "../../Ui/Button";
 import { PulseSpinner } from "../../Ui/Loading";
 import {
   useLazyUpdateBillQuery,
+  useLazyWasteUpdateBillQuery,
   useLazyWasteUpdateWalletQuery,
 } from "@/services/api/residenceSlice";
 import { toast } from "react-toastify";
@@ -28,7 +29,7 @@ const SetMonthBillModal: FC<Props> = ({
 }) => {
   const [isBusy, setIsBusy] = useState<boolean>(false);
   const [update] = useLazyUpdateBillQuery();
-  const [wasteUpdate] = useLazyWasteUpdateWalletQuery();
+  const [wasteUpdate] = useLazyWasteUpdateBillQuery();
   const {
     control,
     handleSubmit,

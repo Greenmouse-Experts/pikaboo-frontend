@@ -91,6 +91,18 @@ export const shopApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
+    removeProductImage: builder.query<BaseResult | ErrorResult, any>({
+      query: (payload) => ({
+        url: `${ENDPOINT.REMOVE_PRODUCT_IMAGE}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
     deleteProduct: builder.query<BaseResult | ErrorResult, FormData>({
       query: (payload) => ({
         url: `${ENDPOINT.DESTROY_PRODUCT}`,
@@ -126,5 +138,6 @@ export const {
   useLazyEditProductQuery,
   useGetProductQuery,
   useLazyAddProductImageQuery,
-  useLazyDeleteProductQuery
+  useLazyDeleteProductQuery,
+  useLazyRemoveProductImageQuery
 } = shopApiSlice;

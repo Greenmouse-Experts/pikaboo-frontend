@@ -7,7 +7,6 @@ import { useLazyGetUserDetailQuery } from "@/services/api/routineSlice";
 import { useRouter } from "next/router";
 import { UserDetail } from "@/shared/utils/types";
 import {
-  FormatStatus,
   formatAsNgnMoney,
   parseData,
 } from "@/shared/utils/format";

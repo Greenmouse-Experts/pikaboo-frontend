@@ -1,3 +1,4 @@
+import { resetStateAction } from "@/shared/redux/actions/resetState";
 import { store } from "@/shared/redux/store";
 
 
@@ -60,3 +61,8 @@ export const deleteFromLocalStorage = (key: string) => {
     window.localStorage.removeItem(key);
   }
 };
+
+export const signOutUser = () => {
+  resetStateAction();
+  window.localStorage.clear()
+}

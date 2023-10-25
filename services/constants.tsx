@@ -70,6 +70,7 @@ export enum CACHE_LIFETIME {
   export const SUSPEND_PERSONNEL = '/waste-manager/user/action'
   export const GET_DASHBOARD = '/waste-manager/dashboard'
   export const WASTE_FUND_RESIDENCE = '/waste-manager/fund/user/account'
+  export const WASTE_UPDATE_BILL = '/waste-manager/bills/residence/update'
 
   // fleet manager
   export const GET_FLEET_DASHBOARD = '/fleet-manager/dashboard'
@@ -104,6 +105,7 @@ export enum CACHE_LIFETIME {
   export const DEACTIVATE_CATEGORY = '/admin/shop/action/category'
   export const CREATE_PRODUCT = '/admin/shop/create/product'
   export const ADD_PRODUCT_IMAGE = '/admin/shop/add/product/images'
+  export const REMOVE_PRODUCT_IMAGE = '/admin/shop/destroy/product/image'
   export const GET_PRODUCT = '/admin/shop/get/products'
   export const UPDATE_PRODUCT = '/admin/shop/update/product'
   export const UPDATE_PRODUCT_STATUS = '/admin/shop/action/product'
