@@ -44,8 +44,8 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
       area1: user.building_information.area1 || "",
       area2: user.building_information.area2 || "",
       town: user.building_information.town_city || "",
-      current_bill: user.recent_bill.current_bill || "",
-      current_monthly_bill: user.recent_bill.current_monthly_bill || "",
+      current_bill: user?.recent_bill?.current_bill || "",
+      current_monthly_bill: user?.recent_bill?.current_monthly_bill || "",
       waste_bin: user.building_information.waste_bill || ""
     },
   });

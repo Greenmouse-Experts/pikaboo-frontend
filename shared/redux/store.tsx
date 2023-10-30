@@ -54,7 +54,7 @@ const persistConfig = {
       }).concat([
         // add middlewares here
         apiSlice.middleware,
-        unauthenticatedMiddleware
+        // unauthenticatedMiddleware
       ]),
   });
   

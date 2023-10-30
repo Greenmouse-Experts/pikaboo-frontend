@@ -62,7 +62,7 @@ const FieldResidenceDetails: AppPage = () => {
         setShowModal(true)
       }
     }else if(name === "Profile"){
-      if(user?.first_name || user?.building_information?.street_name || user?.recent_bill.current_monthly_bill){
+      if(user?.first_name || user?.last_name || user?.building_information?.street_name){
         showWarning(true)
         setCurrent('Profile')
       }else{
