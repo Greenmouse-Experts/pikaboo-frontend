@@ -14,6 +14,7 @@ interface Props {
   bill: string | undefined;
   bin: string | undefined;
   id: number | undefined;
+  total: string | undefined;
   close: () => void;
   refetch: () => void;
   waste?: boolean;
@@ -23,6 +24,7 @@ const SetMonthBillModal: FC<Props> = ({
   bill,
   bin,
   id,
+  total,
   close,
   refetch,
   waste,
@@ -42,6 +44,7 @@ const SetMonthBillModal: FC<Props> = ({
       bill_monthly: bill || "",
       waste_bin_monthly: bin,
       user_id: id,
+      total_waste_bin_amount: total || 0
     },
   });
 
@@ -122,6 +125,26 @@ const SetMonthBillModal: FC<Props> = ({
               render={({ field }) => (
                 <TextInput
                   label="New Bill"
+                  error={errors.bill_monthly?.message}
+                  type={InputType.number}
+                  {...field}
+                />
+              )}
+            />
+          </div>
+          <div>
+            <Controller
+              name="total_waste_bin_amount"
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: "Please enter new bill",
+                },
+              }}
+              render={({ field }) => (
+                <TextInput
+                  label="Total Bin Amount"
                   error={errors.bill_monthly?.message}
                   type={InputType.number}
                   {...field}

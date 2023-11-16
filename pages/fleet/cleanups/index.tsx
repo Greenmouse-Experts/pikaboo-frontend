@@ -136,7 +136,7 @@ const CleanupPage: AppPage = () => {
           <div className="grid grid-cols-2 gap-10 w-11/12 mx-auto">
             {data &&
               !!data.length &&
-              currentPosts.map((item:ScheduleRequest, index:number) => (
+              currentPosts.map((item:any, index:number) => (
                 <div
                   className={`p-5 relative dash-shade text-white flex items-center gap-6 ${
                     formatBgColor[item.status as keyof typeof formatBgColor]
@@ -146,7 +146,7 @@ const CleanupPage: AppPage = () => {
                   <div className="w-24 h-24 circle bg-white grid place-content-center text-black">
                     <p className="text-3xl fw-600">
                       {item.completed}
-                      <span>/{item.zone.no_of_residence}</span>
+                      <span>/{item.total}</span>
                     </p>
                     <p className="text-[10px] fw-500">Residence</p>
                   </div>
@@ -176,15 +176,6 @@ const CleanupPage: AppPage = () => {
             currentPage={currentPage}
           />
         </div>
-        {/* <div className="mt-12 dash-shade p-5">
-            <div className="flex gap-x-2">
-            <MdFormatListBulletedAdd className="text-2xl" />
-                <p className="fw-600">Due Zones for Disposal</p>
-            </div>
-            <div className="mt-3">
-                <DueZoneDisposalTable/>
-            </div>
-        </div> */}
       </div>
       <Modal title="Create a Schedule Cleanup">
         <CreateCleanupModal refetch={refetch} close={() => setShowModal(false)}/>

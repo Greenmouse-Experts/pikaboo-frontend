@@ -279,7 +279,7 @@ const HomeResidentsDetails: AppPage = () => {
                 </div>
               </div>
               <div>
-                <div className="dash-shade relative p-3 lg:p-8 rounded-xl">
+                <div className="dash-shade relative p-3 lg:p-4 rounded-xl">
                   <div className="absolute top-4 right-4">
                     <FaRegEdit
                       className="text-xl text-primary"
@@ -302,17 +302,28 @@ const HomeResidentsDetails: AppPage = () => {
                         {user?.bill?.bill_monthly && formatAsNgnMoney(user?.bill?.bill_monthly)}
                       </p>
                     </div>
-                    <div className="border-r p-4">
-                      <p className="fw-600 border-b">Bin Amount Paid</p>
-                      <p className="fw-600 text-3xl mt-2 text-green-600">
-                        {user?.bill?.bin_amount_paid && formatAsNgnMoney(user.bill.bin_amount_paid)}
-                      </p>
-                    </div>
-                    <div className="p-4">
-                      <p className="fw-600 border-b">Monthly Bin</p>
-                      <p className="fw-600 text-3xl mt-2">
-                        {user?.bill?.waste_bin_monthly && formatAsNgnMoney(user?.bill?.waste_bin_monthly)}
-                      </p>
+                    <div className="col-span-2 grid lg:grid-cols-3">
+                      <div className="border-r p-4 w-full overflow-x-auto scroll-pro">
+                        <p className="fw-600 border-b whitespace-nowrap">Total Bin Amount</p>
+                        <p className="fw-600 text-3xl mt-2 text-green-600">
+                          {user?.bill?.total_waste_bin_amount &&
+                            formatAsNgnMoney(user.bill.total_waste_bin_amount)}
+                        </p>
+                      </div>
+                      <div className="border-r p-4 overflow-x-auto scroll-pro">
+                        <p className="fw-600 border-b  whitespace-nowrap">Bin Amount Paid</p>
+                        <p className="fw-600 text-3xl mt-2 text-green-600">
+                          {user?.bill?.bin_amount_paid &&
+                            formatAsNgnMoney(user.bill.bin_amount_paid)}
+                        </p>
+                      </div>
+                      <div className="p-4">
+                        <p className="fw-600 border-b">Monthly Bin</p>
+                        <p className="fw-600 text-3xl mt-2">
+                          {user?.bill?.waste_bin_monthly &&
+                            formatAsNgnMoney(user?.bill?.waste_bin_monthly)}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -476,6 +487,7 @@ const HomeResidentsDetails: AppPage = () => {
         <SetMonthBillModal
           bill={user?.bill?.bill_monthly}
           bin={user?.bill?.waste_bin_monthly}
+          total={user?.bill?.total_waste_bin_amount}
           id={user?.id}
           close={() => setShowBill(false)}
           refetch={() => fetchDetails(id)}

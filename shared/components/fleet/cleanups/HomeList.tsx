@@ -19,7 +19,7 @@ const HomeListTable: FC<Props> = ({ data, refetch }) => {
       {
         Header: "Name",
         accessor: "residence.home_residence.first_name",
-        Cell: (row: any) => ` ${row.value} ${row.row.original.residence.home_residence.last_name}`,
+        Cell: (row: any) => ` ${row.value || ""} ${row.row.original.residence.home_residence.last_name || ""}`,
       },
       {
         Header: "Email",
@@ -32,11 +32,11 @@ const HomeListTable: FC<Props> = ({ data, refetch }) => {
       {
         Header: "Address",
         accessor: "residence.house_number",
-        Cell: (row) => <p>{`${row.value} ${row.row.original.residence.street_name} ${row.row.original.residence.town}`}</p>
+        Cell: (row) => <p>{`${row.value || ""} ${row.row.original.residence.street_name || ""} ${row.row.original.residence.town || ""}`}</p>
       },
       {
         Header: "Facility Type",
-        accessor: "residence.facility_type",
+        accessor: "residence.commercial_facility",
       },
       {
         Header: "Status",

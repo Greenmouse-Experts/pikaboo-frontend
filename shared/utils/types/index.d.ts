@@ -179,6 +179,7 @@ export interface UserDetail {
     id: number;
     waste_bin_monthly: string;
     bin_amount_paid: string;
+    total_waste_bin_amount: string
   };
   building_information: {
     no_of_residents: string | number;

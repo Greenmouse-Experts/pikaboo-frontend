@@ -11,6 +11,7 @@ import LogoutModalUsers from "../../settings/LogoutUsers";
 import { IoNotificationsOutline } from "react-icons/io5";
 import { FiUserPlus } from "react-icons/fi";
 import { FaRoute } from "react-icons/fa";
+import {VscFeedback} from 'react-icons/vsc'
 
 interface Props {
     setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -93,6 +94,12 @@ const WasteSidebarLayout:FC<Props>  = ({setToggled, collapsed, toggled}) => {
             icon={<IoNotificationsOutline className="text-xl" />}
           >
             Notification
+          </MenuItem>
+          <MenuItem
+            component={<Link href="/waste/complaints" />}
+            icon={<VscFeedback className="text-xl" />}
+          >
+            Complaint
           </MenuItem>
           <MenuItem
             component={<Link href="/settings" />}

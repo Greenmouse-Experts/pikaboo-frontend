@@ -82,8 +82,8 @@ const Header:FC<Props> = ({setToggled, toggled, collapse, setCollapse}) => {
                     </p>
                   </MenuItem>
                   {
-                    notify && notify.slice(0,5).map((item:any) => (
-                      <div className="flex mb-2 gap-x-2 pb-2 lg:w-72 xl:w-[300px] px-3 border-b items-center">
+                    notify && notify.slice(0,5).map((item:any, i:number) => (
+                      <div className="flex mb-2 gap-x-2 pb-2 lg:w-72 xl:w-[300px] px-3 border-b items-center" key={i}>
                         <Image src={item.image} alt='image' width={50} height={50} className="circle w-12 h-12 border"/>
                         <div className="">
                           <p className="fs-400">{formatName(item.body, 43)}</p>

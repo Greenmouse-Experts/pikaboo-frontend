@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AppPage } from "@/shared/components/layouts/Types";
 import {
   useGetWasteScheduleQuery,
@@ -15,14 +15,17 @@ import { MdCleaningServices } from "react-icons/md";
 
 const WasteCleanup: AppPage = () => {
   const { data, refetch, isLoading } = useWasteGetScheduleQuery();
-  const { data: myZone, isLoading: myLoading } = useGetWasteScheduleQuery();
+  // const { data: myZone, isLoading: myLoading } = useGetWasteScheduleQuery();
   const {Modal, setShowModal} = useModal()
   const [selectedItem, setSelectedItem] = useState<any>()
 
-  const openMySchedule = (item:any) => {
-    setSelectedItem(item)
-    setShowModal(true)
-  }
+  // const openMySchedule = (item:any) => {
+  //   setSelectedItem(item)
+  //   setShowModal(true)
+  // }
+  useEffect(() => {
+    refetch()
+  }, [])
   const formatBgColor = {
     PENDING: "bg-gray-400",
     ONGOING: "bg-orange-800",
@@ -31,32 +34,6 @@ const WasteCleanup: AppPage = () => {
   return (
     <>
       <div>
-        {/* {myZone && (
-         <div
-         className={`p-5 w-6/12 relative dash-shade text-white flex items-center gap-6 ${
-            formatBgColor[myZone.data.status as keyof typeof formatBgColor]
-          }`}       >
-         <div className="w-24 h-24 circle bg-white grid place-content-center text-black">
-           <p className="text-3xl fw-600">
-             0
-             <span>/{myZone.data.zone.no_of_residence}</span>
-           </p>
-           <p className="text-[10px] fw-500">Residence</p>
-         </div>
-         <div>
-           <p className="fw-600 text-xl">{myZone.data.zone.name}</p>
-           <div className="flex gap-x-2 itmes-center">
-             <p>Assigned Trucks:</p> */}
-             {/* <p className="fw-600 fs-800">{myZone.data.assigned_trucks}</p> */}
-           {/* </div>
-           <div className="flex gap-x-2 itmes-center">
-             <p>Scheduled Date:</p>
-             <p className="fw-600 fs-800">{myZone.data.schedule_date}</p>
-           </div>
-         </div>
-           <BiExpand className="text-3xl duration-100 cursor-pointer hover:scale-110 absolute top-3 right-6" onClick={() => openMySchedule(myZone.data)}/>
-       </div>
-        )} */}
         <div className="mt-5">
           <p className="fw-500 lg:text-xl flex gap-x-2 items-center pb-2"><MdCleaningServices className="text-2xl text-primary"/>Pikaboo Scheduled Cleanups</p>
           <div className="dash-shade py-6 px-2">

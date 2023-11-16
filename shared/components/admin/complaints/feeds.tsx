@@ -1,11 +1,13 @@
 import Image from "next/image";
 import React, { FC } from "react";
 import EmptyState from "../../Ui/EmptyState";
+import { FaStar } from "react-icons/fa";
 
 interface Props {
   data: any[];
 }
 const UsersFeeds: FC<Props> = ({ data }) => {
+  const stars = Array(5).fill('');
   return (
     <>
       <div className="bg-white shadow p-5">
@@ -25,7 +27,17 @@ const UsersFeeds: FC<Props> = ({ data }) => {
                 </div>
                 <div className="">
                 <p className="fw-500 text-gray-500">Rating:</p>
-                    <p>{item.star_rating}</p>
+                <div className="flex gap-x-1">
+                {stars.map((data, i) => (
+                <div className="hover:scale-105 duration-100">
+                  <FaStar
+                    className={`text-2xl cursor-pointer ${
+                      Number(item.star_rating) >= i + 1 ? "text-orange-300" : "text-gray-300"
+                    }`}
+                  />
+                </div>
+              ))}
+                </div>
                 </div>
             </div>
           </div>

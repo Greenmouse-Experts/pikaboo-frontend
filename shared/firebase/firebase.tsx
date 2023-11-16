@@ -25,7 +25,6 @@ export const requestForToken = async() => {
   await getToken(messaging, { vapidKey: "BGF2YAsZPRy1qAftAKlYbL-rLLyjFSnEpjgdFcz7_3QXTw7rqeUstHGYFwnVsXdiRGbzfaKaiFGbgNSo5joj_i8", })
     .then((currentToken) => {
       if (currentToken) {
-        console.log('current token for client: ', currentToken);
         sendToken(currentToken)
         // Perform any other neccessary action with the token
       } else {

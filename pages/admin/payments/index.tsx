@@ -10,8 +10,8 @@ const PaymentsPage:AppPage = () => {
     const [open, setOpen] = useState<number>(1);
     const topup = data?.data.filter((where:any) => where.type === "Top Up")
     const special = data?.data.filter((where:any) => where.type === "Special Request")
-    const bin = data?.data.filter((where:any) => where.type === "Monthly Bin")
-    const bill = data?.data.filter((where:any) => where.type === "Monthly Bill")
+    const bin = data?.data.filter((where:any) => where.type === "Bin Monthly Payment")
+    const bill = data?.data.filter((where:any) => where.type === "Bill Monthly Payment")
     const handleOpen = (value:number) => {
       setOpen(open === value ? value : value);
     };

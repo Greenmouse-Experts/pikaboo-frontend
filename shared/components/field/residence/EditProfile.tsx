@@ -46,11 +46,12 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
       town: user.building_information.town_city || "",
       current_bill: user?.recent_bill?.current_bill || "",
       current_monthly_bill: user?.recent_bill?.current_monthly_bill || "",
-      waste_bin: user.building_information.waste_bill || ""
+      waste_bin: user.building_information.waste_bin || ""
     },
   });
   const onSubmit = async(data: any) => {
     setIsBusy(true)
+    const tilt = data.title && data.title.toUpperCase()
     const fname = data.first_name && data.first_name.toUpperCase()
     const lname = data.last_name && data.last_name.toUpperCase()
     const mname = data.middle_name && data.middle_name.toUpperCase()
@@ -58,6 +59,7 @@ const EditProfile: FC<Props> = ({ close, user, refetch }) => {
     Object.entries(data).forEach(([key, value]) => {
       formData.append(key, value as any);
     });
+    formData.append("title", tilt)
     formData.append("first_name", fname)
     formData.append("last_name", lname)
     formData.append("middle_name", mname)

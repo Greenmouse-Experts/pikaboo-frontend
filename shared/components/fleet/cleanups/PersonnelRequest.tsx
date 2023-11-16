@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   useGetPersonnelQuery,
   useLazyAssignDriverQuery,
@@ -6,7 +6,6 @@ import {
 import Button from "../../Ui/Button";
 import { CircleLoader, PulseSpinner } from "../../Ui/Loading";
 import { toast } from "react-toastify";
-import { UserData } from "@/shared/utils/types/auth";
 import Initials from "@/shared/utils/initials";
 import { ServicePersonnelData } from "@/shared/utils/types/schedule";
 import EmptyState from "../../Ui/EmptyState";
@@ -20,7 +19,6 @@ const PersonnelRequest: FC<Props> = ({ id, refetchId }) => {
   const [isBusy, setIsBusy] = useState(false);
   const [submit] = useLazyAssignDriverQuery();
   const [values, setValues] = useState<string[]>([]);
-
   const handleCheckboxChange = (event: any) => {
     if (event.target.checked) {
       const newValue = event.target.value; // Replace this with the value you want to add

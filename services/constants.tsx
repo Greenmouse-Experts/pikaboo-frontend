@@ -121,3 +121,6 @@ export enum CACHE_LIFETIME {
   // get feeds
   export const GET_FEEDBACKS = '/admin/get/all/application/rating'
 
+  // submit complaints
+  export const SUBMIT_COMPLAINTS = `/application/rate`
+

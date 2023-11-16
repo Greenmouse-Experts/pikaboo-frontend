@@ -46,10 +46,20 @@ const SpecialRequestTable:FC<Props> = ({data, refetch}) => {
             accessor: "schedule_date",
           },
           {
+            Header: "Assigned Personnel",
+            accessor: "service_personnel",
+            Cell: (row) => row?.value? `${row.value.first_name} ${row.value.last_name}` : "None"
+          },
+          {
             Header: "Status",
             accessor: "status",
             Cell: (props: any) =>
               formatStatus[props.value as keyof typeof formatStatus],
+          },
+          {
+            Header: "Date Completed",
+            accessor: "completed_date",
+            Cell: (row) => row?.value || ""
           },
         ], // eslint-disable-next-line
         []

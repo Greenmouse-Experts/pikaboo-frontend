@@ -35,7 +35,7 @@ const ResidentsPage: AppPage = () => {
         setIsBusy(false);
       }
     })
-    .catch((err) => {
+    .catch((err:any) => {
       toast.error(err?.error?.data.message);
       setIsBusy(false);
     });

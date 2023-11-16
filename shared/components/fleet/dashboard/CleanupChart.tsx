@@ -6,7 +6,6 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 const CleanupChart = ({ data }: any) => {
   const [months, setMonths] = useState<string[]>([]);
   const [values, setValues] = useState<any[]>([]);
-  console.log(data);
   useEffect(() => {
     setMonths([...Object.keys(data)]);
     setValues([...Object.values(data)]);

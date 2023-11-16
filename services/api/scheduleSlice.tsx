@@ -52,7 +52,7 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
           Authorization: requestAuthorization(),
         },
       }),
-      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
     getSchedule: builder.query<ScheduleRequestResult | ErrorResult, string | void>({

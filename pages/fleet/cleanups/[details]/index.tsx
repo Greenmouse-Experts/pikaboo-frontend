@@ -9,22 +9,28 @@ import HomeListTable from "@/shared/components/fleet/cleanups/HomeList";
 import PersonnelList from "@/shared/components/fleet/cleanups/PersonnelList";
 import PersonnelRequest from "@/shared/components/fleet/cleanups/PersonnelRequest";
 import { CircleLoader } from "@/shared/components/Ui/Loading";
+import { BsHouses } from "react-icons/bs";
+import MapAssigning from "@/shared/components/fleet/cleanups/MapAssigning";
 
 const ScheduleDetails: AppPage = () => {
   const router = useRouter();
   const id = router.query.id;
   const [open, setOpen] = useState<number>(1);
   const [sched, setShed] = useState<ScheduleHomeResisdenceData>();
-  const [getDetail] = useLazyGetOneScheduleQuery();
+  const [getItem] = useLazyGetOneScheduleQuery();
+  const [assign, setAssign] = useState(false)
 
-  useEffect(() => {
-    getDetail(id)
+  const getDetail = (id: any) => {
+    getItem(id)
       .then((res: any) => {
         if (res.isSuccess) {
           setShed(res.data.data);
         }
       })
-      .catch((err) => {});//eslint-disable-next-line
+      .catch((err) => {}); //eslint-disable-next-line
+  };
+  useEffect(() => {
+    getDetail(id);
   }, [id]);
   const handleOpen = (value: number) => {
     setOpen(open === value ? value : value);
@@ -37,13 +43,27 @@ const ScheduleDetails: AppPage = () => {
 
   return (
     <>
-    {!sched && <div className="flex justify-center my-12 lg:mt-24"><CircleLoader size="140" /></div>}
+      {!sched && (
+        <div className="flex justify-center my-12 lg:mt-24">
+          <CircleLoader size="140" />
+        </div>
+      )}
       {sched && (
         <div>
-          <div className="p-5 ">
-            <TbArrowBackUp onClick={() => router.back()} />
-            <p className="fw-600 text-2xl">{sched.zone.name}</p>
-            <p className="fw-500">{dayjs(sched.created_at).format('DD/MMMM/YYYY')}</p>
+          <div className="p-5 flex items-center justify-between">
+            <div>
+              <TbArrowBackUp onClick={() => router.back()} />
+              <p className="fw-600 text-2xl">{sched.zone.name}</p>
+              <p className="fw-500">
+                {dayjs(sched.created_at).format("DD/MMMM/YYYY")}
+              </p>
+            </div>
+            <div>
+              <p className="flex gap-x-2 items-center btn-primary px-6 py-1" onClick={() => setAssign(true)}>
+                <BsHouses />
+                Manage Assigning
+              </p>
+            </div>
           </div>
           <div className="mt-5 px-4">
             <div className="border-b">
@@ -78,13 +98,34 @@ const ScheduleDetails: AppPage = () => {
               </ul>
             </div>
             <div className="">
-              {open === 1 ? <HomeListTable data={sched.home_residence} refetch={() => getDetail(id)}/> : ""}
-              {open === 2 ? <PersonnelList data={sched.service_personnels} /> : ""}
-              {open === 3 ? <PersonnelRequest id={sched.id} refetchId={() => getDetail(id)}/> : ""}
+              {open === 1 ? (
+                <HomeListTable
+                  data={sched.home_residence}
+                  refetch={() => getDetail(id)}
+                />
+              ) : (
+                ""
+              )}
+              {open === 2 ? (
+                <PersonnelList data={sched.service_personnels} />
+              ) : (
+                ""
+              )}
+              {open === 3 ? (
+                <PersonnelRequest
+                  id={sched.id}
+                  refetchId={() => getDetail(id)}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>
       )}
+      {
+          assign && <MapAssigning item={''} close={() => setAssign(false)}/>
+      }
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AppPage } from "@/shared/components/layouts/Types";
+import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import Button from "@/shared/components/Ui/Button";
 import { useLazySubmitComplaintQuery } from "@/services/api/routineSlice";

@@ -29,7 +29,7 @@ const MiniSchedule = () => {
         </div>
         <div className="mt-5 grid gap-4">
           {data &&
-            data?.data?.length &&
+            !!data?.data?.length &&
             data?.data
               .slice(0, 6)
               .map((item: ScheduleHomeResisdenceData, i: number) => {

@@ -12,7 +12,6 @@ import {
   formatAsNgnMoney,
   parseData,
 } from "@/shared/utils/format";
-import dayjs from "dayjs";
 import { FaExpand, FaRegEdit } from "react-icons/fa";
 import QRCode from "qrcode.react";
 import useModal from "@/hooks/useModal";
@@ -252,7 +251,9 @@ const HomeResidentsDetails: AppPage = () => {
                     <div>
                       <p>
                         {user?.recent_bill?.current_monthly_bill
-                          ? formatAsNgnMoney(user?.recent_bill?.current_monthly_bill)
+                          ? formatAsNgnMoney(
+                              user?.recent_bill?.current_monthly_bill
+                            )
                           : ""}
                       </p>
                     </div>
@@ -280,11 +281,7 @@ const HomeResidentsDetails: AppPage = () => {
                   <div className="border-b flex py-2 mt-2">
                     <p className="w-4/12 fw-500">Zone:</p>
                     <div>
-                      <p>
-                      {user?.zone.name
-                          ? user?.zone.name
-                          : ""}
-                      </p>
+                      <p>{user?.zone.name ? user?.zone.name : ""}</p>
                     </div>
                   </div>
                   <div className="mt-8 flex justify-center">
@@ -306,7 +303,7 @@ const HomeResidentsDetails: AppPage = () => {
                 </div>
               </div>
               <div>
-                <div className="dash-shade relative p-8 rounded-xl">
+                <div className="dash-shade relative p-4 rounded-xl">
                   <div className="absolute top-4 right-4">
                     <FaRegEdit
                       className="text-xl text-primary"
@@ -316,30 +313,51 @@ const HomeResidentsDetails: AppPage = () => {
                   <div className="grid lg:grid-cols-2">
                     <div className="border-r p-4">
                       <div className="flex items-center gap-x-2">
-                      <p className="fw-600 border-b">Wallet Amount</p>
-                      <RiFundsBoxLine className="text-lg cursor-pointer" onClick={() => setShowWallet(true)}/>
+                        <p className="fw-600 border-b">Wallet Amount</p>
+                        <RiFundsBoxLine
+                          className="text-lg cursor-pointer"
+                          onClick={() => setShowWallet(true)}
+                        />
                       </div>
-                      <p className={`fw-600 text-3xl mt-2 ${user.wallet.includes("-")? 'text-red-600' : 'text-green-600'}`}>
+                      <p
+                        className={`fw-600 text-3xl mt-2 ${
+                          user.wallet.includes("-")
+                            ? "text-red-600"
+                            : "text-green-600"
+                        }`}
+                      >
                         {formatAsNgnMoney(user.wallet)}
                       </p>
                     </div>
                     <div className="p-4">
                       <p className="fw-600 border-b">Monthly Bill</p>
                       <p className="fw-600 text-3xl mt-2">
-                        {user?.bill?.bill_monthly && formatAsNgnMoney(user?.bill?.bill_monthly)}
+                        {user?.bill?.bill_monthly &&
+                          formatAsNgnMoney(user?.bill?.bill_monthly)}
                       </p>
                     </div>
-                    <div className="border-r p-4">
-                      <p className="fw-600 border-b">Bin Amount Paid</p>
-                      <p className="fw-600 text-3xl mt-2 text-green-600">
-                        {user?.bill?.bin_amount_paid && formatAsNgnMoney(user.bill.bin_amount_paid)}
-                      </p>
-                    </div>
-                    <div className="p-4">
-                      <p className="fw-600 border-b">Monthly Bin</p>
-                      <p className="fw-600 text-3xl mt-2">
-                        {user?.bill?.waste_bin_monthly && formatAsNgnMoney(user?.bill?.waste_bin_monthly)}
-                      </p>
+                    <div className="col-span-2 grid lg:grid-cols-3">
+                      <div className="border-r p-4 overflow-x-auto scroll-pro">
+                        <p className="fw-600 border-b whitespace-nowrap">Total Bin Amount</p>
+                        <p className="fw-600 text-3xl mt-2 text-green-600">
+                          {user?.bill?.total_waste_bin_amount &&
+                            formatAsNgnMoney(user.bill.total_waste_bin_amount)}
+                        </p>
+                      </div>
+                      <div className="border-r p-4 overflow-x-auto scroll-pro">
+                        <p className="fw-600 border-b whitespace-nowrap">Bin Amount Paid</p>
+                        <p className="fw-600 text-3xl mt-2 text-green-600">
+                          {user?.bill?.bin_amount_paid &&
+                            formatAsNgnMoney(user.bill.bin_amount_paid)}
+                        </p>
+                      </div>
+                      <div className="p-4">
+                        <p className="fw-600 border-b">Monthly Bin</p>
+                        <p className="fw-600 text-3xl mt-2">
+                          {user?.bill?.waste_bin_monthly &&
+                            formatAsNgnMoney(user?.bill?.waste_bin_monthly)}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -445,30 +463,34 @@ const HomeResidentsDetails: AppPage = () => {
                     <p className="fw-600 text-xl">More Informations</p>
                   </div>
                   <div className="mt-4">
-                    {user.avatar && <div>
-                      <p className="fw-500">Residence Profile Picture:</p>
-                      <div className="mt-2">
-                        <Image
-                          src={user.avatar}
-                          alt="profile"
-                          width={300}
-                          height={300}
-                          className="w-4/12"
-                        />
+                    {user.avatar && (
+                      <div>
+                        <p className="fw-500">Residence Profile Picture:</p>
+                        <div className="mt-2">
+                          <Image
+                            src={user.avatar}
+                            alt="profile"
+                            width={300}
+                            height={300}
+                            className="w-4/12"
+                          />
+                        </div>
                       </div>
-                    </div>}
-                    {user?.building_information?.building_image && <div className="mt-3">
-                      <p className="fw-500">Residence Building Image:</p>
-                      <div className="mt-2">
-                        <Image
-                          src={user.building_information.building_image}
-                          alt="profile"
-                          width={300}
-                          height={300}
-                          className="w-full"
-                        />
+                    )}
+                    {user?.building_information?.building_image && (
+                      <div className="mt-3">
+                        <p className="fw-500">Residence Building Image:</p>
+                        <div className="mt-2">
+                          <Image
+                            src={user.building_information.building_image}
+                            alt="profile"
+                            width={300}
+                            height={300}
+                            className="w-full"
+                          />
+                        </div>
                       </div>
-                    </div>}
+                    )}
                   </div>
                 </div>
               </div>
@@ -501,14 +523,18 @@ const HomeResidentsDetails: AppPage = () => {
           bill={user?.bill?.bill_monthly}
           bin={user?.bill?.waste_bin_monthly}
           id={user?.id}
+          total={user?.bill?.total_waste_bin_amount}
           close={() => setShowBill(false)}
           refetch={() => fetchDetails(id)}
         />
       </Bill>
       <Wallet title="Update Wallet Amount">
-          <UpdateWallet bill={user?.wallet} id={user?.id}
+        <UpdateWallet
+          bill={user?.wallet}
+          id={user?.id}
           close={() => setShowWallet(false)}
-          refetch={() => fetchDetails(id)}/>
+          refetch={() => fetchDetails(id)}
+        />
       </Wallet>
       <ImageModal title="Residence Image">
         <a
