@@ -116,14 +116,14 @@ const NotificationPage:AppPage = () => {
         <p className="flex items-center gap-x-4">
           All{" "}
           <span className="block grid place-content-center h-6 w-6 fw-500 bg-[#F2F2F2]">
-            {notify && notify?.data.length}
+            {notify && notify?.data?.length}
           </span>
         </p>
       ),
       content: (
         <div>
           {notify &&
-            !!notify?.data.length &&
+            !!notify?.data?.length &&
             notify?.data
               .slice(0, listNo)
               .map((item: NotificationBody, index: number) => (

@@ -47,7 +47,8 @@ const WasteScheduleTable: FC<Props> = ({ data, refetch }) => {
       },
       {
         Header: "Residence Count",
-        accessor: "zone.no_of_residence",
+        accessor: "total",
+        Cell: (props:any) => <p className="pl-5">{props.value}</p>
       },
       {
         Header: "Request Status",

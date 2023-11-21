@@ -30,7 +30,7 @@ const SpecialRequestPage: AppPage = () => {
             </p>
           </div>
           <div className="bg-light p-6 circle lg:mr-6" onClick={() => openModal(flat.data)}>
-          <p className="fw-600 text-xl lg:text-3xl">{flat && formatAsNgnMoney(flat?.data.charges)}</p>
+          <p className="fw-600 text-xl lg:text-3xl">{flat && formatAsNgnMoney(flat?.data?.charges)}</p>
             <div className="flex justify-center items-center mt-2">
               <p className="fw-500">Flat Rate</p>
               <AiFillEdit className="text-primary text-xl"/>

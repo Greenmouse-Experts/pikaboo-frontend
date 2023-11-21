@@ -83,6 +83,12 @@ const WasteSidebarLayout:FC<Props>  = ({setToggled, collapsed, toggled}) => {
           >
             Cleanups
           </MenuItem>
+          {/* <MenuItem
+            component={<Link href="/waste/cleanups" />}
+            icon={<RiDeleteBinLine className="text-lg" />}
+          >
+            Zone Cleanups
+          </MenuItem> */}
           <MenuItem
             component={<Link href="/waste/special" />}
             icon={<FaRoute className="text-lg" />}

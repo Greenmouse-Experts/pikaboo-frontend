@@ -103,15 +103,18 @@ const AdminSidebarLayout: FC<Props> = ({ setToggled, collapsed, toggled }) => {
           >
             <MenuItem
               component={<Link href="/admin/shop/category" />}
-              // icon={<AiOutlineShoppingCart className="text-xl" />}
             >
               Categories
             </MenuItem>
             <MenuItem
               component={<Link href="/admin/shop" />}
-              // icon={<AiOutlineShoppingCart className="text-xl" />}
             >
               Products
+            </MenuItem>
+            <MenuItem
+              component={<Link href="/admin/shop/orders" />}
+            >
+              Orders
             </MenuItem>
           </SubMenu>
           <MenuItem

@@ -110,6 +110,8 @@ export enum CACHE_LIFETIME {
   export const UPDATE_PRODUCT = '/admin/shop/update/product'
   export const UPDATE_PRODUCT_STATUS = '/admin/shop/action/product'
   export const DESTROY_PRODUCT = '/admin/shop/destroy/product'
+  export const GET_ORDERS = `/admin/shop/get/product/orders`
+  export const UPDATE_ORDER_STATUS = `/admin/shop/update/product/order/status`
 
   //Special Request
   export const GET_SPECIAL_REQUEST = '/admin/special-requests/get'

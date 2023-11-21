@@ -125,6 +125,29 @@ export const shopApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
+
+    getOrders: builder.query<any, string | void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_ORDERS}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
+    updateStatus: builder.query<BaseResult | ErrorResult, any>({
+      query: (payload) => ({
+        url: `${ENDPOINT.UPDATE_ORDER_STATUS}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
   }),
   overrideExisting: true,
 });
@@ -139,5 +162,7 @@ export const {
   useGetProductQuery,
   useLazyAddProductImageQuery,
   useLazyDeleteProductQuery,
-  useLazyRemoveProductImageQuery
+  useLazyRemoveProductImageQuery,
+  useGetOrdersQuery,
+  useLazyUpdateStatusQuery
 } = shopApiSlice;

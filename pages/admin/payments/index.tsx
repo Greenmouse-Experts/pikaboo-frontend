@@ -8,10 +8,10 @@ import EmptyState from '@/shared/components/Ui/EmptyState';
 const PaymentsPage:AppPage = () => {
     const { data, isLoading } = useGetTransactionQuery()
     const [open, setOpen] = useState<number>(1);
-    const topup = data?.data.filter((where:any) => where.type === "Top Up")
-    const special = data?.data.filter((where:any) => where.type === "Special Request")
-    const bin = data?.data.filter((where:any) => where.type === "Bin Monthly Payment")
-    const bill = data?.data.filter((where:any) => where.type === "Bill Monthly Payment")
+    const topup = data?.data?.filter((where:any) => where.type === "Top Up")
+    const special = data?.data?.filter((where:any) => where.type === "Special Request")
+    const bin = data?.data?.filter((where:any) => where.type === "Bin Monthly Payment")
+    const bill = data?.data?.filter((where:any) => where.type === "Bill Monthly Payment")
     const handleOpen = (value:number) => {
       setOpen(open === value ? value : value);
     };
@@ -67,40 +67,40 @@ const PaymentsPage:AppPage = () => {
             {
               open === 1? <div>
                 {
-                  data && !topup.length && <EmptyState imageClass='w-24 mx-auto pt-12' message='No Topup done by residents'/>
+                  data && !topup?.length && <EmptyState imageClass='w-24 mx-auto pt-12' message='No Topup done by residents'/>
                 }
                 {
-                  data && !!topup.length && <WalletPaymentTable data={topup}/>
+                  data && !!topup?.length && <WalletPaymentTable data={topup}/>
                 }
               </div> : ""
             }
             {
               open === 2? <div>
                 {
-                  data && !bill.length && <EmptyState imageClass='w-24 mx-auto pt-12' message='No bill payment done by residents'/>
+                  data && !bill?.length && <EmptyState imageClass='w-24 mx-auto pt-12' message='No bill payment done by residents'/>
                 }
                 {
-                  data && !!bill.length && <WalletPaymentTable data={bill}/>
+                  data && !!bill?.length && <WalletPaymentTable data={bill}/>
                 }
               </div> : ""
             }
             {
               open === 3? <div>
                 {
-                  data && !bin.length && <EmptyState imageClass='w-24 mx-auto pt-12' message='No bin payment done by residents'/>
+                  data && !bin?.length && <EmptyState imageClass='w-24 mx-auto pt-12' message='No bin payment done by residents'/>
                 }
                 {
-                  data && !!bin.length && <WalletPaymentTable data={bin}/>
+                  data && !!bin?.length && <WalletPaymentTable data={bin}/>
                 }
               </div> : ""
             }
             {
               open === 4? <div>
                 {
-                  data && !special.length && <EmptyState imageClass='w-24 mx-auto pt-12' message='No special request payment yet'/>
+                  data && !special?.length && <EmptyState imageClass='w-24 mx-auto pt-12' message='No special request payment yet'/>
                 }
                 {
-                  data && !!special.length && <WalletPaymentTable data={special}/>
+                  data && !!special?.length && <WalletPaymentTable data={special}/>
                 }
               </div> : ""
             }
