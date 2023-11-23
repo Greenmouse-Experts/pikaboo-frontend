@@ -17,38 +17,44 @@ import { useLazyUpdateUserStatusQuery } from "@/services/api/authSlice";
 import { toast } from "react-toastify";
 import AddWasteManagerZoneForm from "../waste/AddWasteManagerZone";
 import { useLazySendLoginQuery } from "@/services/api/residenceSlice";
+import SwitchAccount from "@/shared/components/helpers/SwitchAccount";
+import useAuthCheck from "@/hooks/useAuthCheck";
 
 interface Props {
-    data: UserData[]
-    refetch: () => void
+  data: UserData[];
+  refetch: () => void;
 }
-const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
-  const [send] = useLazySendLoginQuery()
-  const sendLogin = async(id:number) => {
-    setIsBusy(true)
-    await send(id).then((res:any) => {
-      if (res?.data?.success) {
-        toast.success(res.data.message);
-        setIsBusy(false);
-      } else setIsBusy(false);
-    })
-    .catch((err:any)=>{})
-  }
+const FieldOperatorTable: FC<Props> = ({ data, refetch }) => {
+  const [send] = useLazySendLoginQuery();
+  const {isAdmin} = useAuthCheck()
+  const sendLogin = async (id: number) => {
+    setIsBusy(true);
+    await send(id)
+      .then((res: any) => {
+        if (res?.data?.success) {
+          toast.success(res.data.message);
+          setIsBusy(false);
+        } else setIsBusy(false);
+      })
+      .catch((err: any) => {});
+  };
   const columns = useMemo(
     () => [
       {
         Header: "S/N",
-        accessor: (row:any, index:number) => index + 1, //RDT provides index by default
+        accessor: (row: any, index: number) => index + 1, //RDT provides index by default
       },
       {
         Header: "Pikaboo ID",
         accessor: "pikaboo_id",
-        Cell: (props:any) => <p className="fw-600 text-primary">{props.value}</p>
+        Cell: (props: any) => (
+          <p className="fw-600 text-primary">{props.value}</p>
+        ),
       },
       {
         Header: "Name",
         accessor: "first_name",
-        Cell: (row:any) => ` ${row.value} ${row.row.original.last_name}`,
+        Cell: (row: any) => ` ${row.value} ${row.row.original.last_name}`,
       },
       {
         Header: "Email",
@@ -61,7 +67,7 @@ const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
       {
         Header: "Gender",
         accessor: "gender",
-        Cell: (props:any) => <p className="capitalize">{props.value}</p>
+        Cell: (props: any) => <p className="capitalize">{props.value}</p>,
       },
       {
         Header: "Zone",
@@ -70,7 +76,7 @@ const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
       {
         Header: "Date Registered",
         accessor: "created_at",
-        Cell: props => dayjs(props.value).format('DD-MMM-YYYY')
+        Cell: (props) => dayjs(props.value).format("DD-MMM-YYYY"),
       },
       {
         Header: "Status",
@@ -80,7 +86,7 @@ const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
       {
         Header: "Action",
         accessor: "id",
-        Cell: (row) => (
+        Cell: (row) => isAdmin() && (
           <div className="pl-5">
             <Menu placement="bottom-end">
               <MenuHandler>
@@ -89,69 +95,96 @@ const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
                 </Button>
               </MenuHandler>
               <MenuList>
-              <MenuItem className="my-1 fw-500" onClick={() => assignUser(row.row.original)}>Assign Zone</MenuItem>
-                {
-                  row.row.original.status === "Active" &&
-                    <MenuItem className="bg-red-600 text-white pt-1 fw-500" onClick={() => suspendUser(row.value)}>Suspend Admin</MenuItem>
-                }
-                {
-                  row.row.original.status !== "Active" &&
-                    <MenuItem className="bg-green-600 text-white pt-1 fw-500" onClick={() => unSuspendUser(row.value)}>Activate Admin</MenuItem>
-                }
-                <MenuItem className="mt-1 bg-blue-100 pt-1" onClick={() => sendLogin(row.value)}>
+                <MenuItem
+                  className="my-1 fw-500"
+                  onClick={() => assignUser(row.row.original)}
+                >
+                  Assign Zone
+                </MenuItem>
+                {row.row.original.status === "Active" && (
+                  <MenuItem
+                    className="bg-red-600 text-white pt-1 fw-500"
+                    onClick={() => suspendUser(row.value)}
+                  >
+                    Suspend Admin
+                  </MenuItem>
+                )}
+                {row.row.original.status !== "Active" && (
+                  <MenuItem
+                    className="bg-green-600 text-white pt-1 fw-500"
+                    onClick={() => unSuspendUser(row.value)}
+                  >
+                    Activate Admin
+                  </MenuItem>
+                )}
+                <MenuItem
+                  className="mt-1 bg-blue-100 pt-2 fw-500 text-black"
+                  onClick={() => openSwitch(row.row.original)}
+                >
+                  Switch User Type
+                </MenuItem>
+                <MenuItem
+                  className="mt-1 bg-purple-100 pt-2 fw-500 text-black"
+                  onClick={() => sendLogin(row.value)}
+                >
                   Resend Details
                 </MenuItem>
               </MenuList>
             </Menu>
           </div>
-        )
-      }
+        ),
+      },
     ], // eslint-disable-next-line
     []
   );
-  const [isBusy, setIsBusy] = useState(false)
-  const {Modal, setShowModal} = useModal()
-  const {Modal:Unsuspend, setShowModal:showUnsuspend} = useModal()
-  const {Modal:Assign, setShowModal:showAssign} = useModal()
-  const [suspend] = useLazyUpdateUserStatusQuery()
-  const [selectedItem, setSelectedItem] = useState('')
-  const assignUser = (val:any) => {
-    setSelectedItem(val)
-    showAssign(true)
-  }
-  const suspendUser = (id:any) => {
-    setSelectedItem(id)
-    setShowModal(true)
-  }
-  const unSuspendUser = (id:any) => {
-    setSelectedItem(id)
-    showUnsuspend(true)
-  }
-  const ChangeStatus = async(id:any) => {
-    setIsBusy(true)
+  const [isBusy, setIsBusy] = useState(false);
+  const { Modal, setShowModal } = useModal();
+  const { Modal: Unsuspend, setShowModal: showUnsuspend } = useModal();
+  const { Modal: Assign, setShowModal: showAssign } = useModal();
+  const { Modal: Switch, setShowModal: showSwitch } = useModal();
+  const [suspend] = useLazyUpdateUserStatusQuery();
+  const [selectedItem, setSelectedItem] = useState("");
+  const openSwitch = (item: any) => {
+    setSelectedItem(item);
+    showSwitch(true);
+  };
+  const assignUser = (val: any) => {
+    setSelectedItem(val);
+    showAssign(true);
+  };
+  const suspendUser = (id: any) => {
+    setSelectedItem(id);
+    setShowModal(true);
+  };
+  const unSuspendUser = (id: any) => {
+    setSelectedItem(id);
+    showUnsuspend(true);
+  };
+  const ChangeStatus = async (id: any) => {
+    setIsBusy(true);
     await suspend(id)
-    .then((res) => {
-      if (res.data.success) {
-        toast.success(res.data.message);
-        refetch()
-        setShowModal(false)
-        showUnsuspend(false)
-        setIsBusy(false);
-      }
-      Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
-        toast.error(value[0]);
-      });
-    })
-    .catch(() => {});
-  }
+      .then((res) => {
+        if (res.data.success) {
+          toast.success(res.data.message);
+          refetch();
+          setShowModal(false);
+          showUnsuspend(false);
+          setIsBusy(false);
+        }
+        Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+          toast.error(value[0]);
+        });
+      })
+      .catch(() => {});
+  };
 
   const list = useMemo(() => data, [data]);
   return (
     <>
-        <div className="lg:p-4">
+      <div className="lg:p-4">
         <Table columns={columns} data={list} />
-        </div>
-        <Modal title="" noHead>
+      </div>
+      <Modal title="" noHead>
         <ReusableModal
           title="Are you sure you want to suspend this Field operator"
           cancelTitle="No, cancel"
@@ -160,8 +193,8 @@ const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
           action={() => ChangeStatus(selectedItem)}
           isBusy={isBusy}
         />
-        </Modal>
-        <Unsuspend title="" noHead>
+      </Modal>
+      <Unsuspend title="" noHead>
         <ReusableModal
           title="Are you sure you want to activate this Field operator"
           cancelTitle="No, cancel"
@@ -170,10 +203,21 @@ const FieldOperatorTable:FC<Props> = ({data, refetch}) => {
           action={() => ChangeStatus(selectedItem)}
           isBusy={isBusy}
         />
-        </Unsuspend>
-        <Assign title="Assign Field Operator Zone">
-        <AddWasteManagerZoneForm item={selectedItem} close={() => showAssign(false)} refetch={refetch}/>
-        </Assign>
+      </Unsuspend>
+      <Assign title="Assign Field Operator Zone">
+        <AddWasteManagerZoneForm
+          item={selectedItem}
+          close={() => showAssign(false)}
+          refetch={refetch}
+        />
+      </Assign>
+      <Switch title="Switch Account">
+        <SwitchAccount
+          close={() => showSwitch(false)}
+          refetch={refetch}
+          item={selectedItem}
+        />
+      </Switch>
     </>
   );
 };

@@ -6,9 +6,11 @@ import AddWasteManagerForm from "@/shared/components/admin/staff/waste/AddWasteM
 import WasteManagerTable from "@/shared/components/admin/staff/waste/WasteManagerTable";
 import { CircleLoader } from "@/shared/components/Ui/Loading";
 import EmptyState from "@/shared/components/Ui/EmptyState";
+import useAuthCheck from "@/hooks/useAuthCheck";
 
 const ManageWasteManagers: AppPage = () => {
   const [open, setOpen] = useState<number>(1);
+  const {isAdmin} = useAuthCheck()
   const { data, refetch, isLoading } = useGetUsersQuery("Waste Manager");
 
   const waste = data?.data?.data;
@@ -45,7 +47,7 @@ const ManageWasteManagers: AppPage = () => {
                   <p className="fw-500">Waste Manager Listing</p>
                 </div>
               </li>
-              <li
+              {isAdmin() && <li
                 className="cursor-pointer  p-2  px-4"
                 style={open === 2 ? activeStyle : undefined}
                 onClick={() => handleOpen(2)}
@@ -54,7 +56,7 @@ const ManageWasteManagers: AppPage = () => {
                   <FaTruckMoving className="text-2xl" />
                   <p className="fw-500">Add Waste Manager</p>
                 </div>
-              </li>
+              </li>}
             </ul>
           </div>
           <div className="bg-white dash-shade pt-5">

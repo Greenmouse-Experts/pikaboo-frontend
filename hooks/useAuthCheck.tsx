@@ -19,12 +19,17 @@ const useAuthCheck = () => {
 
   const SignOut = () => dispatch(resetUser());
 
+  const isAdmin = () => {
+   if (authenticatedUser.user.admin_type === "Board") return false
+  }
+
   return {
     AuthenticatedUserHaveValidToken,
     IsAuthenticated,
     IsAuth,
     SignOut,
     LoggedInUser,
+    isAdmin
   };
 };
 

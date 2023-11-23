@@ -17,8 +17,10 @@ import {
 } from "../../Ui/dropdown";
 import { BsGear } from "react-icons/bs";
 import EditZoneForm from "./EditZone";
+import useAuthCheck from "@/hooks/useAuthCheck";
 
 const WasteAreaMainTable = () => {
+  const {isAdmin} = useAuthCheck()
   const {Modal:CreateZone, setShowModal:ShowCreateZone} = useModal()
   const {Modal:EditZone, setShowModal: ShowEdit} = useModal()
   const {data:zones, isLoading, refetch} = useGetZonesQuery()
@@ -95,7 +97,7 @@ const WasteAreaMainTable = () => {
       <div>
         <div className="flex justify-between border-b pb-2">
         <p className="fw-600 lg:fs-700">Waste Areas (Zones)</p>
-        <p className="px-4 btn-like py-1 cursor-pointer" onClick={() => ShowCreateZone(true)}>Create Zone</p>
+        {isAdmin() && <p className="px-4 btn-like py-1 cursor-pointer" onClick={() => ShowCreateZone(true)}>Create Zone</p>}
         </div>
         <div className="mt-8">
         {isLoading && (

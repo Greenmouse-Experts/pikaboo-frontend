@@ -7,35 +7,23 @@ import {
 import WasteScheduleTable from "@/shared/components/waste/cleanups/scheduleTable";
 import EmptyState from "@/shared/components/Ui/EmptyState";
 import { CircleLoader } from "@/shared/components/Ui/Loading";
-// import Link from "next/link";
-// import { BiExpand } from "react-icons/bi";
 import useModal from "@/hooks/useModal";
 import MySchedule from "@/shared/components/waste/cleanups/mySchedule";
 import { MdCleaningServices } from "react-icons/md";
+import WasteScheduleCleanups from "@/shared/components/waste/cleanups/wasteSchedule";
 
 const WasteCleanup: AppPage = () => {
   const { data, refetch, isLoading } = useWasteGetScheduleQuery();
-  // const { data: myZone, isLoading: myLoading } = useGetWasteScheduleQuery();
   const {Modal, setShowModal} = useModal()
   const [selectedItem, setSelectedItem] = useState<any>()
-
-  // const openMySchedule = (item:any) => {
-  //   setSelectedItem(item)
-  //   setShowModal(true)
-  // }
   useEffect(() => {
     refetch()
   }, [])
-  const formatBgColor = {
-    PENDING: "bg-gray-400",
-    ONGOING: "bg-orange-800",
-    COMPLETED: "bg-primary",
-  };
   return (
     <>
       <div>
         <div className="mt-5">
-          <p className="fw-500 lg:text-xl flex gap-x-2 items-center pb-2"><MdCleaningServices className="text-2xl text-primary"/>Pikaboo Scheduled Cleanups</p>
+          <p className="fw-600 lg:text-xl flex gap-x-2 items-center pb-2"><MdCleaningServices className="text-2xl text-primary fw-600"/>My Zone Scheduled Cleanup</p>
           <div className="dash-shade py-6 px-2">
             {isLoading && (
               <div className="flex justify-center py-12">
@@ -49,7 +37,7 @@ const WasteCleanup: AppPage = () => {
               />
             )}
             {data && !!data?.data?.length && (
-              <WasteScheduleTable data={data?.data} refetch={refetch} />
+              <WasteScheduleCleanups data={data?.data} refetch={refetch} />
             )}
           </div>
         </div>

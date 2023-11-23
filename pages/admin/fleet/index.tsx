@@ -7,9 +7,10 @@ import AddFleetManagerForm from "@/shared/components/admin/staff/fleet/AddFleet"
 import { useGetUsersQuery } from "@/services/api/routineSlice";
 import EmptyState from "@/shared/components/Ui/EmptyState";
 import { CircleLoader } from "@/shared/components/Ui/Loading";
+import useAuthCheck from "@/hooks/useAuthCheck";
 
 const ManageFleetManagers: AppPage = () => {
-
+  const {isAdmin} = useAuthCheck()
   const [open, setOpen] = useState<number>(1);
   const {data, refetch, isLoading} = useGetUsersQuery("Fleet Manager")
 
@@ -45,13 +46,13 @@ const ManageFleetManagers: AppPage = () => {
                   <p className="fw-500">Fleet Managers Listing</p>
                 </div>
               </li>
-              <li className="cursor-pointer  p-2 rounded-xl px-4" style={open === 2 ? activeStyle : undefined}
+              {isAdmin() && <li className="cursor-pointer  p-2 rounded-xl px-4" style={open === 2 ? activeStyle : undefined}
               onClick={() => handleOpen(2)}>
                 <div className="flex kitems-center gap-x-2">
                   <BsPersonFillAdd className="text-2xl" />
                   <p className="fw-500">Add New Fleet Manager</p>
                 </div>
-              </li>
+              </li>}
             </ul>
           </div>
           <div className="mt-5">

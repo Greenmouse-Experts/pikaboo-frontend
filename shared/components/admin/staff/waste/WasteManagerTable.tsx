@@ -17,6 +17,8 @@ import ReusableModal from "@/shared/components/helpers/ReusableModal";
 import { useLazyUpdateUserStatusQuery } from "@/services/api/authSlice";
 import { toast } from "react-toastify";
 import { useLazySendLoginQuery } from "@/services/api/residenceSlice";
+import SwitchAccount from "@/shared/components/helpers/SwitchAccount";
+import useAuthCheck from "@/hooks/useAuthCheck";
 
 interface Props {
   data: UserData[];
@@ -24,51 +26,58 @@ interface Props {
 }
 const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
   const { Modal, setShowModal } = useModal();
-  const { Modal:Suspend, setShowModal:showSuspend } = useModal();
-  const { Modal:Unsuspend, setShowModal:showUnsuspend } = useModal();
-  const [suspend] = useLazyUpdateUserStatusQuery()
-  const [send] = useLazySendLoginQuery()
-  const [isBusy, setIsBusy] = useState(false)
+  const {isAdmin} = useAuthCheck()
+  const { Modal: Suspend, setShowModal: showSuspend } = useModal();
+  const { Modal: Unsuspend, setShowModal: showUnsuspend } = useModal();
+  const [suspend] = useLazyUpdateUserStatusQuery();
+  const [send] = useLazySendLoginQuery();
+  const [isBusy, setIsBusy] = useState(false);
   const [selectedItem, setSelectedItem] = useState<any>();
+  const { Modal: Switch, setShowModal: showSwitch } = useModal();
+  const openSwitch = (item: any) => {
+    setSelectedItem(item);
+    showSwitch(true);
+  };
   const openModal = (item: any) => {
     setShowModal(true);
     setSelectedItem(item);
   };
-  const suspendUser = (id:any) => {
-    setSelectedItem(id)
-    showSuspend(true)
-  }
-  const unSuspendUser = (id:any) => {
-    setSelectedItem(id)
-    showUnsuspend(true)
-  }
-  const ChangeStatus = async(id:any) => {
-    setIsBusy(true)
+  const suspendUser = (id: any) => {
+    setSelectedItem(id);
+    showSuspend(true);
+  };
+  const unSuspendUser = (id: any) => {
+    setSelectedItem(id);
+    showUnsuspend(true);
+  };
+  const ChangeStatus = async (id: any) => {
+    setIsBusy(true);
     await suspend(id)
-    .then((res) => {
-      if (res.data.success) {
-        toast.success(res.data.message);
-        refetch()
-        showSuspend(false)
-        showUnsuspend(false)
-        setIsBusy(false);
-      }
-      Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
-        toast.error(value[0]);
-      });
-    })
-    .catch(() => {});
-  }
-  const sendLogin = async(id:number) => {
-    setIsBusy(true)
-    await send(id).then((res:any) => {
-      if (res?.data?.success) {
-        toast.success(res.data.message);
-        setIsBusy(false);
-      } else setIsBusy(false);
-    })
-    .catch((err:any)=>{})
-  }
+      .then((res) => {
+        if (res.data.success) {
+          toast.success(res.data.message);
+          refetch();
+          showSuspend(false);
+          showUnsuspend(false);
+          setIsBusy(false);
+        }
+        Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
+          toast.error(value[0]);
+        });
+      })
+      .catch(() => {});
+  };
+  const sendLogin = async (id: number) => {
+    setIsBusy(true);
+    await send(id)
+      .then((res: any) => {
+        if (res?.data?.success) {
+          toast.success(res.data.message);
+          setIsBusy(false);
+        } else setIsBusy(false);
+      })
+      .catch((err: any) => {});
+  };
 
   const columns = useMemo(
     () => [
@@ -79,9 +88,7 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
       {
         Header: "Residence ID",
         accessor: "pikaboo_id",
-        Cell: (row: any) => (
-          <p className="fw-500 text-primary">{row.value}</p>
-        ),
+        Cell: (row: any) => <p className="fw-500 text-primary">{row.value}</p>,
       },
       {
         Header: "Name",
@@ -125,6 +132,7 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
         Header: "Action",
         accessor: "id",
         Cell: (row) => (
+          isAdmin() &&
           <div>
             <Menu placement="bottom-end">
               <MenuHandler>
@@ -136,15 +144,32 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
                 <MenuItem onClick={() => openModal(row.row.original)}>
                   Assign Zone
                 </MenuItem>
-                {
-                  row.row.original.status === "Active" &&
-                    <MenuItem className="bg-red-600 text-white pt-1 fw-500" onClick={() => suspendUser(row.value)}>Suspend Admin</MenuItem>
-                }
-                {
-                  row.row.original.status !== "Active" &&
-                    <MenuItem className="bg-green-600 text-white pt-1 fw-500" onClick={() => unSuspendUser(row.value)}>Activate Admin</MenuItem>
-                }
-                <MenuItem className="mt-1 bg-blue-100 pt-1" onClick={() => sendLogin(row.value)}>
+                {row.row.original.status === "Active" && (
+                  <MenuItem
+                    className="bg-red-600 text-white pt-1 fw-500"
+                    onClick={() => suspendUser(row.value)}
+                  >
+                    Suspend Admin
+                  </MenuItem>
+                )}
+                {row.row.original.status !== "Active" && (
+                  <MenuItem
+                    className="bg-green-600 text-white pt-1 fw-500"
+                    onClick={() => unSuspendUser(row.value)}
+                  >
+                    Activate Admin
+                  </MenuItem>
+                )}
+                <MenuItem
+                  className="mt-1 bg-blue-100 pt-2 fw-500 text-black"
+                  onClick={() => openSwitch(row.row.original)}
+                >
+                  Switch User Type
+                </MenuItem>
+                <MenuItem
+                  className="mt-1 bg-purple-100  pt-2 fw-500 text-black"
+                  onClick={() => sendLogin(row.value)}
+                >
                   Resend Details
                 </MenuItem>
               </MenuList>
@@ -178,8 +203,8 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
           action={() => ChangeStatus(selectedItem)}
           isBusy={isBusy}
         />
-        </Suspend>
-        <Unsuspend title="" noHead>
+      </Suspend>
+      <Unsuspend title="" noHead>
         <ReusableModal
           title="Are you sure you want to activate this Waste Manager"
           cancelTitle="No, cancel"
@@ -188,7 +213,14 @@ const WasteManagerTable: FC<Props> = ({ data, refetch }) => {
           action={() => ChangeStatus(selectedItem)}
           isBusy={isBusy}
         />
-        </Unsuspend>
+      </Unsuspend>
+      <Switch title="Switch Account">
+        <SwitchAccount
+          close={() => showSwitch(false)}
+          refetch={refetch}
+          item={selectedItem}
+        />
+      </Switch>
     </>
   );
 };

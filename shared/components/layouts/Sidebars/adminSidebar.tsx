@@ -10,6 +10,7 @@ import { HiOutlineUser } from "react-icons/hi";
 import { IoHomeOutline, IoNotificationsOutline } from "react-icons/io5";
 import useModal from "@/hooks/useModal";
 import LogoutModal from "../../admin/dashboard/Logout";
+import useAuthCheck from "@/hooks/useAuthCheck";
 
 interface Props {
   setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -19,7 +20,7 @@ interface Props {
 
 const AdminSidebarLayout: FC<Props> = ({ setToggled, collapsed, toggled }) => {
   const { Modal, setShowModal } = useModal();
-
+  const {isAdmin} = useAuthCheck()
   return (
     <div className="left-0 bottom-0 fixed index-30 bg-white h-[90vh] lg:h-[90vh]">
       <Sidebar
@@ -72,6 +73,9 @@ const AdminSidebarLayout: FC<Props> = ({ setToggled, collapsed, toggled }) => {
             <MenuItem component={<Link href="/admin/personnel" />}>
               Service Personnel
             </MenuItem>
+            <MenuItem component={<Link href="/admin/board" />}>
+              Waste Board
+            </MenuItem>
           </SubMenu>
           <MenuItem
             component={<Link href="/admin/waste-area" />}
@@ -97,7 +101,7 @@ const AdminSidebarLayout: FC<Props> = ({ setToggled, collapsed, toggled }) => {
           >
             Payment History
           </MenuItem>
-          <SubMenu
+          {isAdmin() && <SubMenu
             label="Shop"
             icon={<AiOutlineShoppingCart className="text-xl" />}
           >
@@ -116,25 +120,25 @@ const AdminSidebarLayout: FC<Props> = ({ setToggled, collapsed, toggled }) => {
             >
               Orders
             </MenuItem>
-          </SubMenu>
+          </SubMenu>}
           <MenuItem
             component={<Link href="/admin/notification" />}
             icon={<IoNotificationsOutline className="text-xl" />}
           >
             Notification
           </MenuItem>
-          <MenuItem
+          {isAdmin() && <MenuItem
             component={<Link href="/admin/complaints" />}
             icon={<FiCreditCard className="text-xl" />}
           >
             Feedback
-          </MenuItem>
-          <MenuItem
+          </MenuItem>}
+          {isAdmin() && <MenuItem
             component={<Link href="/admin/settings" />}
             icon={<BsGear className="text-xl" />}
           >
             Settings
-          </MenuItem>
+          </MenuItem>}
           <MenuItem
             className="mt-16"
             icon={<TfiShiftLeft className="/admin/" />}

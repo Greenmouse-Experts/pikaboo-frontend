@@ -58,12 +58,12 @@ const ScheduleDetails: AppPage = () => {
                 {dayjs(sched.created_at).format("DD/MMMM/YYYY")}
               </p>
             </div>
-            <div>
+            {/* <div>
               <p className="flex gap-x-2 items-center btn-primary px-6 py-1" onClick={() => setAssign(true)}>
                 <BsHouses />
                 Manage Assigning
               </p>
-            </div>
+            </div> */}
           </div>
           <div className="mt-5 px-4">
             <div className="border-b">
@@ -106,19 +106,19 @@ const ScheduleDetails: AppPage = () => {
               ) : (
                 ""
               )}
-              {open === 2 ? (
+              {/* {open === 2 ? (
                 <PersonnelList data={sched.service_personnels} />
               ) : (
                 ""
-              )}
-              {open === 3 ? (
+              )} */}
+              {/* {open === 3 ? (
                 <PersonnelRequest
                   id={sched.id}
                   refetchId={() => getDetail(id)}
                 />
               ) : (
                 ""
-              )}
+              )} */}
             </div>
           </div>
         </div>

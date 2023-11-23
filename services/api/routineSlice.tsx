@@ -52,6 +52,17 @@ export const routineApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
 
+    getBoard: builder.query<any, string | void>({
+      query: () => ({
+        url: `${ENDPOINT.GET_BOARD}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
     getUserDetail: builder.query<UserDetailsResult, string | string[]>({
       query: (query) => ({
         url: `${ENDPOINT.GET_USER_DETAIL}?user_id=${query}`,
@@ -322,4 +333,5 @@ export const {
   useGetMyZoneUsersQuery,
   useGetFeedsQuery,
   useLazySubmitComplaintQuery,
+  useGetBoardQuery,
 } = routineApiSlice;

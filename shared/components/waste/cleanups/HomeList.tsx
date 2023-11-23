@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 import { ScheduleHomeResisdence } from "@/shared/utils/types/schedule";
 
 interface Props {
-  data: ScheduleHomeResisdence[];
+  data: any;
   refetch: () => void;
 }
 const HomeListTable: FC<Props> = ({ data, refetch }) => {
@@ -44,7 +44,7 @@ const HomeListTable: FC<Props> = ({ data, refetch }) => {
       },
       {
         Header: "Cleaned By",
-        accessor: "residence.service_personnels",
+        accessor: "service_personnel",
       },
       {
         Header: "Status",

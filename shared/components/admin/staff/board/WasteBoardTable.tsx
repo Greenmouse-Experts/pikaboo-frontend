@@ -1,8 +1,7 @@
-import React, { FC,useMemo, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 import Table from "../../../Ui/table";
-import { UserData } from "@/shared/utils/types/auth";
-import dayjs from "dayjs";
 import { FormatStatus } from "@/shared/utils/format";
+import { UserData } from "@/shared/utils/types/auth";
 import {
   Menu,
   MenuHandler,
@@ -10,20 +9,21 @@ import {
   MenuList,
   Button,
 } from "../../../Ui/dropdown";
+import dayjs from "dayjs";
+import { BsGear } from "react-icons/bs";
 import useModal from "@/hooks/useModal";
 import ReusableModal from "@/shared/components/helpers/ReusableModal";
 import { useLazyUpdateUserStatusQuery } from "@/services/api/authSlice";
 import { toast } from "react-toastify";
-import { BsGear } from "react-icons/bs";
+import AddWasteManagerZoneForm from "../waste/AddWasteManagerZone";
 import { useLazySendLoginQuery } from "@/services/api/residenceSlice";
-import SwitchAccount from "@/shared/components/helpers/SwitchAccount";
 import useAuthCheck from "@/hooks/useAuthCheck";
 
 interface Props {
-  data: UserData[]
-  refetch: () => void
+    data: UserData[]
+    refetch: () => void
 }
-const FleetManagerTable:FC<Props> = ({data, refetch}) => {
+const WasteBoardTable:FC<Props> = ({data, refetch}) => {
   const [send] = useLazySendLoginQuery()
   const {isAdmin} = useAuthCheck()
   const sendLogin = async(id:number) => {
@@ -52,15 +52,6 @@ const FleetManagerTable:FC<Props> = ({data, refetch}) => {
         accessor: "email",
       },
       {
-        Header: "Phone Number",
-        accessor: "phone",
-      },
-      {
-        Header: "Gender",
-        accessor: "gender",
-        Cell: (props:any) => <p className="capitalize">{props.value}</p>
-      },
-      {
         Header: "Date Registered",
         accessor: "created_at",
         Cell: props => dayjs(props.value).format('DD-MMM-YYYY')
@@ -70,7 +61,6 @@ const FleetManagerTable:FC<Props> = ({data, refetch}) => {
         accessor: "status",
         Cell: (props) => FormatStatus[props.value as keyof typeof FormatStatus],
       },
-      
       {
         Header: "Action",
         accessor: "id",
@@ -91,10 +81,7 @@ const FleetManagerTable:FC<Props> = ({data, refetch}) => {
                   row.row.original.status !== "Active" &&
                     <MenuItem className="bg-green-600 text-white pt-1 fw-500" onClick={() => unSuspendUser(row.value)}>Activate Admin</MenuItem>
                 }
-                <MenuItem className="mt-1 bg-blue-100 pt-2 fw-500 text-black" onClick={() => openSwitch(row.row.original)}>
-                  Switch User Type
-                </MenuItem>
-                <MenuItem className="mt-1 bg-purple-100 pt-2 fw-500 text-black" onClick={() => sendLogin(row.value)}>
+                <MenuItem className="mt-1 bg-blue-100 pt-1" onClick={() => sendLogin(row.value)}>
                   Resend Details
                 </MenuItem>
               </MenuList>
@@ -105,16 +92,15 @@ const FleetManagerTable:FC<Props> = ({data, refetch}) => {
     ], // eslint-disable-next-line
     []
   );
-
   const [isBusy, setIsBusy] = useState(false)
   const {Modal, setShowModal} = useModal()
   const {Modal:Unsuspend, setShowModal:showUnsuspend} = useModal()
-  const {Modal:Switch, setShowModal:showSwitch} = useModal()
+  const {Modal:Assign, setShowModal:showAssign} = useModal()
   const [suspend] = useLazyUpdateUserStatusQuery()
   const [selectedItem, setSelectedItem] = useState('')
-  const openSwitch = (item:any) => {
-    setSelectedItem(item)
-    showSwitch(true)
+  const assignUser = (val:any) => {
+    setSelectedItem(val)
+    showAssign(true)
   }
   const suspendUser = (id:any) => {
     setSelectedItem(id)
@@ -168,11 +154,11 @@ const FleetManagerTable:FC<Props> = ({data, refetch}) => {
           isBusy={isBusy}
         />
         </Unsuspend>
-        <Switch title="Switch Account">
-          <SwitchAccount close={() => showSwitch(false)} refetch={refetch} item={selectedItem} />
-        </Switch>
+        <Assign title="Assign Field Operator Zone">
+        <AddWasteManagerZoneForm item={selectedItem} close={() => showAssign(false)} refetch={refetch}/>
+        </Assign>
     </>
   );
 };
 
-export default FleetManagerTable;
+export default WasteBoardTable;

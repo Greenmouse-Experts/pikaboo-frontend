@@ -25,10 +25,12 @@ import { BiDownload } from "react-icons/bi";
 import jsPDF from "jspdf";
 import { RiFundsBoxLine } from "react-icons/ri";
 import UpdateWallet from "@/shared/components/admin/residents/UpdateWallet";
+import useAuthCheck from "@/hooks/useAuthCheck";
 
 const HomeResidentsDetails: AppPage = () => {
   const route = useRouter();
   const id = route.query.sort;
+  const {isAdmin} = useAuthCheck()
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<UserDetail>();
   const [getDetail] = useLazyGetUserDetailQuery();
@@ -284,7 +286,7 @@ const HomeResidentsDetails: AppPage = () => {
                       <p>{user?.zone.name ? user?.zone.name : ""}</p>
                     </div>
                   </div>
-                  <div className="mt-8 flex justify-center">
+                  {isAdmin() && <div className="mt-8 flex justify-center">
                     {user.status === "Flag" && (
                       <Button
                         title="Unflag Resident"
@@ -299,25 +301,25 @@ const HomeResidentsDetails: AppPage = () => {
                         onClick={() => setShowFlag(true)}
                       />
                     )}
-                  </div>
+                  </div>}
                 </div>
               </div>
               <div>
                 <div className="dash-shade relative p-4 rounded-xl">
-                  <div className="absolute top-4 right-4">
+                  {isAdmin() && <div className="absolute top-4 right-4">
                     <FaRegEdit
                       className="text-xl text-primary"
                       onClick={() => setShowBill(true)}
                     />
-                  </div>
+                  </div>}
                   <div className="grid lg:grid-cols-2">
                     <div className="border-r p-4">
                       <div className="flex items-center gap-x-2">
                         <p className="fw-600 border-b">Wallet Amount</p>
-                        <RiFundsBoxLine
+                        {isAdmin() && <RiFundsBoxLine
                           className="text-lg cursor-pointer"
                           onClick={() => setShowWallet(true)}
-                        />
+                        />}
                       </div>
                       <p
                         className={`fw-600 text-3xl mt-2 ${
@@ -367,10 +369,6 @@ const HomeResidentsDetails: AppPage = () => {
                       <BsHousesFill className="text-primary text-2xl" />
                       <p className="fw-600 text-xl">Facility Type</p>
                     </div>
-                    {/* <BiEdit
-                  className="text-2xl text-primary cursor-pointer"
-                  onClick={() => ShowFacility(true)}
-                /> */}
                   </div>
                   <div className="mt-4">
                     {user?.building_information?.residential && (

@@ -23,6 +23,15 @@ export interface CreateFleetInput {
   zone_id?: string;
 }
 
+export interface CreateBoardInput {
+  first_name: string;
+  middle_name: string | null;
+  last_name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
+
 export interface UserResult {
   account_type: string;
   address: string | null;

@@ -65,41 +65,6 @@ const PersonnelTable:FC<Props> = ({data, refetch}) => {
     ], // eslint-disable-next-line
     []
   );
-//   const [isBusy, setIsBusy] = useState(false)
-//   const {Modal, setShowModal} = useModal()
-//   const {Modal:Unsuspend, setShowModal:showUnsuspend} = useModal()
-//   const {Modal:Assign, setShowModal:showAssign} = useModal()
-//   const [suspend] = useLazyUpdateUserStatusQuery()
-//   const [selectedItem, setSelectedItem] = useState('')
-//   const assignUser = (val:any) => {
-//     setSelectedItem(val)
-//     showAssign(true)
-//   }
-//   const suspendUser = (id:any) => {
-//     setSelectedItem(id)
-//     setShowModal(true)
-//   }
-//   const unSuspendUser = (id:any) => {
-//     setSelectedItem(id)
-//     showUnsuspend(true)
-//   }
-//   const ChangeStatus = async(id:any) => {
-//     setIsBusy(true)
-//     await suspend(id)
-//     .then((res) => {
-//       if (res.data.success) {
-//         toast.success(res.data.message);
-//         refetch()
-//         setShowModal(false)
-//         showUnsuspend(false)
-//         setIsBusy(false);
-//       }
-//       Object.entries<any>(res?.data?.errors).forEach(([key, value]) => {
-//         toast.error(value[0]);
-//       });
-//     })
-//     .catch(() => {});
-//   }
 
   const list = useMemo(() => data, [data]);
   return (

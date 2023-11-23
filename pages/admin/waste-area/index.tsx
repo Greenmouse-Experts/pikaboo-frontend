@@ -11,7 +11,7 @@ const AdminWasteArea: AppPage = () => {
         <div className="grid dash-shade p-6 rounded-lg">
         <WasteAreaMap/>
         </div>
-        <div className="grid dash-shade rounded-lg mt-8 lg:mt-12 p-6">
+        <div className="grid w-full overflow-x-auto dash-shade rounded-lg mt-8 lg:mt-12 p-6">
         <WasteAreaMainTable/>
         </div>
       </div>

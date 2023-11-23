@@ -1,6 +1,6 @@
 "use client";
 
-import { BaseResult, CreateFleetInput, ErrorResult } from "@/shared/utils/types";
+import { BaseResult, CreateBoardInput, CreateFleetInput, ErrorResult } from "@/shared/utils/types";
 import { apiSlice } from "../apiSlice";
 
 import * as ENDPOINT from "../constants";
@@ -70,6 +70,18 @@ export const onboardApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
 
+    createBoard: builder.query<BaseResult | ErrorResult, CreateBoardInput>({
+      query: (payload) => ({
+        url: `${ENDPOINT.CREATE_BOARD}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
+    }),
+
     assignZone: builder.query<AdminLoginResult | ErrorResult, AssignZoneInput>({
       query: (payload) => ({
         url: `${ENDPOINT.FLEET_ASSIGN_ZONE}`,
@@ -105,6 +117,17 @@ export const onboardApiSlice = apiSlice.injectEndpoints({
       }),
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.DEFAULT,
     }),
+
+    switchUserType: builder.query<BaseResult | ErrorResult, FormData>({
+      query: (payload) => ({
+        url: `${ENDPOINT.SWITCH_USER}`,
+        method: ENDPOINT.HTTP_METHODS.POST,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+        body: payload,
+      }),
+    }),
   }),
   overrideExisting: true,
 });
@@ -117,5 +140,7 @@ export const {
   useLazyCreateResidenceQuery,
   useLazyAdminAssignZoneQuery,
   useLazyAssignZoneQuery,
-  useLazyCreateDriverQuery
+  useLazyCreateDriverQuery,
+  useLazySwitchUserTypeQuery,
+  useLazyCreateBoardQuery
 } = onboardApiSlice;

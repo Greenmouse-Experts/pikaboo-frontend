@@ -9,15 +9,18 @@ import { formatAsNgnMoney } from "@/shared/utils/format";
 import { AiFillEdit } from "react-icons/ai";
 import useModal from "@/hooks/useModal";
 import EditFlatRate from "@/shared/components/admin/special/EditRate";
+import useAuthCheck from "@/hooks/useAuthCheck";
+import { toast } from "react-toastify";
 
 const SpecialRequestPage: AppPage = () => {
   const { data, isLoading, refetch } = useGetSpecialQuery();
   const {data:flat, refetch:refetchFlat} = useGetFlatQuery()
   const [ selectedItem, setSeletedItem] = useState()
+  const {isAdmin} = useAuthCheck()
   const {Modal, setShowModal} = useModal()
   const openModal = (item:any) => {
     setSeletedItem(item)
-    setShowModal(true)
+    isAdmin()? setShowModal(true) : toast.info('Cannot edit price')
   }
   return (
     <>

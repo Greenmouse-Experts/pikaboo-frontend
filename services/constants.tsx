@@ -38,6 +38,8 @@ export enum CACHE_LIFETIME {
   export const FLEET_ASSIGN_ZONE = '/fleet-manager/waste-manager/assign/zone'
   export const CREATE_DRIVER = '/waste-manager/service-personnel/create'
   export const DEACTIVATE_ADMIN = '/admin/user/action'
+  export const SWITCH_USER = '/admin/switch/account'
+  export const CREATE_BOARD = `/admin/boards/create`
 
   // routine
   export const GET_USERS = '/admin/get/all/user?keyword='
@@ -49,6 +51,7 @@ export enum CACHE_LIFETIME {
   export const GET_USER_DETAIL = '/view/single/user'
   export const SEND_TOKEN = '/user/add/fcm/token'
   export const GET_MY_ZONE_RESIDENCE = '/field-operator/home-residence/get/by/zone'
+  export const GET_BOARD = '/admin/boards/get'
 
   // residence
   export const ONBOARD_RESISDENCE = '/field-operator/home-residence/create'
@@ -84,6 +87,7 @@ export enum CACHE_LIFETIME {
   export const WASTE_GET_REQUEST = '/waste-manager/schedule-request/get'
   export const SUBMIT_PERSONNEL = '/waste-manager/schedule-request/submit/service-personnels'
   export const GET_WASTE_SCHEDULE = '/waste-manager/schedule-request/get/my/zone'
+  export const GET_ONE_WASTE_SCHEDULE = '/waste-manager/schedule-request/view/residence'
 
   // notification
   export const GET_NOTIFICATION = '/user/get/all/notifications'
