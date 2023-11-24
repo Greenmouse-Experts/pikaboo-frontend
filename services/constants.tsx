@@ -81,6 +81,8 @@ export enum CACHE_LIFETIME {
   // schedule request
   export const CREATE_REQUEST = '/fleet-manager/schedule-request/create'
   export const GET_SCHEDULE = '/fleet-manager/schedule-request/get'
+  export const ADMIN_GET_SCHEDULE = '/admin/schedule-requests/get'
+  export const ADMIN_GET_ONE_SCHEDULE = '/admin/schedule-requests/view/'
   export const GET_ONE_SCHEDULE = '/view/single/schedule/request'
   export const GET_PERSONNEL = '/fleet-manager/schedule-request/view/service-personnel'
   export const ASSIGN_DRIVER = '/fleet-manager/schedule-request/assign/service-personnel'

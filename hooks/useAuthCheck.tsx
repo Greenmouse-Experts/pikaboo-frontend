@@ -7,21 +7,23 @@ import { useAppDispatch, useAppSelector } from "@/shared/redux/store";
 
 const useAuthCheck = () => {
   const dispatch = useAppDispatch();
-  const authenticatedUser =  useAppSelector(selectUser);
+  const authenticatedUser = useAppSelector(selectUser);
 
   const AuthenticatedUserHaveValidToken = authenticatedUser.user.token || null;
 
   const IsAuthenticated = !!authenticatedUser.user.token;
 
-  const IsAuth = getLocalToken('token')
+  const IsAuth = getLocalToken("token");
 
   const LoggedInUser = authenticatedUser.user;
 
   const SignOut = () => dispatch(resetUser());
 
   const isAdmin = () => {
-   if (authenticatedUser.user.admin_type === "Board") return false
-  }
+    if (authenticatedUser.user.admin_type === "Board") {
+      return false;
+    } else return true;
+  };
 
   return {
     AuthenticatedUserHaveValidToken,
@@ -29,7 +31,7 @@ const useAuthCheck = () => {
     IsAuth,
     SignOut,
     LoggedInUser,
-    isAdmin
+    isAdmin,
   };
 };
 

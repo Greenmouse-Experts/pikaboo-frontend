@@ -66,6 +66,17 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
     }),
 
+    admiGetSchedule: builder.query<ScheduleRequestResult | ErrorResult, string | void>({
+      query: () => ({
+        url: `${ENDPOINT.ADMIN_GET_SCHEDULE}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
     wasteGetSchedule: builder.query<ScheduleRequestResult | ErrorResult, string | void>({
         query: () => ({
           url: `${ENDPOINT.WASTE_GET_REQUEST}`,
@@ -80,6 +91,17 @@ export const scheduleApiSlice = apiSlice.injectEndpoints({
     getOneSchedule: builder.query<ScheduleHomeResisdenceResult | ErrorResult, string>({
       query: (param) => ({
         url: `${ENDPOINT.GET_ONE_SCHEDULE}?schedule_request_id=${param}`,
+        method: ENDPOINT.HTTP_METHODS.GET,
+        headers: {
+          Authorization: requestAuthorization(),
+        },
+      }),
+      keepUnusedDataFor: ENDPOINT.CACHE_LIFETIME.EXTENDED,
+    }),
+
+    adminGetOneSchedule: builder.query<ScheduleHomeResisdenceResult | ErrorResult, string>({
+      query: (param) => ({
+        url: `${ENDPOINT.ADMIN_GET_ONE_SCHEDULE}residence?schedule_id=${param}`,
         method: ENDPOINT.HTTP_METHODS.GET,
         headers: {
           Authorization: requestAuthorization(),
@@ -139,5 +161,7 @@ export const {
   useLazySubmitPersonnelQuery,
   useGetPersonnelQuery,
   useGetWasteScheduleQuery,
-  useLazyGetWasteOneScheduleQuery
+  useLazyGetWasteOneScheduleQuery,
+  useAdmiGetScheduleQuery,
+  useLazyAdminGetOneScheduleQuery
 } = scheduleApiSlice;

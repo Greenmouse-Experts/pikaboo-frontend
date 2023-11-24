@@ -11,6 +11,7 @@ import { IoHomeOutline, IoNotificationsOutline } from "react-icons/io5";
 import useModal from "@/hooks/useModal";
 import LogoutModal from "../../admin/dashboard/Logout";
 import useAuthCheck from "@/hooks/useAuthCheck";
+import { RiDeleteBinLine } from "react-icons/ri";
 
 interface Props {
   setToggled: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -88,6 +89,12 @@ const AdminSidebarLayout: FC<Props> = ({ setToggled, collapsed, toggled }) => {
             icon={<IoHomeOutline className="text-lg" />}
           >
             Home Residents
+          </MenuItem>
+          <MenuItem
+            component={<Link href="/admin/schedule" />}
+            icon={<RiDeleteBinLine className="text-lg" />}
+          >
+            Cleanup Schedule
           </MenuItem>
           <MenuItem
             component={<Link href="/admin/special" />}
