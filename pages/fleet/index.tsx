@@ -87,8 +87,8 @@ const FleetDashboard: AppPage = () => {
             </div>
             <div className="my-6">
               {data &&
-                !!data.data.recent_schedule.length &&
-                data.data.recent_schedule.map((item: any, i: number) => (
+                !!data?.data?.recent_schedule.length &&
+                data?.data?.recent_schedule.map((item: any, i: number) => (
                   <div className="grid grid-cols-3 border-b pb-2" key={i}>
                     <p>{item.zone.name}</p>
                     <p>{item.total} Residents</p>

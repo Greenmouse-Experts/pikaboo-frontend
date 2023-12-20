@@ -9,7 +9,6 @@ interface Props {
   refetch: () => void;
 }
 const HomeListTable: FC<Props> = ({ data, refetch }) => {
-
   const columns = useMemo(
     () => [
       {
@@ -19,7 +18,10 @@ const HomeListTable: FC<Props> = ({ data, refetch }) => {
       {
         Header: "Name",
         accessor: "residence.home_residence.first_name",
-        Cell: (row: any) => ` ${row.value || ""} ${row.row.original.residence.home_residence.last_name || ""}`,
+        Cell: (row: any) =>
+          ` ${row.value || ""} ${
+            row.row.original.residence.home_residence.last_name || ""
+          }`,
       },
       {
         Header: "Email",
@@ -32,7 +34,11 @@ const HomeListTable: FC<Props> = ({ data, refetch }) => {
       {
         Header: "Address",
         accessor: "residence.house_number",
-        Cell: (row) => <p>{`${row.value || ""} ${row.row.original.residence.street_name || ""} ${row.row.original.residence.town || ""}`}</p>
+        Cell: (row) => (
+          <p>{`${row.value || ""} ${
+            row.row.original.residence.street_name || ""
+          } ${row.row.original.residence.town || ""}`}</p>
+        ),
       },
       {
         Header: "Facility Type",
@@ -45,6 +51,17 @@ const HomeListTable: FC<Props> = ({ data, refetch }) => {
       {
         Header: "Cleaned By",
         accessor: "service_personnel",
+        Cell: (props) =>
+          props.value ? (
+            <div>
+              <p>
+                {props.value.first_name} {props.value.last_name}
+              </p>
+              <p className="text-primary fs-500 fw-500 mt-2">{props.value.pikaboo_id}</p>
+            </div>
+          ) : (
+            ""
+          ),
       },
       {
         Header: "Status",
